@@ -1,10 +1,10 @@
 {
-  "name": "mysdk",
+  "name": "ibm-continuous-delivery",
   "version": "0.0.1",
-  "description": "IBM Cloud Node SDK",
+  "description": "IBM Cloud Continuous Delivery Node.js SDK",
   "repository": {
     "type": "git",
-    "url": "https://github.ibm.com/CloudEngineering/node-sdk-template"
+    "url": "https://github.com/IBM/continuous-delivery-node-sdk"
   },
   "keywords": [
     "ibm"
