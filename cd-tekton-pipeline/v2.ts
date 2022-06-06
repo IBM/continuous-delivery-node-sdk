@@ -39,20 +39,20 @@ import { getSdkHeaders } from '../lib/common';
  */
 
 class CdTektonPipelineV2 extends BaseService {
-  static DEFAULT_SERVICE_URL: string = 'https://devops-api.us-south.devops.cloud.ibm.com/v2';
+  static DEFAULT_SERVICE_URL: string = 'https://api.us-south.devops.cloud.ibm.com/v2';
 
   static DEFAULT_SERVICE_NAME: string = 'cd_tekton_pipeline';
 
   private static _regionalEndpoints = new Map([
-    ['us-south', 'https://devops-api.us-south.devops.cloud.ibm.com/v2'], // The host URL for Tekton Pipeline Service in the us-south region.
-    ['us-east', 'https://devops-api.us-east.devops.cloud.ibm.com/v2'], // The host URL for Tekton Pipeline Service in the us-east region.
-    ['eu-de', 'https://devops-api.eu-de.devops.cloud.ibm.com/v2'], // The host URL for Tekton Pipeline Service in the eu-de region.
-    ['eu-gb', 'https://devops-api.eu-gb.devops.cloud.ibm.com/v2'], // The host URL for Tekton Pipeline Service in the eu-gb region.
-    ['jp-osa', 'https://devops-api.jp-osa.devops.cloud.ibm.com/v2'], // The host URL for Tekton Pipeline Service in the jp-osa region.
-    ['jp-tok', 'https://devops-api.jp-tok.devops.cloud.ibm.com/v2'], // The host URL for Tekton Pipeline Service in the jp-tok region.
-    ['au-syd', 'https://devops-api.au-syd.devops.cloud.ibm.com/v2'], // The host URL for Tekton Pipeline Service in the au-syd region.
-    ['ca-tor', 'https://devops-api.ca-tor.devops.cloud.ibm.com/v2'], // The host URL for Tekton Pipeline Service in the ca-tor region.
-    ['br-sao', 'https://devops-api.br-sao.devops.cloud.ibm.com/v2'], // The host URL for Tekton Pipeline Service in the br-sao region.
+    ['us-south', 'https://api.us-south.devops.cloud.ibm.com/v2'], // The host URL for Tekton Pipeline Service in the us-south region.
+    ['us-east', 'https://api.us-east.devops.cloud.ibm.com/v2'], // The host URL for Tekton Pipeline Service in the us-east region.
+    ['eu-de', 'https://api.eu-de.devops.cloud.ibm.com/v2'], // The host URL for Tekton Pipeline Service in the eu-de region.
+    ['eu-gb', 'https://api.eu-gb.devops.cloud.ibm.com/v2'], // The host URL for Tekton Pipeline Service in the eu-gb region.
+    ['jp-osa', 'https://api.jp-osa.devops.cloud.ibm.com/v2'], // The host URL for Tekton Pipeline Service in the jp-osa region.
+    ['jp-tok', 'https://api.jp-tok.devops.cloud.ibm.com/v2'], // The host URL for Tekton Pipeline Service in the jp-tok region.
+    ['au-syd', 'https://api.au-syd.devops.cloud.ibm.com/v2'], // The host URL for Tekton Pipeline Service in the au-syd region.
+    ['ca-tor', 'https://api.ca-tor.devops.cloud.ibm.com/v2'], // The host URL for Tekton Pipeline Service in the ca-tor region.
+    ['br-sao', 'https://api.br-sao.devops.cloud.ibm.com/v2'], // The host URL for Tekton Pipeline Service in the br-sao region.
   ]);
 
   /**

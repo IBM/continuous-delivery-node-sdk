@@ -31,7 +31,7 @@ const {
 
 const cdTektonPipelineServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
-  url: 'https://devops-api.us-south.devops.cloud.ibm.com/v2',
+  url: 'https://api.us-south.devops.cloud.ibm.com/v2',
 };
 
 const cdTektonPipelineService = new CdTektonPipelineV2(cdTektonPipelineServiceOptions);
@@ -104,15 +104,15 @@ describe('CdTektonPipelineV2', () => {
       expect(CdTektonPipelineV2.getServiceUrlForRegion('INVALID_REGION')).toBeFalsy();
     });
     test('should return valid service url', () => {
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('us-south')).toBe('https://devops-api.us-south.devops.cloud.ibm.com/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('us-east')).toBe('https://devops-api.us-east.devops.cloud.ibm.com/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('eu-de')).toBe('https://devops-api.eu-de.devops.cloud.ibm.com/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('eu-gb')).toBe('https://devops-api.eu-gb.devops.cloud.ibm.com/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('jp-osa')).toBe('https://devops-api.jp-osa.devops.cloud.ibm.com/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('jp-tok')).toBe('https://devops-api.jp-tok.devops.cloud.ibm.com/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('au-syd')).toBe('https://devops-api.au-syd.devops.cloud.ibm.com/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('ca-tor')).toBe('https://devops-api.ca-tor.devops.cloud.ibm.com/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('br-sao')).toBe('https://devops-api.br-sao.devops.cloud.ibm.com/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('us-south')).toBe('https://api.us-south.devops.cloud.ibm.com/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('us-east')).toBe('https://api.us-east.devops.cloud.ibm.com/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('eu-de')).toBe('https://api.eu-de.devops.cloud.ibm.com/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('eu-gb')).toBe('https://api.eu-gb.devops.cloud.ibm.com/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('jp-osa')).toBe('https://api.jp-osa.devops.cloud.ibm.com/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('jp-tok')).toBe('https://api.jp-tok.devops.cloud.ibm.com/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('au-syd')).toBe('https://api.au-syd.devops.cloud.ibm.com/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('ca-tor')).toBe('https://api.ca-tor.devops.cloud.ibm.com/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('br-sao')).toBe('https://api.br-sao.devops.cloud.ibm.com/v2');      
     });
   });
   describe('createTektonPipeline', () => {
