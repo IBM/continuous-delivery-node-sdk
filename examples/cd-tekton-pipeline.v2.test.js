@@ -18,6 +18,7 @@
  */
 
 /* eslint-disable no-console */
+/* eslint-disable no-await-in-loop */
 
 const CdTektonPipelineV2 = require('../dist/cd-tekton-pipeline/v2');
 // eslint-disable-next-line node/no-unpublished-require
@@ -181,14 +182,20 @@ describe('CdTektonPipelineV2', () => {
 
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
+      limit: 10,
       status: 'succeeded',
       triggerName: 'manual-trigger',
     };
 
-    let res;
+    const allResults = [];
     try {
-      res = await cdTektonPipelineService.listTektonPipelineRuns(params);
-      console.log(JSON.stringify(res.result, null, 2));
+      const pager = new CdTektonPipelineV2.TektonPipelineRunsPager(cdTektonPipelineService, params);
+      while (pager.hasNext()) {
+        const nextPage = await pager.getNext();
+        expect(nextPage).not.toBeNull();
+        allResults.push(...nextPage);
+      }
+      console.log(JSON.stringify(allResults, null, 2));
     } catch (err) {
       console.warn(err);
     }

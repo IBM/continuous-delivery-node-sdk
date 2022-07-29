@@ -15,6 +15,7 @@
  */
 
 /* eslint-disable no-console */
+/* eslint-disable no-await-in-loop */
 
 const CdTektonPipelineV2 = require('../../dist/cd-tekton-pipeline/v2');
 const { readExternalSources } = require('ibm-cloud-sdk-core');
@@ -62,15 +63,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('getTektonPipeline()', async () => {
     const params = {
@@ -81,14 +73,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('updateTektonPipeline()', async () => {
     // Request models needed by this operation.
@@ -107,14 +91,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('listTektonPipelineRuns()', async () => {
     const params = {
@@ -129,14 +105,31 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
+  });
+  test('listTektonPipelineRuns() via TektonPipelineRunsPager', async () => {
+    const params = {
+      pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
+      limit: 10,
+      status: 'succeeded',
+      triggerName: 'manual-trigger',
+    };
 
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
+    const allResults = [];
+
+    // Test getNext().
+    let pager = new CdTektonPipelineV2.TektonPipelineRunsPager(cdTektonPipelineService, params);
+    while (pager.hasNext()) {
+      const nextPage = await pager.getNext();
+      expect(nextPage).not.toBeNull();
+      allResults.push(...nextPage);
+    }
+
+    // Test getAll().
+    pager = new CdTektonPipelineV2.TektonPipelineRunsPager(cdTektonPipelineService, params);
+    const allItems = await pager.getAll();
+    expect(allItems).not.toBeNull();
+    expect(allItems).toHaveLength(allResults.length);
+    console.log(`Retrieved a total of ${allResults.length} items(s) with pagination.`);
   });
   test('createTektonPipelineRun()', async () => {
     const params = {
@@ -152,15 +145,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('getTektonPipelineRun()', async () => {
     const params = {
@@ -173,14 +157,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('cancelTektonPipelineRun()', async () => {
     const params = {
@@ -193,15 +169,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('rerunTektonPipelineRun()', async () => {
     const params = {
@@ -213,14 +180,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('getTektonPipelineRunLogs()', async () => {
     const params = {
@@ -232,14 +191,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('getTektonPipelineRunLogContent()', async () => {
     const params = {
@@ -252,14 +203,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('listTektonPipelineDefinitions()', async () => {
     const params = {
@@ -270,14 +213,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('createTektonPipelineDefinition()', async () => {
     // Request models needed by this operation.
@@ -299,15 +234,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('getTektonPipelineDefinition()', async () => {
     const params = {
@@ -319,14 +245,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('replaceTektonPipelineDefinition()', async () => {
     // Request models needed by this operation.
@@ -351,15 +269,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('listTektonPipelineProperties()', async () => {
     const params = {
@@ -373,14 +282,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('createTektonPipelineProperties()', async () => {
     const params = {
@@ -397,15 +298,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('getTektonPipelineProperty()', async () => {
     const params = {
@@ -417,14 +309,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('replaceTektonPipelineProperty()', async () => {
     const params = {
@@ -442,15 +326,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('listTektonPipelineTriggers()', async () => {
     const params = {
@@ -468,14 +343,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('createTektonPipelineTrigger()', async () => {
     // Request models needed by this operation.
@@ -495,15 +362,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('getTektonPipelineTrigger()', async () => {
     const params = {
@@ -515,14 +373,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('updateTektonPipelineTrigger()', async () => {
     // Request models needed by this operation.
@@ -585,15 +435,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('listTektonPipelineTriggerProperties()', async () => {
     const params = {
@@ -608,14 +449,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('createTektonPipelineTriggerProperties()', async () => {
     const params = {
@@ -633,15 +466,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('getTektonPipelineTriggerProperty()', async () => {
     const params = {
@@ -654,14 +478,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('replaceTektonPipelineTriggerProperty()', async () => {
     const params = {
@@ -680,15 +496,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('deleteTektonPipelineTriggerProperty()', async () => {
     const params = {
@@ -701,14 +508,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('deleteTektonPipelineTrigger()', async () => {
     const params = {
@@ -720,14 +519,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('deleteTektonPipelineRun()', async () => {
     const params = {
@@ -739,14 +530,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('deleteTektonPipelineProperty()', async () => {
     const params = {
@@ -758,14 +541,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('deleteTektonPipelineDefinition()', async () => {
     const params = {
@@ -777,14 +552,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('deleteTektonPipeline()', async () => {
     const params = {
@@ -795,13 +562,5 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
 });
