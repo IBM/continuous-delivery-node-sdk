@@ -3,7 +3,7 @@
 <!--
 [![npm-version](https://img.shields.io/npm/v/IBM/continuous-delivery-node-sdk.svg)](https://www.npmjs.com/package/ibm-continuous-delivery)
 -->
-# IBM Cloud Continuous Delivery Node.js SDK
+# IBM Cloud Continuous Delivery Node.js SDK 0.0.1
 Node.js client library to interact with various [Continuous Delivery APIs](https://cloud.ibm.com/apidocs?category=continuous-delivery).
 
 Disclaimer: this SDK is being released initially as a **pre-release** version.
@@ -52,6 +52,8 @@ Service Name | Import Path
 [ibm-cloud-onboarding]: http://cloud.ibm.com/registration
 
 ## Installation
+
+The current version of this SDK: 0.0.1
 
 ```sh
 npm install ibm-continuous-delivery

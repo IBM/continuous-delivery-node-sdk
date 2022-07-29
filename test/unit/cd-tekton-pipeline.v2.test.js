@@ -34,7 +34,7 @@ const {
 
 const cdTektonPipelineServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
-  url: 'https://api.us-south.devops.cloud.ibm.com/v2',
+  url: 'https://api.us-south.devops.cloud.ibm.com/pipeline/v2',
 };
 
 const cdTektonPipelineService = new CdTektonPipelineV2(cdTektonPipelineServiceOptions);
@@ -126,15 +126,15 @@ describe('CdTektonPipelineV2', () => {
       expect(CdTektonPipelineV2.getServiceUrlForRegion('INVALID_REGION')).toBeFalsy();
     });
     test('should return valid service url', () => {
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('us-south')).toBe('https://api.us-south.devops.cloud.ibm.com/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('us-east')).toBe('https://api.us-east.devops.cloud.ibm.com/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('eu-de')).toBe('https://api.eu-de.devops.cloud.ibm.com/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('eu-gb')).toBe('https://api.eu-gb.devops.cloud.ibm.com/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('jp-osa')).toBe('https://api.jp-osa.devops.cloud.ibm.com/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('jp-tok')).toBe('https://api.jp-tok.devops.cloud.ibm.com/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('au-syd')).toBe('https://api.au-syd.devops.cloud.ibm.com/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('ca-tor')).toBe('https://api.ca-tor.devops.cloud.ibm.com/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('br-sao')).toBe('https://api.br-sao.devops.cloud.ibm.com/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('us-south')).toBe('https://api.us-south.devops.cloud.ibm.com/pipeline/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('us-east')).toBe('https://api.us-east.devops.cloud.ibm.com/pipeline/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('eu-de')).toBe('https://api.eu-de.devops.cloud.ibm.com/pipeline/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('eu-gb')).toBe('https://api.eu-gb.devops.cloud.ibm.com/pipeline/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('jp-osa')).toBe('https://api.jp-osa.devops.cloud.ibm.com/pipeline/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('jp-tok')).toBe('https://api.jp-tok.devops.cloud.ibm.com/pipeline/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('au-syd')).toBe('https://api.au-syd.devops.cloud.ibm.com/pipeline/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('ca-tor')).toBe('https://api.ca-tor.devops.cloud.ibm.com/pipeline/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('br-sao')).toBe('https://api.br-sao.devops.cloud.ibm.com/pipeline/v2');      
     });
   });
 
@@ -150,9 +150,13 @@ describe('CdTektonPipelineV2', () => {
       function __createTektonPipelineTest() {
         // Construct the params object for operation createTektonPipeline
         const id = '94619026-912b-4d92-8f51-6c74f0692d90';
+        const enableSlackNotifications = false;
+        const enablePartialCloning = false;
         const worker = workerWithIdModel;
         const createTektonPipelineParams = {
           id: id,
+          enableSlackNotifications: enableSlackNotifications,
+          enablePartialCloning: enablePartialCloning,
           worker: worker,
         };
 
@@ -171,6 +175,8 @@ describe('CdTektonPipelineV2', () => {
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.body.id).toEqual(id);
+        expect(mockRequestOptions.body.enable_slack_notifications).toEqual(enableSlackNotifications);
+        expect(mockRequestOptions.body.enable_partial_cloning).toEqual(enablePartialCloning);
         expect(mockRequestOptions.body.worker).toEqual(worker);
       }
 
@@ -308,9 +314,13 @@ describe('CdTektonPipelineV2', () => {
       function __updateTektonPipelineTest() {
         // Construct the params object for operation updateTektonPipeline
         const id = '94619026-912b-4d92-8f51-6c74f0692d90';
+        const enableSlackNotifications = false;
+        const enablePartialCloning = false;
         const worker = workerWithIdModel;
         const updateTektonPipelineParams = {
           id: id,
+          enableSlackNotifications: enableSlackNotifications,
+          enablePartialCloning: enablePartialCloning,
           worker: worker,
         };
 
@@ -326,8 +336,10 @@ describe('CdTektonPipelineV2', () => {
 
         checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{id}', 'PATCH');
         const expectedAccept = 'application/json';
-        const expectedContentType = 'application/json';
+        const expectedContentType = 'application/merge-patch+json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.enable_slack_notifications).toEqual(enableSlackNotifications);
+        expect(mockRequestOptions.body.enable_partial_cloning).toEqual(enablePartialCloning);
         expect(mockRequestOptions.body.worker).toEqual(worker);
         expect(mockRequestOptions.path.id).toEqual(id);
       }
@@ -479,12 +491,14 @@ describe('CdTektonPipelineV2', () => {
       function __listTektonPipelineRunsTest() {
         // Construct the params object for operation listTektonPipelineRuns
         const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
+        const start = 'testString';
         const limit = 1;
         const offset = 38;
         const status = 'succeeded';
         const triggerName = 'manual-trigger';
         const listTektonPipelineRunsParams = {
           pipelineId: pipelineId,
+          start: start,
           limit: limit,
           offset: offset,
           status: status,
@@ -505,6 +519,7 @@ describe('CdTektonPipelineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.start).toEqual(start);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.offset).toEqual(offset);
         expect(mockRequestOptions.qs.status).toEqual(status);
@@ -573,9 +588,9 @@ describe('CdTektonPipelineV2', () => {
       const serviceUrl = cdTektonPipelineServiceOptions.url;
       const path = '/tekton_pipelines/94619026-912b-4d92-8f51-6c74f0692d90/pipeline_runs';
       const mockPagerResponse1 =
-        '{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1,"pipeline_runs":[{"id":"id","user_info":{"iam_id":"iam_id","sub":"sub"},"status":"pending","definition_id":"definition_id","worker":{"name":"name","agent":"agent","service_id":"service_id","id":"id"},"pipeline_id":"pipeline_id","listener_name":"listener_name","trigger":{"source_trigger_id":"source_trigger_id","name":"start-deploy"},"event_params_blob":"event_params_blob","event_header_params_blob":"event_header_params_blob","properties":[{"name":"name","value":"value","enum":["enum"],"default":"default","type":"SECURE","path":"path"}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","html_url":"html_url","href":"href"}]}';
+        '{"next":{"href":"https://myhost.com/somePath?start=1"},"total_count":2,"limit":1,"pipeline_runs":[{"id":"id","user_info":{"iam_id":"iam_id","sub":"sub"},"status":"pending","definition_id":"definition_id","worker":{"name":"name","agent":"agent","service_id":"service_id","id":"id"},"pipeline_id":"pipeline_id","listener_name":"listener_name","trigger":{"type":"type","name":"start-deploy","href":"href","event_listener":"event_listener","id":"id","properties":[{"name":"name","value":"value","enum":["enum"],"type":"secure","path":"path","href":"href"}],"tags":["tags"],"worker":{"name":"name","type":"type","id":"id"},"max_concurrent_runs":4,"disabled":true},"event_params_blob":"event_params_blob","event_header_params_blob":"event_header_params_blob","properties":[{"name":"name","value":"value","enum":["enum"],"type":"secure","path":"path"}],"created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","run_url":"run_url","href":"href"}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"pipeline_runs":[{"id":"id","user_info":{"iam_id":"iam_id","sub":"sub"},"status":"pending","definition_id":"definition_id","worker":{"name":"name","agent":"agent","service_id":"service_id","id":"id"},"pipeline_id":"pipeline_id","listener_name":"listener_name","trigger":{"source_trigger_id":"source_trigger_id","name":"start-deploy"},"event_params_blob":"event_params_blob","event_header_params_blob":"event_header_params_blob","properties":[{"name":"name","value":"value","enum":["enum"],"default":"default","type":"SECURE","path":"path"}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","html_url":"html_url","href":"href"}]}';
+        '{"total_count":2,"limit":1,"pipeline_runs":[{"id":"id","user_info":{"iam_id":"iam_id","sub":"sub"},"status":"pending","definition_id":"definition_id","worker":{"name":"name","agent":"agent","service_id":"service_id","id":"id"},"pipeline_id":"pipeline_id","listener_name":"listener_name","trigger":{"type":"type","name":"start-deploy","href":"href","event_listener":"event_listener","id":"id","properties":[{"name":"name","value":"value","enum":["enum"],"type":"secure","path":"path","href":"href"}],"tags":["tags"],"worker":{"name":"name","type":"type","id":"id"},"max_concurrent_runs":4,"disabled":true},"event_params_blob":"event_params_blob","event_header_params_blob":"event_header_params_blob","properties":[{"name":"name","value":"value","enum":["enum"],"type":"secure","path":"path"}],"created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","run_url":"run_url","href":"href"}]}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -595,6 +610,7 @@ describe('CdTektonPipelineV2', () => {
         const params = {
           pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
           limit: 10,
+          offset: 38,
           status: 'succeeded',
           triggerName: 'manual-trigger',
         };
@@ -613,6 +629,7 @@ describe('CdTektonPipelineV2', () => {
         const params = {
           pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
           limit: 10,
+          offset: 38,
           status: 'succeeded',
           triggerName: 'manual-trigger',
         };
@@ -1362,15 +1379,18 @@ describe('CdTektonPipelineV2', () => {
         branch: 'master',
         tag: 'testString',
         path: '.tekton',
+        service_instance_id: 'testString',
       };
 
       function __createTektonPipelineDefinitionTest() {
         // Construct the params object for operation createTektonPipelineDefinition
         const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
         const scmSource = definitionScmSourceModel;
+        const id = 'testString';
         const createTektonPipelineDefinitionParams = {
           pipelineId: pipelineId,
           scmSource: scmSource,
+          id: id,
         };
 
         const createTektonPipelineDefinitionResult = cdTektonPipelineService.createTektonPipelineDefinition(createTektonPipelineDefinitionParams);
@@ -1388,6 +1408,7 @@ describe('CdTektonPipelineV2', () => {
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.body.scm_source).toEqual(scmSource);
+        expect(mockRequestOptions.body.id).toEqual(id);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
       }
 
@@ -1548,6 +1569,7 @@ describe('CdTektonPipelineV2', () => {
         branch: 'master',
         tag: 'testString',
         path: '.tekton',
+        service_instance_id: '071d8049-d984-4feb-a2ed-2a1e938918ba',
       };
 
       function __replaceTektonPipelineDefinitionTest() {
@@ -1555,13 +1577,11 @@ describe('CdTektonPipelineV2', () => {
         const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
         const definitionId = '94299034-d45f-4e9a-8ed5-6bd5c7bb7ada';
         const scmSource = definitionScmSourceModel;
-        const serviceInstanceId = '071d8049-d984-4feb-a2ed-2a1e938918ba';
         const id = '22f92ab1-e0ac-4c65-84e7-8a4cb32dba0f';
         const replaceTektonPipelineDefinitionParams = {
           pipelineId: pipelineId,
           definitionId: definitionId,
           scmSource: scmSource,
-          serviceInstanceId: serviceInstanceId,
           id: id,
         };
 
@@ -1580,7 +1600,6 @@ describe('CdTektonPipelineV2', () => {
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.body.scm_source).toEqual(scmSource);
-        expect(mockRequestOptions.body.service_instance_id).toEqual(serviceInstanceId);
         expect(mockRequestOptions.body.id).toEqual(id);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
         expect(mockRequestOptions.path.definition_id).toEqual(definitionId);
@@ -1741,7 +1760,7 @@ describe('CdTektonPipelineV2', () => {
         // Construct the params object for operation listTektonPipelineProperties
         const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
         const name = 'prod';
-        const type = ['SECURE', 'TEXT'];
+        const type = ['secure', 'text'];
         const sort = 'name';
         const listTektonPipelinePropertiesParams = {
           pipelineId: pipelineId,
@@ -1834,10 +1853,9 @@ describe('CdTektonPipelineV2', () => {
         // Construct the params object for operation createTektonPipelineProperties
         const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
         const name = 'key1';
-        const type = 'TEXT';
+        const type = 'text';
         const value = 'https://github.com/IBM/tekton-tutorial.git';
         const _enum = ['testString'];
-        const _default = 'testString';
         const path = 'testString';
         const createTektonPipelinePropertiesParams = {
           pipelineId: pipelineId,
@@ -1845,7 +1863,6 @@ describe('CdTektonPipelineV2', () => {
           type: type,
           value: value,
           _enum: _enum,
-          _default: _default,
           path: path,
         };
 
@@ -1867,7 +1884,6 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.type).toEqual(type);
         expect(mockRequestOptions.body.value).toEqual(value);
         expect(mockRequestOptions.body.enum).toEqual(_enum);
-        expect(mockRequestOptions.body.default).toEqual(_default);
         expect(mockRequestOptions.body.path).toEqual(path);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
       }
@@ -2026,10 +2042,9 @@ describe('CdTektonPipelineV2', () => {
         const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
         const propertyName = 'debug-pipeline';
         const name = 'key1';
-        const type = 'TEXT';
+        const type = 'text';
         const value = 'https://github.com/IBM/tekton-tutorial.git';
         const _enum = ['testString'];
-        const _default = 'testString';
         const path = 'testString';
         const replaceTektonPipelinePropertyParams = {
           pipelineId: pipelineId,
@@ -2038,7 +2053,6 @@ describe('CdTektonPipelineV2', () => {
           type: type,
           value: value,
           _enum: _enum,
-          _default: _default,
           path: path,
         };
 
@@ -2060,7 +2074,6 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.type).toEqual(type);
         expect(mockRequestOptions.body.value).toEqual(value);
         expect(mockRequestOptions.body.enum).toEqual(_enum);
-        expect(mockRequestOptions.body.default).toEqual(_default);
         expect(mockRequestOptions.body.path).toEqual(path);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
         expect(mockRequestOptions.path.property_name).toEqual(propertyName);
@@ -2324,19 +2337,68 @@ describe('CdTektonPipelineV2', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
 
-      // TriggerDuplicateTrigger
-      const triggerModel = {
-        source_trigger_id: 'b3a8228f-1c82-409b-b249-7639166a0300',
-        name: 'Generic Trigger- duplicated',
+      // Worker
+      const workerModel = {
+        name: 'testString',
+        type: 'testString',
+        id: 'public',
+      };
+
+      // GenericSecret
+      const genericSecretModel = {
+        type: 'token_matches',
+        value: 'testString',
+        source: 'header',
+        key_name: 'testString',
+        algorithm: 'md4',
+      };
+
+      // TriggerScmSource
+      const triggerScmSourceModel = {
+        url: 'testString',
+        branch: 'testString',
+        pattern: 'testString',
+        blind_connection: true,
+        hook_id: 'testString',
+        service_instance_id: 'testString',
+      };
+
+      // Events
+      const eventsModel = {
+        push: true,
+        pull_request_closed: true,
+        pull_request: true,
       };
 
       function __createTektonPipelineTriggerTest() {
         // Construct the params object for operation createTektonPipelineTrigger
         const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
-        const trigger = triggerModel;
+        const type = 'manual';
+        const name = 'Manual Trigger';
+        const eventListener = 'pr-listener';
+        const disabled = false;
+        const tags = ['testString'];
+        const worker = workerModel;
+        const maxConcurrentRuns = 3;
+        const secret = genericSecretModel;
+        const cron = 'testString';
+        const timezone = 'testString';
+        const scmSource = triggerScmSourceModel;
+        const events = eventsModel;
         const createTektonPipelineTriggerParams = {
           pipelineId: pipelineId,
-          trigger: trigger,
+          type: type,
+          name: name,
+          eventListener: eventListener,
+          disabled: disabled,
+          tags: tags,
+          worker: worker,
+          maxConcurrentRuns: maxConcurrentRuns,
+          secret: secret,
+          cron: cron,
+          timezone: timezone,
+          scmSource: scmSource,
+          events: events,
         };
 
         const createTektonPipelineTriggerResult = cdTektonPipelineService.createTektonPipelineTrigger(createTektonPipelineTriggerParams);
@@ -2353,7 +2415,18 @@ describe('CdTektonPipelineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.body).toEqual(trigger);
+        expect(mockRequestOptions.body.type).toEqual(type);
+        expect(mockRequestOptions.body.name).toEqual(name);
+        expect(mockRequestOptions.body.event_listener).toEqual(eventListener);
+        expect(mockRequestOptions.body.disabled).toEqual(disabled);
+        expect(mockRequestOptions.body.tags).toEqual(tags);
+        expect(mockRequestOptions.body.worker).toEqual(worker);
+        expect(mockRequestOptions.body.max_concurrent_runs).toEqual(maxConcurrentRuns);
+        expect(mockRequestOptions.body.secret).toEqual(secret);
+        expect(mockRequestOptions.body.cron).toEqual(cron);
+        expect(mockRequestOptions.body.timezone).toEqual(timezone);
+        expect(mockRequestOptions.body.scm_source).toEqual(scmSource);
+        expect(mockRequestOptions.body.events).toEqual(events);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
       }
 
@@ -2511,18 +2584,13 @@ describe('CdTektonPipelineV2', () => {
       // Worker
       const workerModel = {
         name: 'testString',
-        type: 'private',
+        type: 'testString',
         id: 'testString',
-      };
-
-      // Concurrency
-      const concurrencyModel = {
-        max_concurrent_runs: 20,
       };
 
       // GenericSecret
       const genericSecretModel = {
-        type: 'tokenMatches',
+        type: 'token_matches',
         value: 'testString',
         source: 'header',
         key_name: 'testString',
@@ -2536,6 +2604,7 @@ describe('CdTektonPipelineV2', () => {
         pattern: 'testString',
         blind_connection: true,
         hook_id: 'testString',
+        service_instance_id: 'testString',
       };
 
       // Events
@@ -2554,11 +2623,11 @@ describe('CdTektonPipelineV2', () => {
         const eventListener = 'testString';
         const tags = ['testString'];
         const worker = workerModel;
-        const concurrency = concurrencyModel;
+        const maxConcurrentRuns = 38;
         const disabled = true;
         const secret = genericSecretModel;
         const cron = 'testString';
-        const timezone = 'Africa/Abidjan';
+        const timezone = 'testString';
         const scmSource = triggerScmSourceModel;
         const events = eventsModel;
         const updateTektonPipelineTriggerParams = {
@@ -2569,7 +2638,7 @@ describe('CdTektonPipelineV2', () => {
           eventListener: eventListener,
           tags: tags,
           worker: worker,
-          concurrency: concurrency,
+          maxConcurrentRuns: maxConcurrentRuns,
           disabled: disabled,
           secret: secret,
           cron: cron,
@@ -2590,14 +2659,14 @@ describe('CdTektonPipelineV2', () => {
 
         checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}', 'PATCH');
         const expectedAccept = 'application/json';
-        const expectedContentType = 'application/json';
+        const expectedContentType = 'application/merge-patch+json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.body.type).toEqual(type);
         expect(mockRequestOptions.body.name).toEqual(name);
         expect(mockRequestOptions.body.event_listener).toEqual(eventListener);
         expect(mockRequestOptions.body.tags).toEqual(tags);
         expect(mockRequestOptions.body.worker).toEqual(worker);
-        expect(mockRequestOptions.body.concurrency).toEqual(concurrency);
+        expect(mockRequestOptions.body.max_concurrent_runs).toEqual(maxConcurrentRuns);
         expect(mockRequestOptions.body.disabled).toEqual(disabled);
         expect(mockRequestOptions.body.secret).toEqual(secret);
         expect(mockRequestOptions.body.cron).toEqual(cron);
@@ -2757,6 +2826,98 @@ describe('CdTektonPipelineV2', () => {
     });
   });
 
+  describe('duplicateTektonPipelineTrigger', () => {
+    describe('positive tests', () => {
+      function __duplicateTektonPipelineTriggerTest() {
+        // Construct the params object for operation duplicateTektonPipelineTrigger
+        const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
+        const sourceTriggerId = '1bb892a1-2e04-4768-a369-b1159eace147';
+        const name = 'triggerName';
+        const duplicateTektonPipelineTriggerParams = {
+          pipelineId: pipelineId,
+          sourceTriggerId: sourceTriggerId,
+          name: name,
+        };
+
+        const duplicateTektonPipelineTriggerResult = cdTektonPipelineService.duplicateTektonPipelineTrigger(duplicateTektonPipelineTriggerParams);
+
+        // all methods should return a Promise
+        expectToBePromise(duplicateTektonPipelineTriggerResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/triggers/{source_trigger_id}/duplicate', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.name).toEqual(name);
+        expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
+        expect(mockRequestOptions.path.source_trigger_id).toEqual(sourceTriggerId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __duplicateTektonPipelineTriggerTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        cdTektonPipelineService.enableRetries();
+        __duplicateTektonPipelineTriggerTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        cdTektonPipelineService.disableRetries();
+        __duplicateTektonPipelineTriggerTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
+        const sourceTriggerId = '1bb892a1-2e04-4768-a369-b1159eace147';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const duplicateTektonPipelineTriggerParams = {
+          pipelineId,
+          sourceTriggerId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        cdTektonPipelineService.duplicateTektonPipelineTrigger(duplicateTektonPipelineTriggerParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await cdTektonPipelineService.duplicateTektonPipelineTrigger({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await cdTektonPipelineService.duplicateTektonPipelineTrigger();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
   describe('listTektonPipelineTriggerProperties', () => {
     describe('positive tests', () => {
       function __listTektonPipelineTriggerPropertiesTest() {
@@ -2764,7 +2925,7 @@ describe('CdTektonPipelineV2', () => {
         const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
         const triggerId = '1bb892a1-2e04-4768-a369-b1159eace147';
         const name = 'prod';
-        const type = 'SECURE,TEXT';
+        const type = 'secure,text';
         const sort = 'name';
         const listTektonPipelineTriggerPropertiesParams = {
           pipelineId: pipelineId,
@@ -2815,7 +2976,7 @@ describe('CdTektonPipelineV2', () => {
         const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
         const triggerId = '1bb892a1-2e04-4768-a369-b1159eace147';
         const name = 'prod';
-        const type = 'SECURE,TEXT';
+        const type = 'secure,text';
         const sort = 'name';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
@@ -2868,10 +3029,9 @@ describe('CdTektonPipelineV2', () => {
         const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
         const triggerId = '1bb892a1-2e04-4768-a369-b1159eace147';
         const name = 'key1';
-        const type = 'TEXT';
+        const type = 'text';
         const value = 'https://github.com/IBM/tekton-tutorial.git';
         const _enum = ['testString'];
-        const _default = 'testString';
         const path = 'testString';
         const createTektonPipelineTriggerPropertiesParams = {
           pipelineId: pipelineId,
@@ -2880,7 +3040,6 @@ describe('CdTektonPipelineV2', () => {
           type: type,
           value: value,
           _enum: _enum,
-          _default: _default,
           path: path,
         };
 
@@ -2902,7 +3061,6 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.type).toEqual(type);
         expect(mockRequestOptions.body.value).toEqual(value);
         expect(mockRequestOptions.body.enum).toEqual(_enum);
-        expect(mockRequestOptions.body.default).toEqual(_default);
         expect(mockRequestOptions.body.path).toEqual(path);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
         expect(mockRequestOptions.path.trigger_id).toEqual(triggerId);
@@ -3070,10 +3228,9 @@ describe('CdTektonPipelineV2', () => {
         const triggerId = '1bb892a1-2e04-4768-a369-b1159eace147';
         const propertyName = 'debug-pipeline';
         const name = 'key1';
-        const type = 'TEXT';
+        const type = 'text';
         const value = 'https://github.com/IBM/tekton-tutorial.git';
         const _enum = ['testString'];
-        const _default = 'testString';
         const path = 'testString';
         const replaceTektonPipelineTriggerPropertyParams = {
           pipelineId: pipelineId,
@@ -3083,7 +3240,6 @@ describe('CdTektonPipelineV2', () => {
           type: type,
           value: value,
           _enum: _enum,
-          _default: _default,
           path: path,
         };
 
@@ -3105,7 +3261,6 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.type).toEqual(type);
         expect(mockRequestOptions.body.value).toEqual(value);
         expect(mockRequestOptions.body.enum).toEqual(_enum);
-        expect(mockRequestOptions.body.default).toEqual(_default);
         expect(mockRequestOptions.body.path).toEqual(path);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
         expect(mockRequestOptions.path.trigger_id).toEqual(triggerId);

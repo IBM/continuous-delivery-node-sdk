@@ -18,6 +18,7 @@
  */
 
 /* eslint-disable no-console */
+/* eslint-disable no-await-in-loop */
 
 const CdTektonPipelineV2 = require('../dist/cd-tekton-pipeline/v2');
 // eslint-disable-next-line node/no-unpublished-require
@@ -181,14 +182,21 @@ describe('CdTektonPipelineV2', () => {
 
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
+      limit: 10,
+      offset: 38,
       status: 'succeeded',
       triggerName: 'manual-trigger',
     };
 
-    let res;
+    const allResults = [];
     try {
-      res = await cdTektonPipelineService.listTektonPipelineRuns(params);
-      console.log(JSON.stringify(res.result, null, 2));
+      const pager = new CdTektonPipelineV2.TektonPipelineRunsPager(cdTektonPipelineService, params);
+      while (pager.hasNext()) {
+        const nextPage = await pager.getNext();
+        expect(nextPage).not.toBeNull();
+        allResults.push(...nextPage);
+      }
+      console.log(JSON.stringify(allResults, null, 2));
     } catch (err) {
       console.warn(err);
     }
@@ -492,13 +500,13 @@ describe('CdTektonPipelineV2', () => {
       url: 'https://github.com/IBM/tekton-tutorial.git',
       branch: 'master',
       path: '.tekton',
+      service_instance_id: '071d8049-d984-4feb-a2ed-2a1e938918ba',
     };
 
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       definitionId: '94299034-d45f-4e9a-8ed5-6bd5c7bb7ada',
       scmSource: definitionScmSourceModel,
-      serviceInstanceId: '071d8049-d984-4feb-a2ed-2a1e938918ba',
       id: '22f92ab1-e0ac-4c65-84e7-8a4cb32dba0f',
     };
 
@@ -529,7 +537,7 @@ describe('CdTektonPipelineV2', () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       name: 'prod',
-      type: ['SECURE', 'TEXT'],
+      type: ['secure', 'text'],
       sort: 'name',
     };
 
@@ -560,7 +568,7 @@ describe('CdTektonPipelineV2', () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       name: 'key1',
-      type: 'TEXT',
+      type: 'text',
       value: 'https://github.com/IBM/tekton-tutorial.git',
     };
 
@@ -621,7 +629,7 @@ describe('CdTektonPipelineV2', () => {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       propertyName: 'debug-pipeline',
       name: 'key1',
-      type: 'TEXT',
+      type: 'text',
       value: 'https://github.com/IBM/tekton-tutorial.git',
     };
 
@@ -682,15 +690,19 @@ describe('CdTektonPipelineV2', () => {
 
     // Request models needed by this operation.
 
-    // TriggerDuplicateTrigger
-    const triggerModel = {
-      source_trigger_id: 'b3a8228f-1c82-409b-b249-7639166a0300',
-      name: 'Generic Trigger- duplicated',
+    // Worker
+    const workerModel = {
+      id: 'public',
     };
 
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
-      trigger: triggerModel,
+      type: 'manual',
+      name: 'Manual Trigger',
+      eventListener: 'pr-listener',
+      disabled: false,
+      worker: workerModel,
+      maxConcurrentRuns: 3,
     };
 
     let res;
@@ -750,7 +762,6 @@ describe('CdTektonPipelineV2', () => {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       triggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
       name: 'start-deploy',
-      disabled: true,
     };
 
     let res;
@@ -762,6 +773,36 @@ describe('CdTektonPipelineV2', () => {
     }
 
     // end-update_tekton_pipeline_trigger
+  });
+
+  test('duplicateTektonPipelineTrigger request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('duplicateTektonPipelineTrigger() result:');
+    // begin-duplicate_tekton_pipeline_trigger
+
+    const params = {
+      pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
+      sourceTriggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
+      name: 'triggerName',
+    };
+
+    let res;
+    try {
+      res = await cdTektonPipelineService.duplicateTektonPipelineTrigger(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-duplicate_tekton_pipeline_trigger
   });
 
   test('listTektonPipelineTriggerProperties request example', async () => {
@@ -781,7 +822,7 @@ describe('CdTektonPipelineV2', () => {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       triggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
       name: 'prod',
-      type: 'SECURE,TEXT',
+      type: 'secure,text',
       sort: 'name',
     };
 
@@ -813,7 +854,7 @@ describe('CdTektonPipelineV2', () => {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       triggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
       name: 'key1',
-      type: 'TEXT',
+      type: 'text',
       value: 'https://github.com/IBM/tekton-tutorial.git',
     };
 
@@ -876,7 +917,7 @@ describe('CdTektonPipelineV2', () => {
       triggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
       propertyName: 'debug-pipeline',
       name: 'key1',
-      type: 'TEXT',
+      type: 'text',
       value: 'https://github.com/IBM/tekton-tutorial.git',
     };
 
