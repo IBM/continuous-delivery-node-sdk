@@ -15,8 +15,11 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.50.0-af9e48c4-20220523-163800
+ * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
  */
+
+/* eslint-disable max-classes-per-file */
+/* eslint-disable no-await-in-loop */
 
 import * as extend from 'extend';
 import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
@@ -28,6 +31,7 @@ import {
   UserOptions,
 } from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
+import { getQueryParam } from 'ibm-cloud-sdk-core';
 
 /**
  * Continuous Delivery Tekton pipeline API definition <br><br> Maximum request payload size is 512 KB <br><br> All calls
@@ -2631,7 +2635,7 @@ namespace CdTektonPipelineV2 {
     /** UUID. */
     service_instance_id: string;
     /** UUID. */
-    id: string;
+    id?: string;
   }
 
   /** Scm source for tekton pipeline defintion. */
@@ -2659,7 +2663,7 @@ namespace CdTektonPipelineV2 {
     /** UUID. */
     service_instance_id: string;
     /** UUID. */
-    id: string;
+    id?: string;
     /** General href URL. */
     href?: string;
   }
@@ -2984,7 +2988,7 @@ namespace CdTektonPipelineV2 {
   /** Scm source for git type tekton pipeline trigger. */
   export interface TriggerScmSource {
     /** Needed only for git trigger type. Repo URL that listening to. */
-    url?: string;
+    url: string;
     /** Needed only for git trigger type. Branch name of the repo. Branch field doesn't coexist with pattern field. */
     branch?: string;
     /** Needed only for git trigger type. Git branch or tag pattern to listen to. Please refer to
@@ -3131,6 +3135,7 @@ namespace CdTektonPipelineV2 {
     name?: string;
     /** worker type. */
     type?: string;
+    /** Id. */
     id: string;
   }
 
@@ -3155,7 +3160,7 @@ namespace CdTektonPipelineV2 {
     name: string;
     /** Event listener name. */
     event_listener: string;
-    /** UUID. */
+    /** Id. */
     id?: string;
     /** Trigger properties. */
     properties?: TriggerGenericTriggerPropertiesItem[];
@@ -3181,7 +3186,7 @@ namespace CdTektonPipelineV2 {
     name: string;
     /** Event listener name. */
     event_listener: string;
-    /** UUID. */
+    /** Id. */
     id?: string;
     /** Trigger properties. */
     properties?: TriggerManualTriggerPropertiesItem[];
@@ -3205,7 +3210,7 @@ namespace CdTektonPipelineV2 {
     name: string;
     /** Event listener name. */
     event_listener: string;
-    /** UUID. */
+    /** Id. */
     id?: string;
     /** Trigger properties. */
     properties?: TriggerScmTriggerPropertiesItem[];
@@ -3235,7 +3240,7 @@ namespace CdTektonPipelineV2 {
     name: string;
     /** Event listener name. */
     event_listener: string;
-    /** UUID. */
+    /** Id. */
     id?: string;
     /** Trigger properties. */
     properties?: TriggerTimerTriggerPropertiesItem[];
@@ -3271,7 +3276,7 @@ namespace CdTektonPipelineV2 {
     name: string;
     /** Event listener name. */
     event_listener: string;
-    /** UUID. */
+    /** Id. */
     id?: string;
     /** Trigger properties. */
     properties?: TriggersTriggersItemTriggerGenericTriggerPropertiesItem[];
@@ -3297,7 +3302,7 @@ namespace CdTektonPipelineV2 {
     name: string;
     /** Event listener name. */
     event_listener: string;
-    /** UUID. */
+    /** Id. */
     id?: string;
     /** Trigger properties. */
     properties?: TriggersTriggersItemTriggerManualTriggerPropertiesItem[];
@@ -3321,7 +3326,7 @@ namespace CdTektonPipelineV2 {
     name: string;
     /** Event listener name. */
     event_listener: string;
-    /** UUID. */
+    /** Id. */
     id?: string;
     /** Trigger properties. */
     properties?: TriggersTriggersItemTriggerScmTriggerPropertiesItem[];
@@ -3351,7 +3356,7 @@ namespace CdTektonPipelineV2 {
     name: string;
     /** Event listener name. */
     event_listener: string;
-    /** UUID. */
+    /** Id. */
     id?: string;
     /** Trigger properties. */
     properties?: TriggersTriggersItemTriggerTimerTriggerPropertiesItem[];
@@ -3369,6 +3374,93 @@ namespace CdTektonPipelineV2 {
     cron?: string;
     /** Needed only for timer trigger type. Timezones for timer trigger. */
     timezone?: string;
+  }
+
+  /*************************
+   * pager classes
+   ************************/
+
+  /**
+   * TektonPipelineRunsPager can be used to simplify the use of listTektonPipelineRuns().
+   */
+  export class TektonPipelineRunsPager {
+    protected _hasNext: boolean;
+    protected pageContext: any;
+
+    protected client: CdTektonPipelineV2;
+
+    protected params: CdTektonPipelineV2.ListTektonPipelineRunsParams;
+
+    /**
+     * Construct a TektonPipelineRunsPager object.
+     *
+     * @param {CdTektonPipelineV2}  client - The service client instance used to invoke listTektonPipelineRuns()
+     * @param {Object} params - The parameters to be passed to listTektonPipelineRuns()
+     * @constructor
+     * @returns {TektonPipelineRunsPager}
+     */
+    constructor(
+      client: CdTektonPipelineV2,
+      params: CdTektonPipelineV2.ListTektonPipelineRunsParams
+    ) {
+      if (params && params.offset) {
+        throw new Error(`the params.offset field should not be set`);
+      }
+
+      this._hasNext = true;
+      this.pageContext = { next: undefined };
+      this.client = client;
+      this.params = JSON.parse(JSON.stringify(params || {}));
+    }
+
+    /**
+     * Returns true if there are potentially more results to be retrieved by invoking getNext().
+     * @returns {boolean}
+     */
+    public hasNext(): boolean {
+      return this._hasNext;
+    }
+
+    /**
+     * Returns the next page of results by invoking listTektonPipelineRuns().
+     * @returns {Promise<CdTektonPipelineV2.PipelineRunsPipelineRunsItem[]>}
+     */
+    public async getNext(): Promise<CdTektonPipelineV2.PipelineRunsPipelineRunsItem[]> {
+      if (!this.hasNext()) {
+        throw new Error('No more results available');
+      }
+
+      if (this.pageContext.next) {
+        this.params.offset = this.pageContext.next;
+      }
+      const response = await this.client.listTektonPipelineRuns(this.params);
+      const { result } = response;
+
+      let next = null;
+      if (result && result.next) {
+        if (result.next.href) {
+          next = getQueryParam(result.next.href, 'offset');
+        }
+      }
+      this.pageContext.next = next;
+      if (!this.pageContext.next) {
+        this._hasNext = false;
+      }
+      return result.pipeline_runs;
+    }
+
+    /**
+     * Returns all results by invoking listTektonPipelineRuns() repeatedly until all pages of results have been retrieved.
+     * @returns {Promise<CdTektonPipelineV2.PipelineRunsPipelineRunsItem[]>}
+     */
+    public async getAll(): Promise<CdTektonPipelineV2.PipelineRunsPipelineRunsItem[]> {
+      const results: PipelineRunsPipelineRunsItem[] = [];
+      while (this.hasNext()) {
+        const nextPage = await this.getNext();
+        results.push(...nextPage);
+      }
+      return results;
+    }
   }
 }
 

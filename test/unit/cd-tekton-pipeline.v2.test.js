@@ -20,6 +20,9 @@ const core = require('ibm-cloud-sdk-core');
 const { NoAuthAuthenticator, unitTestUtils } = core;
 
 const CdTektonPipelineV2 = require('../../dist/cd-tekton-pipeline/v2');
+const nock = require('nock');
+
+/* eslint-disable no-await-in-loop */
 
 const {
   getOptions,
@@ -36,20 +39,37 @@ const cdTektonPipelineServiceOptions = {
 
 const cdTektonPipelineService = new CdTektonPipelineV2(cdTektonPipelineServiceOptions);
 
-// dont actually create a request
-const createRequestMock = jest.spyOn(cdTektonPipelineService, 'createRequest');
-createRequestMock.mockImplementation(() => Promise.resolve());
+let createRequestMock = null;
+function mock_createRequest() {
+  if (!createRequestMock) {
+    createRequestMock = jest.spyOn(cdTektonPipelineService, 'createRequest');
+    createRequestMock.mockImplementation(() => Promise.resolve());
+  }
+}
+function unmock_createRequest() {
+  if (createRequestMock) {
+    createRequestMock.mockRestore();
+    createRequestMock = null;
+  }
+}
 
 // dont actually construct an authenticator
 const getAuthenticatorMock = jest.spyOn(core, 'getAuthenticatorFromEnvironment');
 getAuthenticatorMock.mockImplementation(() => new NoAuthAuthenticator());
 
-afterEach(() => {
-  createRequestMock.mockClear();
-  getAuthenticatorMock.mockClear();
-});
-
 describe('CdTektonPipelineV2', () => {
+
+  beforeEach(() => {
+    mock_createRequest();
+  });
+
+  afterEach(() => {
+    if (createRequestMock) {
+      createRequestMock.mockClear();
+    }
+    getAuthenticatorMock.mockClear();
+  });
+  
   describe('the newInstance method', () => {
     test('should use defaults when options not provided', () => {
       const testInstance = CdTektonPipelineV2.newInstance();
@@ -77,6 +97,7 @@ describe('CdTektonPipelineV2', () => {
       expect(testInstance).toBeInstanceOf(CdTektonPipelineV2);
     });
   });
+
   describe('the constructor', () => {
     test('use user-given service url', () => {
       const options = {
@@ -99,6 +120,7 @@ describe('CdTektonPipelineV2', () => {
       expect(testInstance.baseOptions.serviceUrl).toBe(CdTektonPipelineV2.DEFAULT_SERVICE_URL);
     });
   });
+
   describe('getServiceUrlForRegion', () => {
     test('should return undefined for invalid region', () => {
       expect(CdTektonPipelineV2.getServiceUrlForRegion('INVALID_REGION')).toBeFalsy();
@@ -115,6 +137,7 @@ describe('CdTektonPipelineV2', () => {
       expect(CdTektonPipelineV2.getServiceUrlForRegion('br-sao')).toBe('https://api.br-sao.devops.cloud.ibm.com/v2');      
     });
   });
+
   describe('createTektonPipeline', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -188,6 +211,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('getTektonPipeline', () => {
     describe('positive tests', () => {
       function __getTektonPipelineTest() {
@@ -271,6 +295,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('updateTektonPipeline', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -364,6 +389,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('deleteTektonPipeline', () => {
     describe('positive tests', () => {
       function __deleteTektonPipelineTest() {
@@ -447,6 +473,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('listTektonPipelineRuns', () => {
     describe('positive tests', () => {
       function __listTektonPipelineRunsTest() {
@@ -541,7 +568,62 @@ describe('CdTektonPipelineV2', () => {
         expect(err.message).toMatch(/Missing required parameters/);
       });
     });
+
+    describe('TektonPipelineRunsPager tests', () => {
+      const serviceUrl = cdTektonPipelineServiceOptions.url;
+      const path = '/tekton_pipelines/94619026-912b-4d92-8f51-6c74f0692d90/pipeline_runs';
+      const mockPagerResponse1 =
+        '{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1,"pipeline_runs":[{"id":"id","user_info":{"iam_id":"iam_id","sub":"sub"},"status":"pending","definition_id":"definition_id","worker":{"name":"name","agent":"agent","service_id":"service_id","id":"id"},"pipeline_id":"pipeline_id","listener_name":"listener_name","trigger":{"source_trigger_id":"source_trigger_id","name":"start-deploy"},"event_params_blob":"event_params_blob","event_header_params_blob":"event_header_params_blob","properties":[{"name":"name","value":"value","enum":["enum"],"default":"default","type":"SECURE","path":"path"}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","html_url":"html_url","href":"href"}]}';
+      const mockPagerResponse2 =
+        '{"total_count":2,"limit":1,"pipeline_runs":[{"id":"id","user_info":{"iam_id":"iam_id","sub":"sub"},"status":"pending","definition_id":"definition_id","worker":{"name":"name","agent":"agent","service_id":"service_id","id":"id"},"pipeline_id":"pipeline_id","listener_name":"listener_name","trigger":{"source_trigger_id":"source_trigger_id","name":"start-deploy"},"event_params_blob":"event_params_blob","event_header_params_blob":"event_header_params_blob","properties":[{"name":"name","value":"value","enum":["enum"],"default":"default","type":"SECURE","path":"path"}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","html_url":"html_url","href":"href"}]}';
+
+      beforeEach(() => {
+        unmock_createRequest();
+        const scope = nock(serviceUrl)
+          .get(uri => uri.includes(path))
+          .reply(200, mockPagerResponse1)
+          .get(uri => uri.includes(path))
+          .reply(200, mockPagerResponse2);
+      });
+
+      afterEach(() => {
+        nock.cleanAll();
+        mock_createRequest();
+      });
+
+      test('getNext()', async () => {
+        const params = {
+          pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
+          limit: 10,
+          status: 'succeeded',
+          triggerName: 'manual-trigger',
+        };
+        const allResults = [];
+        const pager = new CdTektonPipelineV2.TektonPipelineRunsPager(cdTektonPipelineService, params);
+        while (pager.hasNext()) {
+          const nextPage = await pager.getNext();
+          expect(nextPage).not.toBeNull();
+          allResults.push(...nextPage);
+        }
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+
+      test('getAll()', async () => {
+        const params = {
+          pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
+          limit: 10,
+          status: 'succeeded',
+          triggerName: 'manual-trigger',
+        };
+        const pager = new CdTektonPipelineV2.TektonPipelineRunsPager(cdTektonPipelineService, params);
+        const allResults = await pager.getAll();
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+    });
   });
+
   describe('createTektonPipelineRun', () => {
     describe('positive tests', () => {
       function __createTektonPipelineRunTest() {
@@ -640,6 +722,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('getTektonPipelineRun', () => {
     describe('positive tests', () => {
       function __getTektonPipelineRunTest() {
@@ -731,6 +814,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('deleteTektonPipelineRun', () => {
     describe('positive tests', () => {
       function __deleteTektonPipelineRunTest() {
@@ -819,6 +903,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('cancelTektonPipelineRun', () => {
     describe('positive tests', () => {
       function __cancelTektonPipelineRunTest() {
@@ -910,6 +995,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('rerunTektonPipelineRun', () => {
     describe('positive tests', () => {
       function __rerunTektonPipelineRunTest() {
@@ -998,6 +1084,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('getTektonPipelineRunLogs', () => {
     describe('positive tests', () => {
       function __getTektonPipelineRunLogsTest() {
@@ -1086,6 +1173,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('getTektonPipelineRunLogContent', () => {
     describe('positive tests', () => {
       function __getTektonPipelineRunLogContentTest() {
@@ -1179,6 +1267,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('listTektonPipelineDefinitions', () => {
     describe('positive tests', () => {
       function __listTektonPipelineDefinitionsTest() {
@@ -1262,6 +1351,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('createTektonPipelineDefinition', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -1358,6 +1448,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('getTektonPipelineDefinition', () => {
     describe('positive tests', () => {
       function __getTektonPipelineDefinitionTest() {
@@ -1446,6 +1537,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('replaceTektonPipelineDefinition', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -1553,6 +1645,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('deleteTektonPipelineDefinition', () => {
     describe('positive tests', () => {
       function __deleteTektonPipelineDefinitionTest() {
@@ -1641,6 +1734,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('listTektonPipelineProperties', () => {
     describe('positive tests', () => {
       function __listTektonPipelinePropertiesTest() {
@@ -1733,6 +1827,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('createTektonPipelineProperties', () => {
     describe('positive tests', () => {
       function __createTektonPipelinePropertiesTest() {
@@ -1834,6 +1929,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('getTektonPipelineProperty', () => {
     describe('positive tests', () => {
       function __getTektonPipelinePropertyTest() {
@@ -1922,6 +2018,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('replaceTektonPipelineProperty', () => {
     describe('positive tests', () => {
       function __replaceTektonPipelinePropertyTest() {
@@ -2028,6 +2125,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('deleteTektonPipelineProperty', () => {
     describe('positive tests', () => {
       function __deleteTektonPipelinePropertyTest() {
@@ -2116,6 +2214,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('listTektonPipelineTriggers', () => {
     describe('positive tests', () => {
       function __listTektonPipelineTriggersTest() {
@@ -2220,6 +2319,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('createTektonPipelineTrigger', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -2314,6 +2414,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('getTektonPipelineTrigger', () => {
     describe('positive tests', () => {
       function __getTektonPipelineTriggerTest() {
@@ -2402,6 +2503,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('updateTektonPipelineTrigger', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -2565,6 +2667,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('deleteTektonPipelineTrigger', () => {
     describe('positive tests', () => {
       function __deleteTektonPipelineTriggerTest() {
@@ -2653,6 +2756,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('listTektonPipelineTriggerProperties', () => {
     describe('positive tests', () => {
       function __listTektonPipelineTriggerPropertiesTest() {
@@ -2756,6 +2860,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('createTektonPipelineTriggerProperties', () => {
     describe('positive tests', () => {
       function __createTektonPipelineTriggerPropertiesTest() {
@@ -2862,6 +2967,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('getTektonPipelineTriggerProperty', () => {
     describe('positive tests', () => {
       function __getTektonPipelineTriggerPropertyTest() {
@@ -2955,6 +3061,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('replaceTektonPipelineTriggerProperty', () => {
     describe('positive tests', () => {
       function __replaceTektonPipelineTriggerPropertyTest() {
@@ -3066,6 +3173,7 @@ describe('CdTektonPipelineV2', () => {
       });
     });
   });
+
   describe('deleteTektonPipelineTriggerProperty', () => {
     describe('positive tests', () => {
       function __deleteTektonPipelineTriggerPropertyTest() {
