@@ -15,9 +15,10 @@
  */
 
 /* eslint-disable no-console */
+/* eslint-disable no-await-in-loop */
 
-const CdTektonPipelineV2 = require('../../dist/cd-tekton-pipeline/v2');
 const { readExternalSources } = require('ibm-cloud-sdk-core');
+const CdTektonPipelineV2 = require('../../dist/cd-tekton-pipeline/v2');
 const authHelper = require('../resources/auth-helper.js');
 
 // testcase timeout value (200s).
@@ -34,14 +35,14 @@ describe('CdTektonPipelineV2_integration', () => {
   // Service instance
   let cdTektonPipelineService;
 
-  test('Initialise service', async() => {
+  test('Initialise service', async () => {
     cdTektonPipelineService = CdTektonPipelineV2.newInstance();
 
     expect(cdTektonPipelineService).not.toBeNull();
 
     const config = readExternalSources(CdTektonPipelineV2.DEFAULT_SERVICE_NAME);
     expect(config).not.toBeNull();
-  
+
     cdTektonPipelineService.enableRetries();
   });
 
@@ -55,6 +56,8 @@ describe('CdTektonPipelineV2_integration', () => {
 
     const params = {
       id: '94619026-912b-4d92-8f51-6c74f0692d90',
+      enableSlackNotifications: false,
+      enablePartialCloning: false,
       worker: workerWithIdModel,
     };
 
@@ -62,15 +65,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('getTektonPipeline()', async () => {
     const params = {
@@ -81,14 +75,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('updateTektonPipeline()', async () => {
     // Request models needed by this operation.
@@ -100,6 +86,8 @@ describe('CdTektonPipelineV2_integration', () => {
 
     const params = {
       id: '94619026-912b-4d92-8f51-6c74f0692d90',
+      enableSlackNotifications: false,
+      enablePartialCloning: false,
       worker: workerWithIdModel,
     };
 
@@ -107,18 +95,11 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('listTektonPipelineRuns()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
+      start: 'testString',
       limit: 1,
       offset: 38,
       status: 'succeeded',
@@ -129,14 +110,32 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
+  });
+  test('listTektonPipelineRuns() via TektonPipelineRunsPager', async () => {
+    const params = {
+      pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
+      limit: 10,
+      offset: 38,
+      status: 'succeeded',
+      triggerName: 'manual-trigger',
+    };
 
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
+    const allResults = [];
+
+    // Test getNext().
+    let pager = new CdTektonPipelineV2.TektonPipelineRunsPager(cdTektonPipelineService, params);
+    while (pager.hasNext()) {
+      const nextPage = await pager.getNext();
+      expect(nextPage).not.toBeNull();
+      allResults.push(...nextPage);
+    }
+
+    // Test getAll().
+    pager = new CdTektonPipelineV2.TektonPipelineRunsPager(cdTektonPipelineService, params);
+    const allItems = await pager.getAll();
+    expect(allItems).not.toBeNull();
+    expect(allItems).toHaveLength(allResults.length);
+    console.log(`Retrieved a total of ${allResults.length} items(s) with pagination.`);
   });
   test('createTektonPipelineRun()', async () => {
     const params = {
@@ -152,15 +151,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('getTektonPipelineRun()', async () => {
     const params = {
@@ -173,14 +163,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('cancelTektonPipelineRun()', async () => {
     const params = {
@@ -191,17 +173,8 @@ describe('CdTektonPipelineV2_integration', () => {
 
     const res = await cdTektonPipelineService.cancelTektonPipelineRun(params);
     expect(res).toBeDefined();
-    expect(res.status).toBe(200);
+    expect(res.status).toBe(202);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('rerunTektonPipelineRun()', async () => {
     const params = {
@@ -213,14 +186,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('getTektonPipelineRunLogs()', async () => {
     const params = {
@@ -232,14 +197,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('getTektonPipelineRunLogContent()', async () => {
     const params = {
@@ -252,14 +209,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('listTektonPipelineDefinitions()', async () => {
     const params = {
@@ -270,14 +219,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('createTektonPipelineDefinition()', async () => {
     // Request models needed by this operation.
@@ -288,26 +229,19 @@ describe('CdTektonPipelineV2_integration', () => {
       branch: 'master',
       tag: 'testString',
       path: '.tekton',
+      service_instance_id: 'testString',
     };
 
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       scmSource: definitionScmSourceModel,
+      id: 'testString',
     };
 
     const res = await cdTektonPipelineService.createTektonPipelineDefinition(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('getTektonPipelineDefinition()', async () => {
     const params = {
@@ -319,14 +253,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('replaceTektonPipelineDefinition()', async () => {
     // Request models needed by this operation.
@@ -337,13 +263,13 @@ describe('CdTektonPipelineV2_integration', () => {
       branch: 'master',
       tag: 'testString',
       path: '.tekton',
+      service_instance_id: '071d8049-d984-4feb-a2ed-2a1e938918ba',
     };
 
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       definitionId: '94299034-d45f-4e9a-8ed5-6bd5c7bb7ada',
       scmSource: definitionScmSourceModel,
-      serviceInstanceId: '071d8049-d984-4feb-a2ed-2a1e938918ba',
       id: '22f92ab1-e0ac-4c65-84e7-8a4cb32dba0f',
     };
 
@@ -351,21 +277,12 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('listTektonPipelineProperties()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       name: 'prod',
-      type: ['SECURE', 'TEXT'],
+      type: ['secure', 'text'],
       sort: 'name',
     };
 
@@ -373,23 +290,14 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('createTektonPipelineProperties()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       name: 'key1',
-      type: 'TEXT',
+      type: 'text',
       value: 'https://github.com/IBM/tekton-tutorial.git',
       _enum: ['testString'],
-      _default: 'testString',
       path: 'testString',
     };
 
@@ -397,15 +305,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('getTektonPipelineProperty()', async () => {
     const params = {
@@ -417,24 +316,15 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('replaceTektonPipelineProperty()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       propertyName: 'debug-pipeline',
       name: 'key1',
-      type: 'TEXT',
+      type: 'text',
       value: 'https://github.com/IBM/tekton-tutorial.git',
       _enum: ['testString'],
-      _default: 'testString',
       path: 'testString',
     };
 
@@ -442,15 +332,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('listTektonPipelineTriggers()', async () => {
     const params = {
@@ -468,80 +349,20 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('createTektonPipelineTrigger()', async () => {
-    // Request models needed by this operation.
-
-    // TriggerDuplicateTrigger
-    const triggerModel = {
-      source_trigger_id: 'b3a8228f-1c82-409b-b249-7639166a0300',
-      name: 'Generic Trigger- duplicated',
-    };
-
-    const params = {
-      pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
-      trigger: triggerModel,
-    };
-
-    const res = await cdTektonPipelineService.createTektonPipelineTrigger(params);
-    expect(res).toBeDefined();
-    expect(res.status).toBe(201);
-    expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
-  });
-  test('getTektonPipelineTrigger()', async () => {
-    const params = {
-      pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
-      triggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
-    };
-
-    const res = await cdTektonPipelineService.getTektonPipelineTrigger(params);
-    expect(res).toBeDefined();
-    expect(res.status).toBe(200);
-    expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
-  });
-  test('updateTektonPipelineTrigger()', async () => {
     // Request models needed by this operation.
 
     // Worker
     const workerModel = {
       name: 'testString',
-      type: 'private',
-      id: 'testString',
-    };
-
-    // Concurrency
-    const concurrencyModel = {
-      max_concurrent_runs: 20,
+      type: 'testString',
+      id: 'public',
     };
 
     // GenericSecret
     const genericSecretModel = {
-      type: 'tokenMatches',
+      type: 'token_matches',
       value: 'testString',
       source: 'header',
       key_name: 'testString',
@@ -555,6 +376,75 @@ describe('CdTektonPipelineV2_integration', () => {
       pattern: 'testString',
       blind_connection: true,
       hook_id: 'testString',
+      service_instance_id: 'testString',
+    };
+
+    // Events
+    const eventsModel = {
+      push: true,
+      pull_request_closed: true,
+      pull_request: true,
+    };
+
+    const params = {
+      pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
+      type: 'manual',
+      name: 'Manual Trigger',
+      eventListener: 'pr-listener',
+      disabled: false,
+      tags: ['testString'],
+      worker: workerModel,
+      maxConcurrentRuns: 3,
+      secret: genericSecretModel,
+      cron: 'testString',
+      timezone: 'testString',
+      scmSource: triggerScmSourceModel,
+      events: eventsModel,
+    };
+
+    const res = await cdTektonPipelineService.createTektonPipelineTrigger(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+  test('getTektonPipelineTrigger()', async () => {
+    const params = {
+      pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
+      triggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
+    };
+
+    const res = await cdTektonPipelineService.getTektonPipelineTrigger(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('updateTektonPipelineTrigger()', async () => {
+    // Request models needed by this operation.
+
+    // Worker
+    const workerModel = {
+      name: 'testString',
+      type: 'testString',
+      id: 'testString',
+    };
+
+    // GenericSecret
+    const genericSecretModel = {
+      type: 'token_matches',
+      value: 'testString',
+      source: 'header',
+      key_name: 'testString',
+      algorithm: 'md4',
+    };
+
+    // TriggerScmSource
+    const triggerScmSourceModel = {
+      url: 'testString',
+      branch: 'testString',
+      pattern: 'testString',
+      blind_connection: true,
+      hook_id: 'testString',
+      service_instance_id: 'testString',
     };
 
     // Events
@@ -572,11 +462,11 @@ describe('CdTektonPipelineV2_integration', () => {
       eventListener: 'testString',
       tags: ['testString'],
       worker: workerModel,
-      concurrency: concurrencyModel,
+      maxConcurrentRuns: 38,
       disabled: true,
       secret: genericSecretModel,
       cron: 'testString',
-      timezone: 'Africa/Abidjan',
+      timezone: 'testString',
       scmSource: triggerScmSourceModel,
       events: eventsModel,
     };
@@ -585,22 +475,25 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
+  });
+  test('duplicateTektonPipelineTrigger()', async () => {
+    const params = {
+      pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
+      sourceTriggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
+      name: 'triggerName',
+    };
 
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
+    const res = await cdTektonPipelineService.duplicateTektonPipelineTrigger(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
   });
   test('listTektonPipelineTriggerProperties()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       triggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
       name: 'prod',
-      type: 'SECURE,TEXT',
+      type: 'secure,text',
       sort: 'name',
     };
 
@@ -608,24 +501,15 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('createTektonPipelineTriggerProperties()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       triggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
       name: 'key1',
-      type: 'TEXT',
+      type: 'text',
       value: 'https://github.com/IBM/tekton-tutorial.git',
       _enum: ['testString'],
-      _default: 'testString',
       path: 'testString',
     };
 
@@ -633,15 +517,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('getTektonPipelineTriggerProperty()', async () => {
     const params = {
@@ -654,14 +529,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('replaceTektonPipelineTriggerProperty()', async () => {
     const params = {
@@ -669,10 +536,9 @@ describe('CdTektonPipelineV2_integration', () => {
       triggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
       propertyName: 'debug-pipeline',
       name: 'key1',
-      type: 'TEXT',
+      type: 'text',
       value: 'https://github.com/IBM/tekton-tutorial.git',
       _enum: ['testString'],
-      _default: 'testString',
       path: 'testString',
     };
 
@@ -680,15 +546,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 404
-    //
   });
   test('deleteTektonPipelineTriggerProperty()', async () => {
     const params = {
@@ -701,14 +558,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('deleteTektonPipelineTrigger()', async () => {
     const params = {
@@ -720,14 +569,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('deleteTektonPipelineRun()', async () => {
     const params = {
@@ -739,14 +580,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('deleteTektonPipelineProperty()', async () => {
     const params = {
@@ -758,14 +591,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('deleteTektonPipelineDefinition()', async () => {
     const params = {
@@ -777,14 +602,6 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
   test('deleteTektonPipeline()', async () => {
     const params = {
@@ -795,13 +612,5 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 401
-    // 404
-    //
   });
 });
