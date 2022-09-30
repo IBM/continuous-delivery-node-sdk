@@ -17,8 +17,8 @@
 /* eslint-disable no-console */
 /* eslint-disable no-await-in-loop */
 
-const CdTektonPipelineV2 = require('../../dist/cd-tekton-pipeline/v2');
 const { readExternalSources } = require('ibm-cloud-sdk-core');
+const CdTektonPipelineV2 = require('../../dist/cd-tekton-pipeline/v2');
 const authHelper = require('../resources/auth-helper.js');
 
 // testcase timeout value (200s).
@@ -35,14 +35,14 @@ describe('CdTektonPipelineV2_integration', () => {
   // Service instance
   let cdTektonPipelineService;
 
-  test('Initialise service', async() => {
+  test('Initialise service', async () => {
     cdTektonPipelineService = CdTektonPipelineV2.newInstance();
 
     expect(cdTektonPipelineService).not.toBeNull();
 
     const config = readExternalSources(CdTektonPipelineV2.DEFAULT_SERVICE_NAME);
     expect(config).not.toBeNull();
-  
+
     cdTektonPipelineService.enableRetries();
   });
 

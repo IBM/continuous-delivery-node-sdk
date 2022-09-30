@@ -45,7 +45,7 @@ const describe = authHelper.prepareTests(configFile);
 
 // Save original console.log
 const originalLog = console.log;
-const originalWarn = console.warn;    
+const originalWarn = console.warn;
 
 // Mocks for console.log and console.warn
 const consoleLogMock = jest.spyOn(console, 'log');
@@ -59,13 +59,12 @@ describe('CdTektonPipelineV2', () => {
   // const config = readExternalSources(CdTektonPipelineV2.DEFAULT_SERVICE_NAME);
 
   test('Initialize services', async () => {
-  // begin-common
+    // begin-common
 
     cdTektonPipelineService = CdTektonPipelineV2.newInstance();
 
-  // end-common
+    // end-common
   });
-  
 
   test('createTektonPipeline request example', async () => {
     consoleLogMock.mockImplementation((output) => {

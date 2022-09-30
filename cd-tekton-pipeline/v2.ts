@@ -29,9 +29,9 @@ import {
   getAuthenticatorFromEnvironment,
   validateParams,
   UserOptions,
+  getQueryParam,
 } from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
-import { getQueryParam } from 'ibm-cloud-sdk-core';
 
 /**
  * Continuous Delivery Tekton pipeline API definition <br><br> Maximum request payload size is 512 KB <br><br> All calls
@@ -66,7 +66,7 @@ class CdTektonPipelineV2 extends BaseService {
    * if no mapping for the region exists
    */
   public static getServiceUrlForRegion(region: string): string {
-    return this._regionalEndpoints.get(region)
+    return this._regionalEndpoints.get(region);
   }
 
   /*************************
@@ -150,7 +150,13 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TektonPipeline>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = ['id', 'enableSlackNotifications', 'enablePartialCloning', 'worker', 'headers'];
+    const _validParams = [
+      'id',
+      'enableSlackNotifications',
+      'enablePartialCloning',
+      'worker',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -267,7 +273,13 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TektonPipeline>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = ['id', 'enableSlackNotifications', 'enablePartialCloning', 'worker', 'headers'];
+    const _validParams = [
+      'id',
+      'enableSlackNotifications',
+      'enablePartialCloning',
+      'worker',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -350,13 +362,7 @@ class CdTektonPipelineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-          },
-          _params.headers
-        ),
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 
@@ -389,7 +395,15 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.PipelineRunsCollection>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId'];
-    const _validParams = ['pipelineId', 'start', 'limit', 'offset', 'status', 'triggerName', 'headers'];
+    const _validParams = [
+      'pipelineId',
+      'start',
+      'limit',
+      'offset',
+      'status',
+      'triggerName',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -459,7 +473,15 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.PipelineRun>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId'];
-    const _validParams = ['pipelineId', 'triggerName', 'triggerProperties', 'secureTriggerProperties', 'triggerHeader', 'triggerBody', 'headers'];
+    const _validParams = [
+      'pipelineId',
+      'triggerName',
+      'triggerProperties',
+      'secureTriggerProperties',
+      'triggerHeader',
+      'triggerBody',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -607,13 +629,7 @@ class CdTektonPipelineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-          },
-          _params.headers
-        ),
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 
@@ -1125,13 +1141,7 @@ class CdTektonPipelineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-          },
-          _params.headers
-        ),
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 
@@ -1351,7 +1361,16 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Property>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'propertyName'];
-    const _validParams = ['pipelineId', 'propertyName', 'name', 'type', 'value', '_enum', 'path', 'headers'];
+    const _validParams = [
+      'pipelineId',
+      'propertyName',
+      'name',
+      'type',
+      'value',
+      '_enum',
+      'path',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1439,13 +1458,7 @@ class CdTektonPipelineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-          },
-          _params.headers
-        ),
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 
@@ -1479,7 +1492,17 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TriggersCollection>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId'];
-    const _validParams = ['pipelineId', 'type', 'name', 'eventListener', 'workerId', 'workerName', 'disabled', 'tags', 'headers'];
+    const _validParams = [
+      'pipelineId',
+      'type',
+      'name',
+      'eventListener',
+      'workerId',
+      'workerName',
+      'disabled',
+      'tags',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1561,7 +1584,22 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Trigger>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId'];
-    const _validParams = ['pipelineId', 'type', 'name', 'eventListener', 'disabled', 'tags', 'worker', 'maxConcurrentRuns', 'secret', 'cron', 'timezone', 'scmSource', 'events', 'headers'];
+    const _validParams = [
+      'pipelineId',
+      'type',
+      'name',
+      'eventListener',
+      'disabled',
+      'tags',
+      'worker',
+      'maxConcurrentRuns',
+      'secret',
+      'cron',
+      'timezone',
+      'scmSource',
+      'events',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1704,7 +1742,23 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Trigger>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'triggerId'];
-    const _validParams = ['pipelineId', 'triggerId', 'type', 'name', 'eventListener', 'tags', 'worker', 'maxConcurrentRuns', 'disabled', 'secret', 'cron', 'timezone', 'scmSource', 'events', 'headers'];
+    const _validParams = [
+      'pipelineId',
+      'triggerId',
+      'type',
+      'name',
+      'eventListener',
+      'tags',
+      'worker',
+      'maxConcurrentRuns',
+      'disabled',
+      'secret',
+      'cron',
+      'timezone',
+      'scmSource',
+      'events',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1799,13 +1853,7 @@ class CdTektonPipelineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-          },
-          _params.headers
-        ),
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 
@@ -1965,7 +2013,16 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TriggerProperty>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'triggerId'];
-    const _validParams = ['pipelineId', 'triggerId', 'name', 'type', 'value', '_enum', 'path', 'headers'];
+    const _validParams = [
+      'pipelineId',
+      'triggerId',
+      'name',
+      'type',
+      'value',
+      '_enum',
+      'path',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2093,7 +2150,17 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TriggerProperty>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'triggerId', 'propertyName'];
-    const _validParams = ['pipelineId', 'triggerId', 'propertyName', 'name', 'type', 'value', '_enum', 'path', 'headers'];
+    const _validParams = [
+      'pipelineId',
+      'triggerId',
+      'propertyName',
+      'name',
+      'type',
+      'value',
+      '_enum',
+      'path',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2184,13 +2251,7 @@ class CdTektonPipelineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-          },
-          _params.headers
-        ),
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 
@@ -3095,8 +3156,7 @@ namespace CdTektonPipelineV2 {
   }
 
   /** Tekton pipeline trigger. */
-  export interface Trigger {
-  }
+  export interface Trigger {}
 
   /** Trigger property object. */
   export interface TriggerGenericTriggerPropertiesItem {
@@ -3393,6 +3453,7 @@ namespace CdTektonPipelineV2 {
    */
   export class TektonPipelineRunsPager {
     protected _hasNext: boolean;
+
     protected pageContext: any;
 
     protected client: CdTektonPipelineV2;
