@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/IBM/continuous-delivery-node-sdk"
   },
-  "release": { "branches": [ "updateTektonSdk" ] },
+  "release": { "branches": [ "main" ] },
   "keywords": [
     "ibm"
   ],
