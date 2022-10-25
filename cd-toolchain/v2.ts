@@ -66,7 +66,7 @@ class CdToolchainV2 extends BaseService {
    * if no mapping for the region exists
    */
   public static getServiceUrlForRegion(region: string): string {
-    return this._regionalEndpoints.get(region)
+    return this._regionalEndpoints.get(region);
   }
 
   /*************************
@@ -157,11 +157,7 @@ class CdToolchainV2 extends BaseService {
       'start': _params.start,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdToolchainV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'listToolchains'
-    );
+    const sdkHeaders = getSdkHeaders(CdToolchainV2.DEFAULT_SERVICE_NAME, 'v2', 'listToolchains');
 
     const parameters = {
       options: {
@@ -213,11 +209,7 @@ class CdToolchainV2 extends BaseService {
       'description': _params.description,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdToolchainV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createToolchain'
-    );
+    const sdkHeaders = getSdkHeaders(CdToolchainV2.DEFAULT_SERVICE_NAME, 'v2', 'createToolchain');
 
     const parameters = {
       options: {
@@ -266,11 +258,7 @@ class CdToolchainV2 extends BaseService {
       'toolchain_id': _params.toolchainId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdToolchainV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'getToolchainById'
-    );
+    const sdkHeaders = getSdkHeaders(CdToolchainV2.DEFAULT_SERVICE_NAME, 'v2', 'getToolchainById');
 
     const parameters = {
       options: {
@@ -318,11 +306,7 @@ class CdToolchainV2 extends BaseService {
       'toolchain_id': _params.toolchainId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdToolchainV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'deleteToolchain'
-    );
+    const sdkHeaders = getSdkHeaders(CdToolchainV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteToolchain');
 
     const parameters = {
       options: {
@@ -331,13 +315,7 @@ class CdToolchainV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-          },
-          _params.headers
-        ),
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 
@@ -376,11 +354,7 @@ class CdToolchainV2 extends BaseService {
       'toolchain_id': _params.toolchainId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdToolchainV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'updateToolchain'
-    );
+    const sdkHeaders = getSdkHeaders(CdToolchainV2.DEFAULT_SERVICE_NAME, 'v2', 'updateToolchain');
 
     const parameters = {
       options: {
@@ -444,11 +418,7 @@ class CdToolchainV2 extends BaseService {
       'toolchain_id': _params.toolchainId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdToolchainV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'listTools'
-    );
+    const sdkHeaders = getSdkHeaders(CdToolchainV2.DEFAULT_SERVICE_NAME, 'v2', 'listTools');
 
     const parameters = {
       options: {
@@ -509,11 +479,7 @@ class CdToolchainV2 extends BaseService {
       'toolchain_id': _params.toolchainId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdToolchainV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createTool'
-    );
+    const sdkHeaders = getSdkHeaders(CdToolchainV2.DEFAULT_SERVICE_NAME, 'v2', 'createTool');
 
     const parameters = {
       options: {
@@ -565,11 +531,7 @@ class CdToolchainV2 extends BaseService {
       'tool_id': _params.toolId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdToolchainV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'getToolById'
-    );
+    const sdkHeaders = getSdkHeaders(CdToolchainV2.DEFAULT_SERVICE_NAME, 'v2', 'getToolById');
 
     const parameters = {
       options: {
@@ -619,11 +581,7 @@ class CdToolchainV2 extends BaseService {
       'tool_id': _params.toolId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdToolchainV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'deleteTool'
-    );
+    const sdkHeaders = getSdkHeaders(CdToolchainV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteTool');
 
     const parameters = {
       options: {
@@ -632,13 +590,7 @@ class CdToolchainV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-          },
-          _params.headers
-        ),
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 
@@ -684,11 +636,7 @@ class CdToolchainV2 extends BaseService {
       'tool_id': _params.toolId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdToolchainV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'updateTool'
-    );
+    const sdkHeaders = getSdkHeaders(CdToolchainV2.DEFAULT_SERVICE_NAME, 'v2', 'updateTool');
 
     const parameters = {
       options: {
@@ -1227,6 +1175,7 @@ namespace CdToolchainV2 {
    */
   export class ToolchainsPager {
     protected _hasNext: boolean;
+
     protected pageContext: any;
 
     protected client: CdToolchainV2;
@@ -1241,10 +1190,7 @@ namespace CdToolchainV2 {
      * @constructor
      * @returns {ToolchainsPager}
      */
-    constructor(
-      client: CdToolchainV2,
-      params: CdToolchainV2.ListToolchainsParams
-    ) {
+    constructor(client: CdToolchainV2, params: CdToolchainV2.ListToolchainsParams) {
       if (params && params.start) {
         throw new Error(`the params.start field should not be set`);
       }
@@ -1280,7 +1226,7 @@ namespace CdToolchainV2 {
 
       let next = null;
       if (result && result.next) {
-        next = result.next.start
+        next = result.next.start;
       }
       this.pageContext.next = next;
       if (!this.pageContext.next) {
@@ -1308,6 +1254,7 @@ namespace CdToolchainV2 {
    */
   export class ToolsPager {
     protected _hasNext: boolean;
+
     protected pageContext: any;
 
     protected client: CdToolchainV2;
@@ -1322,10 +1269,7 @@ namespace CdToolchainV2 {
      * @constructor
      * @returns {ToolsPager}
      */
-    constructor(
-      client: CdToolchainV2,
-      params: CdToolchainV2.ListToolsParams
-    ) {
+    constructor(client: CdToolchainV2, params: CdToolchainV2.ListToolsParams) {
       if (params && params.start) {
         throw new Error(`the params.start field should not be set`);
       }
@@ -1361,7 +1305,7 @@ namespace CdToolchainV2 {
 
       let next = null;
       if (result && result.next) {
-        next = result.next.start
+        next = result.next.start;
       }
       this.pageContext.next = next;
       if (!this.pageContext.next) {

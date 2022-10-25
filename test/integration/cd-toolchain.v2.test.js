@@ -17,8 +17,8 @@
 /* eslint-disable no-console */
 /* eslint-disable no-await-in-loop */
 
-const CdToolchainV2 = require('../../dist/cd-toolchain/v2');
 const { readExternalSources } = require('ibm-cloud-sdk-core');
+const CdToolchainV2 = require('../../dist/cd-toolchain/v2');
 const authHelper = require('../resources/auth-helper.js');
 
 // testcase timeout value (200s).
@@ -46,7 +46,7 @@ describe('CdToolchainV2_integration', () => {
 
     const config = readExternalSources(CdToolchainV2.DEFAULT_SERVICE_NAME);
     expect(config).not.toBeNull();
-  
+
     cdToolchainService.enableRetries();
   });
 

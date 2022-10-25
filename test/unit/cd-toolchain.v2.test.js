@@ -19,17 +19,12 @@ const core = require('ibm-cloud-sdk-core');
 
 const { NoAuthAuthenticator, unitTestUtils } = core;
 
-const CdToolchainV2 = require('../../dist/cd-toolchain/v2');
 const nock = require('nock');
+const CdToolchainV2 = require('../../dist/cd-toolchain/v2');
 
 /* eslint-disable no-await-in-loop */
 
-const {
-  getOptions,
-  checkUrlAndMethod,
-  checkMediaHeaders,
-  expectToBePromise,
-} = unitTestUtils;
+const { getOptions, checkUrlAndMethod, checkMediaHeaders, expectToBePromise } = unitTestUtils;
 
 const cdToolchainServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
@@ -57,7 +52,6 @@ const getAuthenticatorMock = jest.spyOn(core, 'getAuthenticatorFromEnvironment')
 getAuthenticatorMock.mockImplementation(() => new NoAuthAuthenticator());
 
 describe('CdToolchainV2', () => {
-
   beforeEach(() => {
     mock_createRequest();
   });
@@ -68,7 +62,7 @@ describe('CdToolchainV2', () => {
     }
     getAuthenticatorMock.mockClear();
   });
-  
+
   describe('the newInstance method', () => {
     test('should use defaults when options not provided', () => {
       const testInstance = CdToolchainV2.newInstance();
@@ -125,15 +119,33 @@ describe('CdToolchainV2', () => {
       expect(CdToolchainV2.getServiceUrlForRegion('INVALID_REGION')).toBeFalsy();
     });
     test('should return valid service url', () => {
-      expect(CdToolchainV2.getServiceUrlForRegion('us-south')).toBe('https://api.us-south.devops.cloud.ibm.com/toolchain/v2');      
-      expect(CdToolchainV2.getServiceUrlForRegion('us-east')).toBe('https://api.us-east.devops.cloud.ibm.com/toolchain/v2');      
-      expect(CdToolchainV2.getServiceUrlForRegion('eu-de')).toBe('https://api.eu-de.devops.cloud.ibm.com/toolchain/v2');      
-      expect(CdToolchainV2.getServiceUrlForRegion('eu-gb')).toBe('https://api.eu-gb.devops.cloud.ibm.com/toolchain/v2');      
-      expect(CdToolchainV2.getServiceUrlForRegion('jp-osa')).toBe('https://api.jp-osa.devops.cloud.ibm.com/toolchain/v2');      
-      expect(CdToolchainV2.getServiceUrlForRegion('jp-tok')).toBe('https://api.jp-tok.devops.cloud.ibm.com/toolchain/v2');      
-      expect(CdToolchainV2.getServiceUrlForRegion('au-syd')).toBe('https://api.au-syd.devops.cloud.ibm.com/toolchain/v2');      
-      expect(CdToolchainV2.getServiceUrlForRegion('ca-tor')).toBe('https://api.ca-tor.devops.cloud.ibm.com/toolchain/v2');      
-      expect(CdToolchainV2.getServiceUrlForRegion('br-sao')).toBe('https://api.br-sao.devops.cloud.ibm.com/toolchain/v2');      
+      expect(CdToolchainV2.getServiceUrlForRegion('us-south')).toBe(
+        'https://api.us-south.devops.cloud.ibm.com/toolchain/v2'
+      );
+      expect(CdToolchainV2.getServiceUrlForRegion('us-east')).toBe(
+        'https://api.us-east.devops.cloud.ibm.com/toolchain/v2'
+      );
+      expect(CdToolchainV2.getServiceUrlForRegion('eu-de')).toBe(
+        'https://api.eu-de.devops.cloud.ibm.com/toolchain/v2'
+      );
+      expect(CdToolchainV2.getServiceUrlForRegion('eu-gb')).toBe(
+        'https://api.eu-gb.devops.cloud.ibm.com/toolchain/v2'
+      );
+      expect(CdToolchainV2.getServiceUrlForRegion('jp-osa')).toBe(
+        'https://api.jp-osa.devops.cloud.ibm.com/toolchain/v2'
+      );
+      expect(CdToolchainV2.getServiceUrlForRegion('jp-tok')).toBe(
+        'https://api.jp-tok.devops.cloud.ibm.com/toolchain/v2'
+      );
+      expect(CdToolchainV2.getServiceUrlForRegion('au-syd')).toBe(
+        'https://api.au-syd.devops.cloud.ibm.com/toolchain/v2'
+      );
+      expect(CdToolchainV2.getServiceUrlForRegion('ca-tor')).toBe(
+        'https://api.ca-tor.devops.cloud.ibm.com/toolchain/v2'
+      );
+      expect(CdToolchainV2.getServiceUrlForRegion('br-sao')).toBe(
+        'https://api.br-sao.devops.cloud.ibm.com/toolchain/v2'
+      );
     });
   });
 
@@ -240,9 +252,9 @@ describe('CdToolchainV2', () => {
       beforeEach(() => {
         unmock_createRequest();
         const scope = nock(serviceUrl)
-          .get(uri => uri.includes(path))
+          .get((uri) => uri.includes(path))
           .reply(200, mockPagerResponse1)
-          .get(uri => uri.includes(path))
+          .get((uri) => uri.includes(path))
           .reply(200, mockPagerResponse2);
       });
 
@@ -735,9 +747,9 @@ describe('CdToolchainV2', () => {
       beforeEach(() => {
         unmock_createRequest();
         const scope = nock(serviceUrl)
-          .get(uri => uri.includes(path))
+          .get((uri) => uri.includes(path))
           .reply(200, mockPagerResponse1)
-          .get(uri => uri.includes(path))
+          .get((uri) => uri.includes(path))
           .reply(200, mockPagerResponse2);
       });
 
@@ -982,7 +994,11 @@ describe('CdToolchainV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/toolchains/{toolchain_id}/tools/{tool_id}', 'DELETE');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/toolchains/{toolchain_id}/tools/{tool_id}',
+          'DELETE'
+        );
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1077,7 +1093,11 @@ describe('CdToolchainV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/toolchains/{toolchain_id}/tools/{tool_id}', 'PATCH');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/toolchains/{toolchain_id}/tools/{tool_id}',
+          'PATCH'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/merge-patch+json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
