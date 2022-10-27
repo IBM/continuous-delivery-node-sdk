@@ -6,7 +6,11 @@
     "type": "git",
     "url": "https://github.com/IBM/continuous-delivery-node-sdk"
   },
-  "release": { "branches": [ "main" ] },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
   "keywords": [
     "ibm"
   ],
