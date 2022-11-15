@@ -35,7 +35,7 @@ describe('CdTektonPipelineV2_integration', () => {
   // Service instance
   let cdTektonPipelineService;
 
-  test('Initialise service', async () => {
+  test('Initialize service', async () => {
     cdTektonPipelineService = CdTektonPipelineV2.newInstance();
 
     expect(cdTektonPipelineService).not.toBeNull();
@@ -49,16 +49,16 @@ describe('CdTektonPipelineV2_integration', () => {
   test('createTektonPipeline()', async () => {
     // Request models needed by this operation.
 
-    // WorkerWithId
-    const workerWithIdModel = {
+    // WorkerIdentity
+    const workerIdentityModel = {
       id: 'public',
     };
 
     const params = {
       id: '94619026-912b-4d92-8f51-6c74f0692d90',
-      enableSlackNotifications: false,
+      enableNotifications: false,
       enablePartialCloning: false,
-      worker: workerWithIdModel,
+      worker: workerIdentityModel,
     };
 
     const res = await cdTektonPipelineService.createTektonPipeline(params);
@@ -66,6 +66,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
   });
+
   test('getTektonPipeline()', async () => {
     const params = {
       id: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -76,19 +77,20 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('updateTektonPipeline()', async () => {
     // Request models needed by this operation.
 
-    // WorkerWithId
-    const workerWithIdModel = {
+    // WorkerIdentity
+    const workerIdentityModel = {
       id: 'public',
     };
 
     const params = {
       id: '94619026-912b-4d92-8f51-6c74f0692d90',
-      enableSlackNotifications: false,
+      enableNotifications: false,
       enablePartialCloning: false,
-      worker: workerWithIdModel,
+      worker: workerIdentityModel,
     };
 
     const res = await cdTektonPipelineService.updateTektonPipeline(params);
@@ -96,6 +98,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('listTektonPipelineRuns()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -111,6 +114,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('listTektonPipelineRuns() via TektonPipelineRunsPager', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -137,13 +141,25 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(allItems).toHaveLength(allResults.length);
     console.log(`Retrieved a total of ${allResults.length} items(s) with pagination.`);
   });
+
   test('createTektonPipelineRun()', async () => {
+    // Request models needed by this operation.
+
+    // Property
+    const propertyModel = {
+      name: 'testString',
+      value: 'testString',
+      enum: ['testString'],
+      type: 'secure',
+      path: 'testString',
+    };
+
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       triggerName: 'Generic Webhook Trigger - 0',
-      triggerProperties: { 'pipeline-debug': 'false' },
-      secureTriggerProperties: { 'secure-property-key': 'secure value' },
-      triggerHeader: { source: 'api' },
+      triggerProperties: [propertyModel],
+      secureTriggerProperties: [propertyModel],
+      triggerHeaders: { source: 'api' },
       triggerBody: { message: 'hello world', enable: 'true', detail: { name: 'example' } },
     };
 
@@ -152,6 +168,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
   });
+
   test('getTektonPipelineRun()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -164,6 +181,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('cancelTektonPipelineRun()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -176,6 +194,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(202);
     expect(res.result).toBeDefined();
   });
+
   test('rerunTektonPipelineRun()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -187,6 +206,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
   });
+
   test('getTektonPipelineRunLogs()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -198,6 +218,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('getTektonPipelineRunLogContent()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -210,6 +231,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('listTektonPipelineDefinitions()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -220,22 +242,33 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('createTektonPipelineDefinition()', async () => {
     // Request models needed by this operation.
 
-    // DefinitionScmSource
-    const definitionScmSourceModel = {
-      url: 'https://github.com/IBM/tekton-tutorial.git',
+    // DefinitionSourcePropertiesTool
+    const definitionSourcePropertiesToolModel = {
+      id: 'testString',
+    };
+
+    // DefinitionSourceProperties
+    const definitionSourcePropertiesModel = {
+      url: 'https://github.com/open-toolchain/hello-tekton.git',
       branch: 'master',
       tag: 'testString',
       path: '.tekton',
-      service_instance_id: 'testString',
+      tool: definitionSourcePropertiesToolModel,
+    };
+
+    // DefinitionSource
+    const definitionSourceModel = {
+      type: 'git',
+      properties: definitionSourcePropertiesModel,
     };
 
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
-      scmSource: definitionScmSourceModel,
-      id: 'testString',
+      source: definitionSourceModel,
     };
 
     const res = await cdTektonPipelineService.createTektonPipelineDefinition(params);
@@ -243,6 +276,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
   });
+
   test('getTektonPipelineDefinition()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -254,23 +288,34 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('replaceTektonPipelineDefinition()', async () => {
     // Request models needed by this operation.
 
-    // DefinitionScmSource
-    const definitionScmSourceModel = {
-      url: 'https://github.com/IBM/tekton-tutorial.git',
-      branch: 'master',
+    // DefinitionSourcePropertiesTool
+    const definitionSourcePropertiesToolModel = {
+      id: 'testString',
+    };
+
+    // DefinitionSourceProperties
+    const definitionSourcePropertiesModel = {
+      url: 'testString',
+      branch: 'testString',
       tag: 'testString',
-      path: '.tekton',
-      service_instance_id: '071d8049-d984-4feb-a2ed-2a1e938918ba',
+      path: 'testString',
+      tool: definitionSourcePropertiesToolModel,
+    };
+
+    // DefinitionSource
+    const definitionSourceModel = {
+      type: 'testString',
+      properties: definitionSourcePropertiesModel,
     };
 
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       definitionId: '94299034-d45f-4e9a-8ed5-6bd5c7bb7ada',
-      scmSource: definitionScmSourceModel,
-      id: '22f92ab1-e0ac-4c65-84e7-8a4cb32dba0f',
+      source: definitionSourceModel,
     };
 
     const res = await cdTektonPipelineService.replaceTektonPipelineDefinition(params);
@@ -278,6 +323,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('listTektonPipelineProperties()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -291,12 +337,13 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('createTektonPipelineProperties()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
-      name: 'key1',
+      name: 'prop1',
       type: 'text',
-      value: 'https://github.com/IBM/tekton-tutorial.git',
+      value: 'https://github.com/open-toolchain/hello-tekton.git',
       _enum: ['testString'],
       path: 'testString',
     };
@@ -306,6 +353,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
   });
+
   test('getTektonPipelineProperty()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -317,13 +365,14 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('replaceTektonPipelineProperty()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       propertyName: 'debug-pipeline',
-      name: 'key1',
+      name: 'prop1',
       type: 'text',
-      value: 'https://github.com/IBM/tekton-tutorial.git',
+      value: 'https://github.com/open-toolchain/hello-tekton.git',
       _enum: ['testString'],
       path: 'testString',
     };
@@ -333,6 +382,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('listTektonPipelineTriggers()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -350,6 +400,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('createTektonPipelineTrigger()', async () => {
     // Request models needed by this operation.
 
@@ -369,21 +420,25 @@ describe('CdTektonPipelineV2_integration', () => {
       algorithm: 'md4',
     };
 
-    // TriggerScmSource
-    const triggerScmSourceModel = {
+    // TriggerSourcePropertiesTool
+    const triggerSourcePropertiesToolModel = {
+      id: 'testString',
+    };
+
+    // TriggerSourceProperties
+    const triggerSourcePropertiesModel = {
       url: 'testString',
       branch: 'testString',
       pattern: 'testString',
       blind_connection: true,
       hook_id: 'testString',
-      service_instance_id: 'testString',
+      tool: triggerSourcePropertiesToolModel,
     };
 
-    // Events
-    const eventsModel = {
-      push: true,
-      pull_request_closed: true,
-      pull_request: true,
+    // TriggerSource
+    const triggerSourceModel = {
+      type: 'testString',
+      properties: triggerSourcePropertiesModel,
     };
 
     const params = {
@@ -391,15 +446,15 @@ describe('CdTektonPipelineV2_integration', () => {
       type: 'manual',
       name: 'Manual Trigger',
       eventListener: 'pr-listener',
-      disabled: false,
+      enabled: true,
       tags: ['testString'],
       worker: workerModel,
       maxConcurrentRuns: 3,
       secret: genericSecretModel,
       cron: 'testString',
       timezone: 'testString',
-      scmSource: triggerScmSourceModel,
-      events: eventsModel,
+      source: triggerSourceModel,
+      events: ['push'],
     };
 
     const res = await cdTektonPipelineService.createTektonPipelineTrigger(params);
@@ -407,6 +462,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
   });
+
   test('getTektonPipelineTrigger()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -418,6 +474,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('updateTektonPipelineTrigger()', async () => {
     // Request models needed by this operation.
 
@@ -437,21 +494,25 @@ describe('CdTektonPipelineV2_integration', () => {
       algorithm: 'md4',
     };
 
-    // TriggerScmSource
-    const triggerScmSourceModel = {
+    // TriggerSourcePropertiesTool
+    const triggerSourcePropertiesToolModel = {
+      id: 'testString',
+    };
+
+    // TriggerSourceProperties
+    const triggerSourcePropertiesModel = {
       url: 'testString',
       branch: 'testString',
       pattern: 'testString',
       blind_connection: true,
       hook_id: 'testString',
-      service_instance_id: 'testString',
+      tool: triggerSourcePropertiesToolModel,
     };
 
-    // Events
-    const eventsModel = {
-      push: true,
-      pull_request_closed: true,
-      pull_request: true,
+    // TriggerSource
+    const triggerSourceModel = {
+      type: 'testString',
+      properties: triggerSourcePropertiesModel,
     };
 
     const params = {
@@ -463,12 +524,12 @@ describe('CdTektonPipelineV2_integration', () => {
       tags: ['testString'],
       worker: workerModel,
       maxConcurrentRuns: 38,
-      disabled: true,
+      enabled: true,
       secret: genericSecretModel,
       cron: 'testString',
       timezone: 'testString',
-      scmSource: triggerScmSourceModel,
-      events: eventsModel,
+      source: triggerSourceModel,
+      events: ['push'],
     };
 
     const res = await cdTektonPipelineService.updateTektonPipelineTrigger(params);
@@ -476,6 +537,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('duplicateTektonPipelineTrigger()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -488,6 +550,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
   });
+
   test('listTektonPipelineTriggerProperties()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -502,13 +565,14 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('createTektonPipelineTriggerProperties()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       triggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
-      name: 'key1',
+      name: 'prop1',
       type: 'text',
-      value: 'https://github.com/IBM/tekton-tutorial.git',
+      value: 'https://github.com/open-toolchain/hello-tekton.git',
       _enum: ['testString'],
       path: 'testString',
     };
@@ -518,6 +582,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
   });
+
   test('getTektonPipelineTriggerProperty()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -530,14 +595,15 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('replaceTektonPipelineTriggerProperty()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       triggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
       propertyName: 'debug-pipeline',
-      name: 'key1',
+      name: 'prop1',
       type: 'text',
-      value: 'https://github.com/IBM/tekton-tutorial.git',
+      value: 'https://github.com/open-toolchain/hello-tekton.git',
       _enum: ['testString'],
       path: 'testString',
     };
@@ -547,6 +613,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('deleteTektonPipelineTriggerProperty()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -559,6 +626,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
   });
+
   test('deleteTektonPipelineTrigger()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -570,6 +638,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
   });
+
   test('deleteTektonPipelineRun()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -581,6 +650,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
   });
+
   test('deleteTektonPipelineProperty()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -592,6 +662,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
   });
+
   test('deleteTektonPipelineDefinition()', async () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
@@ -603,6 +674,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
   });
+
   test('deleteTektonPipeline()', async () => {
     const params = {
       id: '94619026-912b-4d92-8f51-6c74f0692d90',

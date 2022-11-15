@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.54.2-6c0e29d4-20220824-204545
+ * IBM OpenAPI SDK Code Generator Version: 3.58.0-ac124633-20221004-152309
  */
 
 /* eslint-disable max-classes-per-file */
@@ -128,20 +128,21 @@ class CdTektonPipelineV2 extends BaseService {
   /**
    * Create Tekton pipeline.
    *
-   * This request creates a Tekton pipeline for a Tekton pipeline toolchain integration. User must use the toolchain
-   * endpoint to create the Tekton pipeline toolchain integration first, and then use the generated UUID to create the
-   * Tekton pipeline.
+   * This request creates a Tekton pipeline. Requires a pipeline tool already created in the toolchain using the
+   * toolchain API https://cloud.ibm.com/apidocs/toolchain#create-tool, and use the tool ID to create the Tekton
+   * pipeline.
    *
    * @param {Object} [params] - The parameters to send to the service.
-   * @param {string} [params.id] - UUID.
-   * @param {boolean} [params.enableSlackNotifications] - Flag whether to enable slack notifications for this pipeline.
-   * When enabled, pipeline run events will be published on all slack integration specified channels in the enclosing
-   * toolchain.
+   * @param {string} [params.id] - The ID for the associated pipeline tool, which was already created in the target
+   * toolchain. To get the pipeline ID call the toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools and
+   * find the pipeline tool.
+   * @param {boolean} [params.enableNotifications] - Flag whether to enable notifications for this pipeline. When
+   * enabled, pipeline run events are published on all slack integration specified channels in the parent toolchain.
    * @param {boolean} [params.enablePartialCloning] - Flag whether to enable partial cloning for this pipeline. When
-   * partial clone is enabled, only the files contained within the paths specified in definition repositories will be
-   * read and cloned. This means symbolic links may not work.
-   * @param {WorkerWithId} [params.worker] - Worker object containing worker ID only. If omitted the IBM Managed shared
-   * workers are used by default.
+   * partial clone is enabled, only the files contained within the paths specified in definition repositories are read
+   * and cloned, this means that symbolic links might not work.
+   * @param {WorkerIdentity} [params.worker] - Worker object containing worker ID only. If omitted the IBM Managed
+   * shared workers are used by default.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TektonPipeline>>}
    */
@@ -150,13 +151,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TektonPipeline>> {
     const _params = { ...params };
     const _requiredParams = [];
-    const _validParams = [
-      'id',
-      'enableSlackNotifications',
-      'enablePartialCloning',
-      'worker',
-      'headers',
-    ];
+    const _validParams = ['id', 'enableNotifications', 'enablePartialCloning', 'worker', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -164,7 +159,7 @@ class CdTektonPipelineV2 extends BaseService {
 
     const body = {
       'id': _params.id,
-      'enable_slack_notifications': _params.enableSlackNotifications,
+      'enable_notifications': _params.enableNotifications,
       'enable_partial_cloning': _params.enablePartialCloning,
       'worker': _params.worker,
     };
@@ -257,14 +252,13 @@ class CdTektonPipelineV2 extends BaseService {
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.id - ID of current instance.
-   * @param {boolean} [params.enableSlackNotifications] - Flag whether to enable slack notifications for this pipeline.
-   * When enabled, pipeline run events will be published on all slack integration specified channels in the enclosing
-   * toolchain.
+   * @param {boolean} [params.enableNotifications] - Flag whether to enable notifications for this pipeline. When
+   * enabled, pipeline run events are published on all slack integration specified channels in the parent toolchain.
    * @param {boolean} [params.enablePartialCloning] - Flag whether to enable partial cloning for this pipeline. When
-   * partial clone is enabled, only the files contained within the paths specified in definition repositories will be
-   * read and cloned. This means symbolic links may not work.
-   * @param {WorkerWithId} [params.worker] - Worker object containing worker ID only. If omitted the IBM Managed shared
-   * workers are used by default.
+   * partial clone is enabled, only the files contained within the paths specified in definition repositories are read
+   * and cloned, this means that symbolic links might not work.
+   * @param {WorkerIdentity} [params.worker] - Worker object containing worker ID only. If omitted the IBM Managed
+   * shared workers are used by default.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TektonPipeline>>}
    */
@@ -273,20 +267,14 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TektonPipeline>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = [
-      'id',
-      'enableSlackNotifications',
-      'enablePartialCloning',
-      'worker',
-      'headers',
-    ];
+    const _validParams = ['id', 'enableNotifications', 'enablePartialCloning', 'worker', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const body = {
-      'enable_slack_notifications': _params.enableSlackNotifications,
+      'enable_notifications': _params.enableNotifications,
       'enable_partial_cloning': _params.enablePartialCloning,
       'worker': _params.worker,
     };
@@ -332,11 +320,11 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.id - ID of current instance.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Empty>>}
+   * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.EmptyObject>>}
    */
   public deleteTektonPipeline(
     params: CdTektonPipelineV2.DeleteTektonPipelineParams
-  ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Empty>> {
+  ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
     const _validParams = ['id', 'headers'];
@@ -457,14 +445,17 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.pipelineId - The Tekton pipeline ID.
    * @param {string} [params.triggerName] - Trigger name.
-   * @param {JsonObject} [params.triggerProperties] - An object containing string values only that provides additional
-   * `text` properties, or overrides existing pipeline/trigger properties.
-   * @param {JsonObject} [params.secureTriggerProperties] - An object containing string values only that provides
-   * additional `secure` properties, or overrides existing `secure` pipeline/trigger properties.
-   * @param {JsonObject} [params.triggerHeader] - An object containing string values only that provides the trigger
-   * header. Use `$(header.header_key_name)` to access it in triggerBinding.
-   * @param {JsonObject} [params.triggerBody] - An object that provides the trigger body. Use `$(body.body_key_name)` to
-   * access it in triggerBinding.
+   * @param {Property[]} [params.triggerProperties] - An object containing string values only that provides additional
+   * `text` properties, or overrides existing pipeline/trigger properties, to use for the created run.
+   * @param {Property[]} [params.secureTriggerProperties] - An object containing string values only that provides
+   * additional `secure` properties, or overrides existing `secure` pipeline/trigger properties, to use for the created
+   * run.
+   * @param {JsonObject} [params.triggerHeaders] - An object containing string values only that provides the request
+   * headers. Use `$(header.header_key_name)` to access it in a TriggerBinding. Most commonly used as part of a Generic
+   * Webhook to provide a verification token or signature in the request headers.
+   * @param {JsonObject} [params.triggerBody] - An object that provides the request body. Use `$(body.body_key_name)` to
+   * access it in a TriggerBinding. Most commonly used to pass in additional properties or override properties for the
+   * pipeline run that is created.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.PipelineRun>>}
    */
@@ -478,7 +469,7 @@ class CdTektonPipelineV2 extends BaseService {
       'triggerName',
       'triggerProperties',
       'secureTriggerProperties',
-      'triggerHeader',
+      'triggerHeaders',
       'triggerBody',
       'headers',
     ];
@@ -491,7 +482,7 @@ class CdTektonPipelineV2 extends BaseService {
       'trigger_name': _params.triggerName,
       'trigger_properties': _params.triggerProperties,
       'secure_trigger_properties': _params.secureTriggerProperties,
-      'trigger_header': _params.triggerHeader,
+      'trigger_headers': _params.triggerHeaders,
       'trigger_body': _params.triggerBody,
     };
 
@@ -531,8 +522,7 @@ class CdTektonPipelineV2 extends BaseService {
   /**
    * Get a pipeline run record.
    *
-   * This request retrieves details of the pipeline run identified by `{id}`. To get the Kubernetes resource list of
-   * this pipeline run use the endpoint `/tekton_pipelines/{pipeline_id}/tekton_pipelinerun_resource_list/{id}`.
+   * This request retrieves details of the pipeline run identified by `{id}`.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.pipelineId - The Tekton pipeline ID.
@@ -598,11 +588,11 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} params.pipelineId - The Tekton pipeline ID.
    * @param {string} params.id - ID of current instance.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Empty>>}
+   * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.EmptyObject>>}
    */
   public deleteTektonPipelineRun(
     params: CdTektonPipelineV2.DeleteTektonPipelineRunParams
-  ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Empty>> {
+  ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'id'];
     const _validParams = ['pipelineId', 'id', 'headers'];
@@ -819,11 +809,11 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} params.pipelineRunId - The Tekton pipeline run ID.
    * @param {string} params.id - ID of current instance.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Log>>}
+   * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.StepLog>>}
    */
   public getTektonPipelineRunLogContent(
     params: CdTektonPipelineV2.GetTektonPipelineRunLogContentParams
-  ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Log>> {
+  ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.StepLog>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'pipelineRunId', 'id'];
     const _validParams = ['pipelineId', 'pipelineRunId', 'id', 'headers'];
@@ -872,7 +862,10 @@ class CdTektonPipelineV2 extends BaseService {
    * List pipeline definitions.
    *
    * This request fetches pipeline definitions, which is a collection of individual definition entries. Each entry
-   * consists of a repository url, a repository branch and a repository path.
+   * consists of a repository url, a repository path and a branch or tag. The referenced repository URL must match the
+   * URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain
+   * API https://cloud.ibm.com/apidocs/toolchain#list-tools. The branch or tag of the definition must match against a
+   * corresponding branch or tag in the chosen repository, and the path must match a subfolder in the repository.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.pipelineId - The Tekton pipeline ID.
@@ -924,12 +917,15 @@ class CdTektonPipelineV2 extends BaseService {
   /**
    * Create a single definition.
    *
-   * This request adds a single definition.
+   * This request adds a single definition. The source properties should consist of a repository url, a repository path
+   * and a branch or tag. The referenced repository URL must match the URL of a repository tool integration in the
+   * parent toolchain. Obtain the list of integrations from the toolchain API
+   * https://cloud.ibm.com/apidocs/toolchain#list-tools. The branch or tag of the definition must match against a
+   * corresponding branch or tag in the chosen repository, and the path must match a subfolder in the repository.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.pipelineId - The Tekton pipeline ID.
-   * @param {DefinitionScmSource} [params.scmSource] - SCM source for Tekton pipeline definition.
-   * @param {string} [params.id] - UUID.
+   * @param {DefinitionSource} [params.source] - Source repository containing the Tekton pipeline definition.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Definition>>}
    */
@@ -938,15 +934,14 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Definition>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId'];
-    const _validParams = ['pipelineId', 'scmSource', 'id', 'headers'];
+    const _validParams = ['pipelineId', 'source', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const body = {
-      'scm_source': _params.scmSource,
-      'id': _params.id,
+      'source': _params.source,
     };
 
     const path = {
@@ -1040,14 +1035,12 @@ class CdTektonPipelineV2 extends BaseService {
   /**
    * Edit a single definition entry.
    *
-   * This request updates a definition entry identified by `{definition_id}`. The service_instance_id property is
-   * immutable.
+   * This request updates a definition entry identified by `{definition_id}`.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.pipelineId - The Tekton pipeline ID.
    * @param {string} params.definitionId - The definition ID.
-   * @param {DefinitionScmSource} [params.scmSource] - SCM source for Tekton pipeline definition.
-   * @param {string} [params.id] - UUID.
+   * @param {DefinitionSource} [params.source] - Source repository containing the Tekton pipeline definition.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Definition>>}
    */
@@ -1056,15 +1049,14 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Definition>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'definitionId'];
-    const _validParams = ['pipelineId', 'definitionId', 'scmSource', 'id', 'headers'];
+    const _validParams = ['pipelineId', 'definitionId', 'source', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const body = {
-      'scm_source': _params.scmSource,
-      'id': _params.id,
+      'source': _params.source,
     };
 
     const path = {
@@ -1110,11 +1102,11 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} params.pipelineId - The Tekton pipeline ID.
    * @param {string} params.definitionId - The definition ID.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Empty>>}
+   * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.EmptyObject>>}
    */
   public deleteTektonPipelineDefinition(
     params: CdTektonPipelineV2.DeleteTektonPipelineDefinitionParams
-  ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Empty>> {
+  ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'definitionId'];
     const _validParams = ['pipelineId', 'definitionId', 'headers'];
@@ -1223,11 +1215,11 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} params.pipelineId - The Tekton pipeline ID.
    * @param {string} [params.name] - Property name.
    * @param {string} [params.type] - Property type.
-   * @param {string} [params.value] - Property value.
+   * @param {string} [params.value] - Property value. Any string value is valid.
    * @param {string[]} [params._enum] - Options for `single_select` property type. Only needed when using
    * `single_select` property type.
-   * @param {string} [params.path] - A dot notation path for `integration` type properties to select a value from the
-   * tool integration.
+   * @param {string} [params.path] - A dot notation path for `integration` type properties only, to select a value from
+   * the tool integration. If left blank the full tool integration data will be used.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Property>>}
    */
@@ -1348,11 +1340,11 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} params.propertyName - The property name.
    * @param {string} [params.name] - Property name.
    * @param {string} [params.type] - Property type.
-   * @param {string} [params.value] - Property value.
+   * @param {string} [params.value] - Property value. Any string value is valid.
    * @param {string[]} [params._enum] - Options for `single_select` property type. Only needed when using
    * `single_select` property type.
-   * @param {string} [params.path] - A dot notation path for `integration` type properties to select a value from the
-   * tool integration.
+   * @param {string} [params.path] - A dot notation path for `integration` type properties only, to select a value from
+   * the tool integration. If left blank the full tool integration data will be used.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Property>>}
    */
@@ -1427,11 +1419,11 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} params.pipelineId - The Tekton pipeline ID.
    * @param {string} params.propertyName - The property name.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Empty>>}
+   * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.EmptyObject>>}
    */
   public deleteTektonPipelineProperty(
     params: CdTektonPipelineV2.DeleteTektonPipelinePropertyParams
-  ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Empty>> {
+  ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'propertyName'];
     const _validParams = ['pipelineId', 'propertyName', 'headers'];
@@ -1475,14 +1467,14 @@ class CdTektonPipelineV2 extends BaseService {
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.pipelineId - The Tekton pipeline ID.
-   * @param {string} [params.type] - Filter the triggers by "type", accepts a comma separated list of types. Valid types
-   * are "manual", "scm", "generic", and "timer".
-   * @param {string} [params.name] - Filter the triggers by "name", accepts a single string value.
-   * @param {string} [params.eventListener] - Filter the triggers by "event_listener", accepts a single string value.
-   * @param {string} [params.workerId] - Filter the triggers by "worker.id", accepts a single string value.
-   * @param {string} [params.workerName] - Filter the triggers by "worker.name", accepts a single string value.
-   * @param {string} [params.disabled] - Filter the triggers by "disabled" flag, possible values are "true" or "false".
-   * @param {string} [params.tags] - Filter the triggers by "tags", accepts a comma separated list of tags. The response
+   * @param {string} [params.type] - Optional filter by "type", accepts a comma separated list of types. Valid types are
+   * "manual", "scm", "generic", and "timer".
+   * @param {string} [params.name] - Optional filter by "name", accepts a single string value.
+   * @param {string} [params.eventListener] - Optional filter by "event_listener", accepts a single string value.
+   * @param {string} [params.workerId] - Optional filter by "worker.id", accepts a single string value.
+   * @param {string} [params.workerName] - Optional filter by "worker.name", accepts a single string value.
+   * @param {string} [params.disabled] - Optional filter by "disabled" state, possible values are "true" or "false".
+   * @param {string} [params.tags] - Optional filter by "tags", accepts a comma separated list of tags. The response
    * lists triggers having at least one matching tag.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TriggersCollection>>}
@@ -1561,21 +1553,28 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} [params.name] - Trigger name.
    * @param {string} [params.eventListener] - Event listener name. The name of the event listener to which the trigger
    * is associated. The event listeners are defined in the definition repositories of the Tekton pipeline.
-   * @param {boolean} [params.disabled] - Flag whether the trigger is disabled. If omitted the trigger is enabled by
+   * @param {boolean} [params.enabled] - Flag whether the trigger is enabled. If omitted the trigger is enabled by
    * default.
    * @param {string[]} [params.tags] - Trigger tags array.
    * @param {Worker} [params.worker] - Worker used to run the trigger. If not specified the trigger will use the default
    * pipeline worker.
-   * @param {number} [params.maxConcurrentRuns] - Defines the maximum number of concurrent runs for this trigger. Omit
-   * this property to disable the concurrency limit.
+   * @param {number} [params.maxConcurrentRuns] - Defines the maximum number of concurrent runs for this trigger. If
+   * omitted then the concurrency limit is disabled for this trigger.
    * @param {GenericSecret} [params.secret] - Only needed for generic webhook trigger type. Secret used to start generic
    * webhook trigger.
-   * @param {string} [params.cron] - Only needed for timer triggers. Cron expression for timer trigger.
-   * @param {string} [params.timezone] - Only needed for timer triggers. Timezone for timer trigger.
-   * @param {TriggerScmSource} [params.scmSource] - SCM source repository for a Git trigger. Only needed for Git
-   * triggers.
-   * @param {Events} [params.events] - Only needed for Git triggers. Events object defines the events to which this Git
-   * trigger listens.
+   * @param {string} [params.cron] - Only needed for timer triggers. Cron expression that indicates when this trigger
+   * will activate. Maximum frequency is every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day
+   * of month, month, day of week. Example: 0 *_/2 * * * - every 2 hours.
+   * @param {string} [params.timezone] - Only used for timer triggers. Specify the timezone used for this timer trigger,
+   * which will ensure the cron activates this trigger relative to the specified timezone. If no timezone is specified,
+   * the default timezone used is UTC. Valid timezones are those listed in the IANA timezone database,
+   * https://www.iana.org/time-zones.
+   * @param {TriggerSource} [params.source] - Source repository for a Git trigger. Only required for Git triggers. The
+   * referenced repository URL must match the URL of a repository tool integration in the parent toolchain. Obtain the
+   * list of integrations from the toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools.
+   * @param {string[]} [params.events] - Only needed for Git triggers. List of events to which a Git trigger listens.
+   * Choose one or more from: 'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge
+   * request' events, such events map to the equivalent 'pull request' events.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Trigger>>}
    */
@@ -1589,14 +1588,14 @@ class CdTektonPipelineV2 extends BaseService {
       'type',
       'name',
       'eventListener',
-      'disabled',
+      'enabled',
       'tags',
       'worker',
       'maxConcurrentRuns',
       'secret',
       'cron',
       'timezone',
-      'scmSource',
+      'source',
       'events',
       'headers',
     ];
@@ -1609,14 +1608,14 @@ class CdTektonPipelineV2 extends BaseService {
       'type': _params.type,
       'name': _params.name,
       'event_listener': _params.eventListener,
-      'disabled': _params.disabled,
+      'enabled': _params.enabled,
       'tags': _params.tags,
       'worker': _params.worker,
       'max_concurrent_runs': _params.maxConcurrentRuns,
       'secret': _params.secret,
       'cron': _params.cron,
       'timezone': _params.timezone,
-      'scm_source': _params.scmSource,
+      'source': _params.source,
       'events': _params.events,
     };
 
@@ -1723,17 +1722,25 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string[]} [params.tags] - Trigger tags array. Optional tags for the trigger.
    * @param {Worker} [params.worker] - Worker used to run the trigger. If not specified the trigger will use the default
    * pipeline worker.
-   * @param {number} [params.maxConcurrentRuns] - Defines the maximum number of concurrent runs for this trigger. Omit
-   * this property to disable the concurrency limit.
-   * @param {boolean} [params.disabled] - Defines if this trigger is disabled.
+   * @param {number} [params.maxConcurrentRuns] - Defines the maximum number of concurrent runs for this trigger. If
+   * omitted then the concurrency limit is disabled for this trigger.
+   * @param {boolean} [params.enabled] - Defines if this trigger is enabled. If omitted the trigger is enabled by
+   * default.
    * @param {GenericSecret} [params.secret] - Only needed for generic webhook trigger type. Secret used to start generic
    * webhook trigger.
-   * @param {string} [params.cron] - Only needed for timer triggers. Cron expression for timer trigger.
-   * @param {string} [params.timezone] - Only needed for timer triggers. Timezone for timer trigger.
-   * @param {TriggerScmSource} [params.scmSource] - SCM source repository for a Git trigger. Only needed for Git
-   * triggers.
-   * @param {Events} [params.events] - Only needed for Git triggers. Events object defines the events to which this Git
-   * trigger listens.
+   * @param {string} [params.cron] - Only needed for timer triggers. Cron expression that indicates when this trigger
+   * will activate. Maximum frequency is every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day
+   * of month, month, day of week. Example: 0 *_/2 * * * - every 2 hours.
+   * @param {string} [params.timezone] - Only used for timer triggers. Specify the timezone used for this timer trigger,
+   * which will ensure the cron activates this trigger relative to the specified timezone. If no timezone is specified,
+   * the default timezone used is UTC. Valid timezones are those listed in the IANA timezone database,
+   * https://www.iana.org/time-zones.
+   * @param {TriggerSource} [params.source] - Source repository for a Git trigger. Only required for Git triggers. The
+   * referenced repository URL must match the URL of a repository tool integration in the parent toolchain. Obtain the
+   * list of integrations from the toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools.
+   * @param {string[]} [params.events] - Only needed for Git triggers. List of events to which a Git trigger listens.
+   * Choose one or more from: 'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge
+   * request' events, such events map to the equivalent 'pull request' events.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Trigger>>}
    */
@@ -1751,11 +1758,11 @@ class CdTektonPipelineV2 extends BaseService {
       'tags',
       'worker',
       'maxConcurrentRuns',
-      'disabled',
+      'enabled',
       'secret',
       'cron',
       'timezone',
-      'scmSource',
+      'source',
       'events',
       'headers',
     ];
@@ -1771,11 +1778,11 @@ class CdTektonPipelineV2 extends BaseService {
       'tags': _params.tags,
       'worker': _params.worker,
       'max_concurrent_runs': _params.maxConcurrentRuns,
-      'disabled': _params.disabled,
+      'enabled': _params.enabled,
       'secret': _params.secret,
       'cron': _params.cron,
       'timezone': _params.timezone,
-      'scm_source': _params.scmSource,
+      'source': _params.source,
       'events': _params.events,
     };
 
@@ -1822,11 +1829,11 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} params.pipelineId - The Tekton pipeline ID.
    * @param {string} params.triggerId - The trigger ID.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Empty>>}
+   * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.EmptyObject>>}
    */
   public deleteTektonPipelineTrigger(
     params: CdTektonPipelineV2.DeleteTektonPipelineTriggerParams
-  ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Empty>> {
+  ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'triggerId'];
     const _validParams = ['pipelineId', 'triggerId', 'headers'];
@@ -1932,10 +1939,10 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.pipelineId - The Tekton pipeline ID.
    * @param {string} params.triggerId - The trigger ID.
-   * @param {string} params.name - Filter properties by `name`.
-   * @param {string} params.type - Filter properties by `type`. Valid types are `secure`, `text`, `integration`,
+   * @param {string} [params.name] - Filter properties by `name`.
+   * @param {string} [params.type] - Filter properties by `type`. Valid types are `secure`, `text`, `integration`,
    * `single_select`, `appconfig`.
-   * @param {string} params.sort - Sort properties by name. They can be sorted in ascending order using `name` or in
+   * @param {string} [params.sort] - Sort properties by name. They can be sorted in ascending order using `name` or in
    * descending order using `-name`.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TriggerPropertiesCollection>>}
@@ -1944,7 +1951,7 @@ class CdTektonPipelineV2 extends BaseService {
     params: CdTektonPipelineV2.ListTektonPipelineTriggerPropertiesParams
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TriggerPropertiesCollection>> {
     const _params = { ...params };
-    const _requiredParams = ['pipelineId', 'triggerId', 'name', 'type', 'sort'];
+    const _requiredParams = ['pipelineId', 'triggerId'];
     const _validParams = ['pipelineId', 'triggerId', 'name', 'type', 'sort', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
@@ -2000,11 +2007,11 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} params.triggerId - The trigger ID.
    * @param {string} [params.name] - Property name.
    * @param {string} [params.type] - Property type.
-   * @param {string} [params.value] - Property value.
+   * @param {string} [params.value] - Property value. Any string value is valid.
    * @param {string[]} [params._enum] - Options for `single_select` property type. Only needed for `single_select`
    * property type.
-   * @param {string} [params.path] - A dot notation path for `integration` type properties to select a value from the
-   * tool integration. If left blank the full tool integration data will be used.
+   * @param {string} [params.path] - A dot notation path for `integration` type properties only, to select a value from
+   * the tool integration. If left blank the full tool integration data will be used.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TriggerProperty>>}
    */
@@ -2137,11 +2144,11 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} params.propertyName - The property name.
    * @param {string} [params.name] - Property name.
    * @param {string} [params.type] - Property type.
-   * @param {string} [params.value] - Property value.
+   * @param {string} [params.value] - Property value. Any string value is valid.
    * @param {string[]} [params._enum] - Options for `single_select` property type. Only needed for `single_select`
    * property type.
-   * @param {string} [params.path] - A dot notation path for `integration` type properties to select a value from the
-   * tool integration. If left blank the full tool integration data will be used.
+   * @param {string} [params.path] - A dot notation path for `integration` type properties only, to select a value from
+   * the tool integration. If left blank the full tool integration data will be used.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TriggerProperty>>}
    */
@@ -2219,11 +2226,11 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} params.triggerId - The trigger ID.
    * @param {string} params.propertyName - The property name.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Empty>>}
+   * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.EmptyObject>>}
    */
   public deleteTektonPipelineTriggerProperty(
     params: CdTektonPipelineV2.DeleteTektonPipelineTriggerPropertyParams
-  ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Empty>> {
+  ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'triggerId', 'propertyName'];
     const _validParams = ['pipelineId', 'triggerId', 'propertyName', 'headers'];
@@ -2276,7 +2283,7 @@ namespace CdTektonPipelineV2 {
   export type Callback<T> = (error: any, response?: Response<T>) => void;
 
   /** The body of a service request that returns no response data. */
-  export interface Empty {}
+  export interface EmptyObject {}
 
   /** A standard JS object, defined to avoid the limitations of `Object` and `object` */
   export interface JsonObject {
@@ -2289,19 +2296,22 @@ namespace CdTektonPipelineV2 {
 
   /** Parameters for the `createTektonPipeline` operation. */
   export interface CreateTektonPipelineParams {
-    /** UUID. */
-    id?: string;
-    /** Flag whether to enable slack notifications for this pipeline. When enabled, pipeline run events will be
-     *  published on all slack integration specified channels in the enclosing toolchain.
+    /** The ID for the associated pipeline tool, which was already created in the target toolchain. To get the
+     *  pipeline ID call the toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools and find the pipeline
+     *  tool.
      */
-    enableSlackNotifications?: boolean;
+    id?: string;
+    /** Flag whether to enable notifications for this pipeline. When enabled, pipeline run events are published on
+     *  all slack integration specified channels in the parent toolchain.
+     */
+    enableNotifications?: boolean;
     /** Flag whether to enable partial cloning for this pipeline. When partial clone is enabled, only the files
-     *  contained within the paths specified in definition repositories will be read and cloned. This means symbolic
-     *  links may not work.
+     *  contained within the paths specified in definition repositories are read and cloned, this means that symbolic
+     *  links might not work.
      */
     enablePartialCloning?: boolean;
     /** Worker object containing worker ID only. If omitted the IBM Managed shared workers are used by default. */
-    worker?: WorkerWithId;
+    worker?: WorkerIdentity;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -2316,17 +2326,17 @@ namespace CdTektonPipelineV2 {
   export interface UpdateTektonPipelineParams {
     /** ID of current instance. */
     id: string;
-    /** Flag whether to enable slack notifications for this pipeline. When enabled, pipeline run events will be
-     *  published on all slack integration specified channels in the enclosing toolchain.
+    /** Flag whether to enable notifications for this pipeline. When enabled, pipeline run events are published on
+     *  all slack integration specified channels in the parent toolchain.
      */
-    enableSlackNotifications?: boolean;
+    enableNotifications?: boolean;
     /** Flag whether to enable partial cloning for this pipeline. When partial clone is enabled, only the files
-     *  contained within the paths specified in definition repositories will be read and cloned. This means symbolic
-     *  links may not work.
+     *  contained within the paths specified in definition repositories are read and cloned, this means that symbolic
+     *  links might not work.
      */
     enablePartialCloning?: boolean;
     /** Worker object containing worker ID only. If omitted the IBM Managed shared workers are used by default. */
-    worker?: WorkerWithId;
+    worker?: WorkerIdentity;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -2379,18 +2389,21 @@ namespace CdTektonPipelineV2 {
     /** Trigger name. */
     triggerName?: string;
     /** An object containing string values only that provides additional `text` properties, or overrides existing
-     *  pipeline/trigger properties.
+     *  pipeline/trigger properties, to use for the created run.
      */
-    triggerProperties?: JsonObject;
+    triggerProperties?: Property[];
     /** An object containing string values only that provides additional `secure` properties, or overrides existing
-     *  `secure` pipeline/trigger properties.
+     *  `secure` pipeline/trigger properties, to use for the created run.
      */
-    secureTriggerProperties?: JsonObject;
-    /** An object containing string values only that provides the trigger header. Use `$(header.header_key_name)` to
-     *  access it in triggerBinding.
+    secureTriggerProperties?: Property[];
+    /** An object containing string values only that provides the request headers. Use `$(header.header_key_name)`
+     *  to access it in a TriggerBinding. Most commonly used as part of a Generic Webhook to provide a verification
+     *  token or signature in the request headers.
      */
-    triggerHeader?: JsonObject;
-    /** An object that provides the trigger body. Use `$(body.body_key_name)` to access it in triggerBinding. */
+    triggerHeaders?: JsonObject;
+    /** An object that provides the request body. Use `$(body.body_key_name)` to access it in a TriggerBinding. Most
+     *  commonly used to pass in additional properties or override properties for the pipeline run that is created.
+     */
     triggerBody?: JsonObject;
     headers?: OutgoingHttpHeaders;
   }
@@ -2474,10 +2487,8 @@ namespace CdTektonPipelineV2 {
   export interface CreateTektonPipelineDefinitionParams {
     /** The Tekton pipeline ID. */
     pipelineId: string;
-    /** SCM source for Tekton pipeline definition. */
-    scmSource?: DefinitionScmSource;
-    /** UUID. */
-    id?: string;
+    /** Source repository containing the Tekton pipeline definition. */
+    source?: DefinitionSource;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -2496,10 +2507,8 @@ namespace CdTektonPipelineV2 {
     pipelineId: string;
     /** The definition ID. */
     definitionId: string;
-    /** SCM source for Tekton pipeline definition. */
-    scmSource?: DefinitionScmSource;
-    /** UUID. */
-    id?: string;
+    /** Source repository containing the Tekton pipeline definition. */
+    source?: DefinitionSource;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -2545,11 +2554,13 @@ namespace CdTektonPipelineV2 {
     name?: string;
     /** Property type. */
     type?: CreateTektonPipelinePropertiesConstants.Type | string;
-    /** Property value. */
+    /** Property value. Any string value is valid. */
     value?: string;
     /** Options for `single_select` property type. Only needed when using `single_select` property type. */
     _enum?: string[];
-    /** A dot notation path for `integration` type properties to select a value from the tool integration. */
+    /** A dot notation path for `integration` type properties only, to select a value from the tool integration. If
+     *  left blank the full tool integration data will be used.
+     */
     path?: string;
     headers?: OutgoingHttpHeaders;
   }
@@ -2585,11 +2596,13 @@ namespace CdTektonPipelineV2 {
     name?: string;
     /** Property type. */
     type?: ReplaceTektonPipelinePropertyConstants.Type | string;
-    /** Property value. */
+    /** Property value. Any string value is valid. */
     value?: string;
     /** Options for `single_select` property type. Only needed when using `single_select` property type. */
     _enum?: string[];
-    /** A dot notation path for `integration` type properties to select a value from the tool integration. */
+    /** A dot notation path for `integration` type properties only, to select a value from the tool integration. If
+     *  left blank the full tool integration data will be used.
+     */
     path?: string;
     headers?: OutgoingHttpHeaders;
   }
@@ -2619,21 +2632,21 @@ namespace CdTektonPipelineV2 {
   export interface ListTektonPipelineTriggersParams {
     /** The Tekton pipeline ID. */
     pipelineId: string;
-    /** Filter the triggers by "type", accepts a comma separated list of types. Valid types are "manual", "scm",
+    /** Optional filter by "type", accepts a comma separated list of types. Valid types are "manual", "scm",
      *  "generic", and "timer".
      */
     type?: string;
-    /** Filter the triggers by "name", accepts a single string value. */
+    /** Optional filter by "name", accepts a single string value. */
     name?: string;
-    /** Filter the triggers by "event_listener", accepts a single string value. */
+    /** Optional filter by "event_listener", accepts a single string value. */
     eventListener?: string;
-    /** Filter the triggers by "worker.id", accepts a single string value. */
+    /** Optional filter by "worker.id", accepts a single string value. */
     workerId?: string;
-    /** Filter the triggers by "worker.name", accepts a single string value. */
+    /** Optional filter by "worker.name", accepts a single string value. */
     workerName?: string;
-    /** Filter the triggers by "disabled" flag, possible values are "true" or "false". */
+    /** Optional filter by "disabled" state, possible values are "true" or "false". */
     disabled?: string;
-    /** Filter the triggers by "tags", accepts a comma separated list of tags. The response lists triggers having at
+    /** Optional filter by "tags", accepts a comma separated list of tags. The response lists triggers having at
      *  least one matching tag.
      */
     tags?: string;
@@ -2652,26 +2665,38 @@ namespace CdTektonPipelineV2 {
      *  are defined in the definition repositories of the Tekton pipeline.
      */
     eventListener?: string;
-    /** Flag whether the trigger is disabled. If omitted the trigger is enabled by default. */
-    disabled?: boolean;
+    /** Flag whether the trigger is enabled. If omitted the trigger is enabled by default. */
+    enabled?: boolean;
     /** Trigger tags array. */
     tags?: string[];
     /** Worker used to run the trigger. If not specified the trigger will use the default pipeline worker. */
     worker?: Worker;
-    /** Defines the maximum number of concurrent runs for this trigger. Omit this property to disable the
-     *  concurrency limit.
+    /** Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is
+     *  disabled for this trigger.
      */
     maxConcurrentRuns?: number;
     /** Only needed for generic webhook trigger type. Secret used to start generic webhook trigger. */
     secret?: GenericSecret;
-    /** Only needed for timer triggers. Cron expression for timer trigger. */
+    /** Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum
+     *  frequency is every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day
+     *  of week. Example: 0 *_/2 * * * - every 2 hours.
+     */
     cron?: string;
-    /** Only needed for timer triggers. Timezone for timer trigger. */
+    /** Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the cron
+     *  activates this trigger relative to the specified timezone. If no timezone is specified, the default timezone
+     *  used is UTC. Valid timezones are those listed in the IANA timezone database, https://www.iana.org/time-zones.
+     */
     timezone?: string;
-    /** SCM source repository for a Git trigger. Only needed for Git triggers. */
-    scmSource?: TriggerScmSource;
-    /** Only needed for Git triggers. Events object defines the events to which this Git trigger listens. */
-    events?: Events;
+    /** Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must
+     *  match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the
+     *  toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools.
+     */
+    source?: TriggerSource;
+    /** Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from:
+     *  'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such
+     *  events map to the equivalent 'pull request' events.
+     */
+    events?: CreateTektonPipelineTriggerConstants.Events | string[];
     headers?: OutgoingHttpHeaders;
   }
 
@@ -2683,6 +2708,12 @@ namespace CdTektonPipelineV2 {
       SCM = 'scm',
       TIMER = 'timer',
       GENERIC = 'generic',
+    }
+    /** List of events. Supported options are 'push' Git webhook events, 'pull_request_closed' Git webhook events and 'pull_request' for 'open pull request' or 'update pull request' Git webhook events. */
+    export enum Events {
+      PUSH = 'push',
+      PULL_REQUEST = 'pull_request',
+      PULL_REQUEST_CLOSED = 'pull_request_closed',
     }
   }
 
@@ -2713,22 +2744,34 @@ namespace CdTektonPipelineV2 {
     tags?: string[];
     /** Worker used to run the trigger. If not specified the trigger will use the default pipeline worker. */
     worker?: Worker;
-    /** Defines the maximum number of concurrent runs for this trigger. Omit this property to disable the
-     *  concurrency limit.
+    /** Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is
+     *  disabled for this trigger.
      */
     maxConcurrentRuns?: number;
-    /** Defines if this trigger is disabled. */
-    disabled?: boolean;
+    /** Defines if this trigger is enabled. If omitted the trigger is enabled by default. */
+    enabled?: boolean;
     /** Only needed for generic webhook trigger type. Secret used to start generic webhook trigger. */
     secret?: GenericSecret;
-    /** Only needed for timer triggers. Cron expression for timer trigger. */
+    /** Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum
+     *  frequency is every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day
+     *  of week. Example: 0 *_/2 * * * - every 2 hours.
+     */
     cron?: string;
-    /** Only needed for timer triggers. Timezone for timer trigger. */
+    /** Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the cron
+     *  activates this trigger relative to the specified timezone. If no timezone is specified, the default timezone
+     *  used is UTC. Valid timezones are those listed in the IANA timezone database, https://www.iana.org/time-zones.
+     */
     timezone?: string;
-    /** SCM source repository for a Git trigger. Only needed for Git triggers. */
-    scmSource?: TriggerScmSource;
-    /** Only needed for Git triggers. Events object defines the events to which this Git trigger listens. */
-    events?: Events;
+    /** Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must
+     *  match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the
+     *  toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools.
+     */
+    source?: TriggerSource;
+    /** Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from:
+     *  'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such
+     *  events map to the equivalent 'pull request' events.
+     */
+    events?: UpdateTektonPipelineTriggerConstants.Events | string[];
     headers?: OutgoingHttpHeaders;
   }
 
@@ -2740,6 +2783,12 @@ namespace CdTektonPipelineV2 {
       SCM = 'scm',
       TIMER = 'timer',
       GENERIC = 'generic',
+    }
+    /** List of events. Supported options are 'push' Git webhook events, 'pull_request_closed' Git webhook events and 'pull_request' for 'open pull request' or 'update pull request' Git webhook events. */
+    export enum Events {
+      PUSH = 'push',
+      PULL_REQUEST = 'pull_request',
+      PULL_REQUEST_CLOSED = 'pull_request_closed',
     }
   }
 
@@ -2770,13 +2819,13 @@ namespace CdTektonPipelineV2 {
     /** The trigger ID. */
     triggerId: string;
     /** Filter properties by `name`. */
-    name: string;
+    name?: string;
     /** Filter properties by `type`. Valid types are `secure`, `text`, `integration`, `single_select`, `appconfig`. */
-    type: string;
+    type?: string;
     /** Sort properties by name. They can be sorted in ascending order using `name` or in descending order using
      *  `-name`.
      */
-    sort: string;
+    sort?: string;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -2790,12 +2839,12 @@ namespace CdTektonPipelineV2 {
     name?: string;
     /** Property type. */
     type?: CreateTektonPipelineTriggerPropertiesConstants.Type | string;
-    /** Property value. */
+    /** Property value. Any string value is valid. */
     value?: string;
     /** Options for `single_select` property type. Only needed for `single_select` property type. */
     _enum?: string[];
-    /** A dot notation path for `integration` type properties to select a value from the tool integration. If left
-     *  blank the full tool integration data will be used.
+    /** A dot notation path for `integration` type properties only, to select a value from the tool integration. If
+     *  left blank the full tool integration data will be used.
      */
     path?: string;
     headers?: OutgoingHttpHeaders;
@@ -2836,12 +2885,12 @@ namespace CdTektonPipelineV2 {
     name?: string;
     /** Property type. */
     type?: ReplaceTektonPipelineTriggerPropertyConstants.Type | string;
-    /** Property value. */
+    /** Property value. Any string value is valid. */
     value?: string;
     /** Options for `single_select` property type. Only needed for `single_select` property type. */
     _enum?: string[];
-    /** A dot notation path for `integration` type properties to select a value from the tool integration. If left
-     *  blank the full tool integration data will be used.
+    /** A dot notation path for `integration` type properties only, to select a value from the tool integration. If
+     *  left blank the full tool integration data will be used.
      */
     path?: string;
     headers?: OutgoingHttpHeaders;
@@ -2874,52 +2923,56 @@ namespace CdTektonPipelineV2 {
    * model interfaces
    ************************/
 
-  /** Tekton pipeline definition entry object. */
+  /** Tekton pipeline definition entry object, consisting of a repository url, a repository path and a branch or tag. The referenced repository URL must match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools. The branch or tag of the definition must match against a corresponding branch or tag in the chosen repository, and the path must match a subfolder in the repository. */
   export interface Definition {
-    /** SCM source for Tekton pipeline definition. */
-    scm_source: DefinitionScmSource;
+    /** Source repository containing the Tekton pipeline definition. */
+    source: DefinitionSource;
     /** UUID. */
     id?: string;
   }
 
-  /** SCM source for Tekton pipeline definition. */
-  export interface DefinitionScmSource {
+  /** Source repository containing the Tekton pipeline definition. */
+  export interface DefinitionSource {
+    /** The only supported source type is "git", indicating that the source is a git repository. */
+    type: string;
+    /** Properties of the source, which define the URL of the repository and a branch or tag. */
+    properties: DefinitionSourceProperties;
+  }
+
+  /** Properties of the source, which define the URL of the repository and a branch or tag. */
+  export interface DefinitionSourceProperties {
     /** URL of the definition repository. */
     url: string;
-    /** A branch from the repo. One of branch or tag must be specified, but only one or the other. */
+    /** A branch from the repo, specify one of branch or tag only. */
     branch?: string;
-    /** A tag from the repo. One of branch or tag must be specified, but only one or the other. */
+    /** A tag from the repo, specify one of branch or tag only. */
     tag?: string;
-    /** The path to the definition's yaml files. */
+    /** The path to the definition's YAML files. */
     path: string;
-    /** ID of the SCM repository service instance. */
-    service_instance_id?: string;
+    /** Reference to the repository tool, in the parent toolchain, that contains the pipeline definition. */
+    tool?: DefinitionSourcePropertiesTool;
+  }
+
+  /** Reference to the repository tool, in the parent toolchain, that contains the pipeline definition. */
+  export interface DefinitionSourcePropertiesTool {
+    /** ID of the repository tool instance in the parent toolchain. */
+    id?: string;
   }
 
   /** Pipeline definitions is a collection of individual definition entries, each entry consists of a repository URL, branch/tag and path. */
   export interface DefinitionsCollection {
-    /** Definition list. */
+    /** The list of all definitions in the pipeline. */
     definitions: DefinitionsCollectionDefinitionsItem[];
   }
 
-  /** Tekton pipeline definition entry object. */
+  /** Tekton pipeline definition entry object, consisting of a repository url, a repository path and a branch or tag. The referenced repository URL must match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools. The branch or tag of the definition must match against a corresponding branch or tag in the chosen repository, and the path must match a subfolder in the repository. */
   export interface DefinitionsCollectionDefinitionsItem {
-    /** SCM source for Tekton pipeline definition. */
-    scm_source: DefinitionScmSource;
+    /** Source repository containing the Tekton pipeline definition. */
+    source: DefinitionSource;
     /** UUID. */
     id?: string;
     /** URL of the definition repository. */
     href?: string;
-  }
-
-  /** Only needed for Git triggers. Events object defines the events to which this Git trigger listens. */
-  export interface Events {
-    /** If true, the trigger listens for 'push' Git webhook events. */
-    push?: boolean;
-    /** If true, the trigger listens for 'close pull request' Git webhook events. */
-    pull_request_closed?: boolean;
-    /** If true, the trigger listens for 'open pull request' or 'update pull request' Git webhook events. */
-    pull_request?: boolean;
   }
 
   /** Only needed for generic webhook trigger type. Secret used to start generic webhook trigger. */
@@ -2936,29 +2989,29 @@ namespace CdTektonPipelineV2 {
     algorithm?: string;
   }
 
-  /** Log object for Tekton pipeline run step. */
+  /** Log data for Tekton pipeline run steps. */
   export interface Log {
-    /** The raw log content of step. */
-    data?: string;
     /** API for getting log content. */
-    href?: string;
+    href: string;
     /** Step log ID. */
     id: string;
     /** <podName>/<containerName> of this log. */
-    name?: string;
+    name: string;
   }
 
   /** List of pipeline run log objects. */
   export interface LogsCollection {
     /** The list of pipeline run log objects. */
-    logs?: Log[];
+    logs: Log[];
   }
 
   /** Single Tekton pipeline run object. */
   export interface PipelineRun {
     /** UUID. */
     id: string;
-    /** User information. */
+    /** Information about the user that triggered a pipeline run. Only included for pipeline runs that were manually
+     *  triggered.
+     */
     user_info?: UserInfo;
     /** Status of the pipeline run. */
     status: string;
@@ -2972,17 +3025,20 @@ namespace CdTektonPipelineV2 {
     listener_name: string;
     /** Tekton pipeline trigger. */
     trigger: Trigger;
-    /** Event parameters object passed to this pipeline run in String format, the contents depends on the type of
-     *  trigger, for example, for Git trigger it includes the Git event payload.
+    /** Event parameters object in String format that was passed in upon creation of this pipeline run, the contents
+     *  depends on the type of trigger. For example, the Git event payload is included for Git triggers, or in the case
+     *  of a manual trigger the override and added properties are included.
      */
     event_params_blob: string;
-    /** Headers passed to this pipeline run in String format. */
-    event_header_params_blob?: string;
-    /** Properties used in this Tekton pipeline run. */
+    /** Trigger headers object in String format that was passed in upon creation of this pipeline run. Omitted if no
+     *  trigger_headers object was provided when creating the pipeline run.
+     */
+    trigger_headers?: string;
+    /** Properties used in this Tekton pipeline run. Not included when fetching the list of pipeline runs. */
     properties?: Property[];
     /** Standard RFC 3339 Date Time String. */
-    created_at?: string;
-    /** Standard RFC 3339 Date Time String. */
+    created_at: string;
+    /** Standard RFC 3339 Date Time String. Only included if the run has been updated since it was created. */
     updated_at?: string;
     /** URL for the details page of this pipeline run. */
     run_url: string;
@@ -2993,7 +3049,7 @@ namespace CdTektonPipelineV2 {
     /** Name of the worker. Computed based on the worker ID. */
     name?: string;
     /** The agent ID of the corresponding private worker integration used for this pipeline run. */
-    agent?: string;
+    agent_id?: string;
     /** The Service ID of the corresponding private worker integration used for this pipeline run. */
     service_id?: string;
     /** UUID. */
@@ -3011,11 +3067,13 @@ namespace CdTektonPipelineV2 {
     /** First page of pipeline runs. */
     first: PipelineRunsCollectionFirst;
     /** Next page of pipeline runs relative to the `start` and `limit` params, or relative to the `offset` and
-     *  `limit` params, depending on which of `start` or `offset` were used in the request.
+     *  `limit` params, depending on which of `start` or `offset` were used in the request. Only included when there are
+     *  more pages available.
      */
     next?: PipelineRunsCollectionNext;
     /** Last page of pipeline runs relative to the `start` and `limit` params, or relative to the `offset` and
-     *  `limit` params, depending on which of `start` or `offset` were used in the request.
+     *  `limit` params, depending on which of `start` or `offset` were used in the request. Only included when the last
+     *  page has been reached.
      */
     last?: PipelineRunsCollectionLast;
   }
@@ -3026,13 +3084,13 @@ namespace CdTektonPipelineV2 {
     href: string;
   }
 
-  /** Last page of pipeline runs relative to the `start` and `limit` params, or relative to the `offset` and `limit` params, depending on which of `start` or `offset` were used in the request. */
+  /** Last page of pipeline runs relative to the `start` and `limit` params, or relative to the `offset` and `limit` params, depending on which of `start` or `offset` were used in the request. Only included when the last page has been reached. */
   export interface PipelineRunsCollectionLast {
     /** General href URL. */
     href: string;
   }
 
-  /** Next page of pipeline runs relative to the `start` and `limit` params, or relative to the `offset` and `limit` params, depending on which of `start` or `offset` were used in the request. */
+  /** Next page of pipeline runs relative to the `start` and `limit` params, or relative to the `offset` and `limit` params, depending on which of `start` or `offset` were used in the request. Only included when there are more pages available. */
   export interface PipelineRunsCollectionNext {
     /** General href URL. */
     href: string;
@@ -3042,7 +3100,9 @@ namespace CdTektonPipelineV2 {
   export interface PipelineRunsCollectionPipelineRunsItem {
     /** UUID. */
     id: string;
-    /** User information. */
+    /** Information about the user that triggered a pipeline run. Only included for pipeline runs that were manually
+     *  triggered.
+     */
     user_info?: UserInfo;
     /** Status of the pipeline run. */
     status: string;
@@ -3056,17 +3116,20 @@ namespace CdTektonPipelineV2 {
     listener_name: string;
     /** Tekton pipeline trigger. */
     trigger: Trigger;
-    /** Event parameters object passed to this pipeline run in String format, the contents depends on the type of
-     *  trigger, for example, for Git trigger it includes the Git event payload.
+    /** Event parameters object in String format that was passed in upon creation of this pipeline run, the contents
+     *  depends on the type of trigger. For example, the Git event payload is included for Git triggers, or in the case
+     *  of a manual trigger the override and added properties are included.
      */
     event_params_blob: string;
-    /** Headers passed to this pipeline run in String format. */
-    event_header_params_blob?: string;
-    /** Properties used in this Tekton pipeline run. */
+    /** Trigger headers object in String format that was passed in upon creation of this pipeline run. Omitted if no
+     *  trigger_headers object was provided when creating the pipeline run.
+     */
+    trigger_headers?: string;
+    /** Properties used in this Tekton pipeline run. Not included when fetching the list of pipeline runs. */
     properties?: Property[];
     /** Standard RFC 3339 Date Time String. */
-    created_at?: string;
-    /** Standard RFC 3339 Date Time String. */
+    created_at: string;
+    /** Standard RFC 3339 Date Time String. Only included if the run has been updated since it was created. */
     updated_at?: string;
     /** URL for the details page of this pipeline run. */
     run_url: string;
@@ -3084,14 +3147,24 @@ namespace CdTektonPipelineV2 {
   export interface Property {
     /** Property name. */
     name: string;
-    /** Property value. */
+    /** Property value. Any string value is valid. */
     value?: string;
     /** Options for `single_select` property type. Only needed when using `single_select` property type. */
     enum?: string[];
     /** Property type. */
     type: string;
-    /** A dot notation path for `integration` type properties to select a value from the tool integration. */
+    /** A dot notation path for `integration` type properties only, that selects a value from the tool integration.
+     *  If left blank the full tool integration data will be used.
+     */
     path?: string;
+  }
+
+  /** Logs for a Tekton pipeline run step. */
+  export interface StepLog {
+    /** The raw log content of the step. Only included when fetching an individual log object. */
+    data: string;
+    /** Step log ID. */
+    id: string;
   }
 
   /** Tekton pipeline object. */
@@ -3100,10 +3173,10 @@ namespace CdTektonPipelineV2 {
     name: string;
     /** Pipeline status. */
     status: string;
-    /** ID. */
-    resource_group_id: string;
-    /** Toolchain object. */
-    toolchain: Toolchain;
+    /** The ID of the resource group in which the pipeline was created. */
+    resource_group: TektonPipelineResourceGroup;
+    /** Toolchain object containing references to the parent toolchain. */
+    toolchain: ToolchainReference;
     /** UUID. */
     id: string;
     /** Definition list. */
@@ -3111,13 +3184,9 @@ namespace CdTektonPipelineV2 {
     /** Tekton pipeline's environment properties. */
     properties: Property[];
     /** Standard RFC 3339 Date Time String. */
-    updated_at?: string;
+    updated_at: string;
     /** Standard RFC 3339 Date Time String. */
-    created_at?: string;
-    /** Tekton pipeline definition object. If this property is absent or empty, the pipeline has no definitions
-     *  added.
-     */
-    pipeline_definition?: TektonPipelinePipelineDefinition;
+    created_at: string;
     /** Tekton pipeline triggers list. */
     triggers: Trigger[];
     /** Default pipeline worker used to run the pipeline. */
@@ -3125,30 +3194,29 @@ namespace CdTektonPipelineV2 {
     /** URL for this pipeline showing the list of pipeline runs. */
     runs_url: string;
     /** The latest pipeline run build number. If this property is absent, the pipeline hasn't had any pipeline runs. */
-    build_number?: number;
-    /** Flag whether to enable slack notifications for this pipeline. When enabled, pipeline run events will be
-     *  published on all slack integration specified channels in the enclosing toolchain.
+    build_number: number;
+    /** Flag whether to enable notifications for this pipeline. When enabled, pipeline run events will be published
+     *  on all slack integration specified channels in the parent toolchain. If omitted, this feature is disabled by
+     *  default.
      */
-    enable_slack_notifications?: boolean;
+    enable_notifications?: boolean;
     /** Flag whether to enable partial cloning for this pipeline. When partial clone is enabled, only the files
-     *  contained within the paths specified in definition repositories will be read and cloned. This means symbolic
-     *  links may not work.
+     *  contained within the paths specified in definition repositories are read and cloned, this means that symbolic
+     *  links might not work. If omitted, this feature is disabled by default.
      */
     enable_partial_cloning?: boolean;
     /** Flag whether this pipeline is enabled. */
     enabled: boolean;
   }
 
-  /** Tekton pipeline definition object. If this property is absent or empty, the pipeline has no definitions added. */
-  export interface TektonPipelinePipelineDefinition {
-    /** The pipeline definition status. */
-    status?: string;
-    /** UUID. */
+  /** The ID of the resource group in which the pipeline was created. */
+  export interface TektonPipelineResourceGroup {
+    /** ID. */
     id?: string;
   }
 
-  /** Toolchain object. */
-  export interface Toolchain {
+  /** Toolchain object containing references to the parent toolchain. */
+  export interface ToolchainReference {
     /** UUID. */
     id: string;
     /** The CRN for the toolchain that contains the Tekton pipeline. */
@@ -3162,14 +3230,14 @@ namespace CdTektonPipelineV2 {
   export interface TriggerGenericTriggerPropertiesItem {
     /** Property name. */
     name: string;
-    /** Property value. Can be empty and should be omitted for `single_select` property type. */
+    /** Property value. Any string value is valid. */
     value?: string;
     /** Options for `single_select` property type. Only needed for `single_select` property type. */
     enum?: string[];
     /** Property type. */
     type: string;
-    /** A dot notation path for `integration` type properties to select a value from the tool integration. If left
-     *  blank the full tool integration data will be used.
+    /** A dot notation path for `integration` type properties only, that selects a value from the tool integration.
+     *  If left blank the full tool integration data will be used.
      */
     path?: string;
     /** API URL for interacting with the trigger property. */
@@ -3180,14 +3248,14 @@ namespace CdTektonPipelineV2 {
   export interface TriggerManualTriggerPropertiesItem {
     /** Property name. */
     name: string;
-    /** Property value. Can be empty and should be omitted for `single_select` property type. */
+    /** Property value. Any string value is valid. */
     value?: string;
     /** Options for `single_select` property type. Only needed for `single_select` property type. */
     enum?: string[];
     /** Property type. */
     type: string;
-    /** A dot notation path for `integration` type properties to select a value from the tool integration. If left
-     *  blank the full tool integration data will be used.
+    /** A dot notation path for `integration` type properties only, that selects a value from the tool integration.
+     *  If left blank the full tool integration data will be used.
      */
     path?: string;
     /** API URL for interacting with the trigger property. */
@@ -3204,14 +3272,14 @@ namespace CdTektonPipelineV2 {
   export interface TriggerPropertiesCollectionPropertiesItem {
     /** Property name. */
     name: string;
-    /** Property value. Can be empty and should be omitted for `single_select` property type. */
+    /** Property value. Any string value is valid. */
     value?: string;
     /** Options for `single_select` property type. Only needed for `single_select` property type. */
     enum?: string[];
     /** Property type. */
     type: string;
-    /** A dot notation path for `integration` type properties to select a value from the tool integration. If left
-     *  blank the full tool integration data will be used.
+    /** A dot notation path for `integration` type properties only, that selects a value from the tool integration.
+     *  If left blank the full tool integration data will be used.
      */
     path?: string;
     /** API URL for interacting with the trigger property. */
@@ -3222,26 +3290,53 @@ namespace CdTektonPipelineV2 {
   export interface TriggerProperty {
     /** Property name. */
     name: string;
-    /** Property value. Can be empty and should be omitted for `single_select` property type. */
+    /** Property value. Any string value is valid. */
     value?: string;
     /** Options for `single_select` property type. Only needed for `single_select` property type. */
     enum?: string[];
     /** Property type. */
     type: string;
-    /** A dot notation path for `integration` type properties to select a value from the tool integration. If left
-     *  blank the full tool integration data will be used.
+    /** A dot notation path for `integration` type properties only, that selects a value from the tool integration.
+     *  If left blank the full tool integration data will be used.
      */
     path?: string;
   }
 
-  /** SCM source repository for a Git trigger. Only needed for Git triggers. */
-  export interface TriggerScmSource {
+  /** Trigger property object. */
+  export interface TriggerScmTriggerPropertiesItem {
+    /** Property name. */
+    name: string;
+    /** Property value. Any string value is valid. */
+    value?: string;
+    /** Options for `single_select` property type. Only needed for `single_select` property type. */
+    enum?: string[];
+    /** Property type. */
+    type: string;
+    /** A dot notation path for `integration` type properties only, that selects a value from the tool integration.
+     *  If left blank the full tool integration data will be used.
+     */
+    path?: string;
+    /** API URL for interacting with the trigger property. */
+    href?: string;
+  }
+
+  /** Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools. */
+  export interface TriggerSource {
+    /** The only supported source type is "git", indicating that the source is a git repository. */
+    type: string;
+    /** Properties of the source, which define the URL of the repository and a branch or pattern. */
+    properties: TriggerSourceProperties;
+  }
+
+  /** Properties of the source, which define the URL of the repository and a branch or pattern. */
+  export interface TriggerSourceProperties {
     /** URL of the repository to which the trigger is listening. */
     url: string;
-    /** Name of a branch from the repo. One of branch or tag must be specified, but only one or the other. */
+    /** Name of a branch from the repo. One of branch or pattern must be specified, but only one or the other. */
     branch?: string;
-    /** Git branch or tag pattern to listen to. Please refer to https://github.com/micromatch/micromatch for pattern
-     *  syntax.
+    /** Git branch or tag pattern to listen to, specify one of branch or pattern only. When specifying a tag to
+     *  listen to, you can also specify a simple glob pattern such as '!test' or '*master' to match against multiple
+     *  tags/branches in the repository.
      */
     pattern?: string;
     /** True if the repository server is not addressable on the public internet. IBM Cloud will not be able to
@@ -3250,40 +3345,28 @@ namespace CdTektonPipelineV2 {
     blind_connection?: boolean;
     /** ID of the webhook from the repo. Computed upon creation of the trigger. */
     hook_id?: string;
-    /** ID of the repository service instance. */
-    service_instance_id?: string;
+    /** Reference to the repository tool in the parent toolchain. */
+    tool?: TriggerSourcePropertiesTool;
   }
 
-  /** Trigger property object. */
-  export interface TriggerScmTriggerPropertiesItem {
-    /** Property name. */
-    name: string;
-    /** Property value. Can be empty and should be omitted for `single_select` property type. */
-    value?: string;
-    /** Options for `single_select` property type. Only needed for `single_select` property type. */
-    enum?: string[];
-    /** Property type. */
-    type: string;
-    /** A dot notation path for `integration` type properties to select a value from the tool integration. If left
-     *  blank the full tool integration data will be used.
-     */
-    path?: string;
-    /** API URL for interacting with the trigger property. */
-    href?: string;
+  /** Reference to the repository tool in the parent toolchain. */
+  export interface TriggerSourcePropertiesTool {
+    /** ID of the repository tool instance in the parent toolchain. */
+    id?: string;
   }
 
   /** Trigger property object. */
   export interface TriggerTimerTriggerPropertiesItem {
     /** Property name. */
     name: string;
-    /** Property value. Can be empty and should be omitted for `single_select` property type. */
+    /** Property value. Any string value is valid. */
     value?: string;
     /** Options for `single_select` property type. Only needed for `single_select` property type. */
     enum?: string[];
     /** Property type. */
     type: string;
-    /** A dot notation path for `integration` type properties to select a value from the tool integration. If left
-     *  blank the full tool integration data will be used.
+    /** A dot notation path for `integration` type properties only, that selects a value from the tool integration.
+     *  If left blank the full tool integration data will be used.
      */
     path?: string;
     /** API URL for interacting with the trigger property. */
@@ -3296,7 +3379,7 @@ namespace CdTektonPipelineV2 {
     triggers: Trigger[];
   }
 
-  /** User information. */
+  /** Information about the user that triggered a pipeline run. Only included for pipeline runs that were manually triggered. */
   export interface UserInfo {
     /** IBM Cloud IAM ID. */
     iam_id: string;
@@ -3315,7 +3398,7 @@ namespace CdTektonPipelineV2 {
   }
 
   /** Worker object containing worker ID only. If omitted the IBM Managed shared workers are used by default. */
-  export interface WorkerWithId {
+  export interface WorkerIdentity {
     /** ID of the worker. */
     id: string;
   }
@@ -3326,26 +3409,28 @@ namespace CdTektonPipelineV2 {
     type: string;
     /** Trigger name. */
     name: string;
-    /** API URL for interacting with the trigger. */
+    /** API URL for interacting with the trigger. Only included when fetching the list of pipeline triggers. */
     href?: string;
     /** Event listener name. The name of the event listener to which the trigger is associated. The event listeners
      *  are defined in the definition repositories of the Tekton pipeline.
      */
     event_listener: string;
     /** ID. */
-    id?: string;
-    /** Trigger properties. */
+    id: string;
+    /** Optional trigger properties used to override or supplement the pipeline properties when triggering a
+     *  pipeline run.
+     */
     properties?: TriggerGenericTriggerPropertiesItem[];
-    /** Trigger tags array. */
+    /** Optional trigger tags array. */
     tags?: string[];
     /** Worker used to run the trigger. If not specified the trigger will use the default pipeline worker. */
     worker?: Worker;
-    /** Defines the maximum number of concurrent runs for this trigger. Omit this property to disable the
-     *  concurrency limit.
+    /** Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is
+     *  disabled for this trigger.
      */
     max_concurrent_runs?: number;
-    /** Flag whether the trigger is disabled. If omitted the trigger is enabled by default. */
-    disabled: boolean;
+    /** Flag whether the trigger is enabled. */
+    enabled: boolean;
     /** Only needed for generic webhook trigger type. Secret used to start generic webhook trigger. */
     secret?: GenericSecret;
     /** Webhook URL that can be used to trigger pipeline runs. */
@@ -3358,26 +3443,28 @@ namespace CdTektonPipelineV2 {
     type: string;
     /** Trigger name. */
     name: string;
-    /** API URL for interacting with the trigger. */
+    /** API URL for interacting with the trigger. Only included when fetching the list of pipeline triggers. */
     href?: string;
     /** Event listener name. The name of the event listener to which the trigger is associated. The event listeners
      *  are defined in the definition repositories of the Tekton pipeline.
      */
     event_listener: string;
     /** ID. */
-    id?: string;
-    /** Trigger properties. */
+    id: string;
+    /** Optional trigger properties used to override or supplement the pipeline properties when triggering a
+     *  pipeline run.
+     */
     properties?: TriggerManualTriggerPropertiesItem[];
-    /** Trigger tags array. */
+    /** Optional trigger tags array. */
     tags?: string[];
     /** Worker used to run the trigger. If not specified the trigger will use the default pipeline worker. */
     worker?: Worker;
-    /** Defines the maximum number of concurrent runs for this trigger. Omit this property to disable the
-     *  concurrency limit.
+    /** Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is
+     *  disabled for this trigger.
      */
     max_concurrent_runs?: number;
-    /** Flag whether the trigger is disabled. If omitted the trigger is enabled by default. */
-    disabled: boolean;
+    /** Flag whether the trigger is enabled. */
+    enabled: boolean;
   }
 
   /** Git type trigger, which automatically triggers a pipeline run when the Tekton Pipeline Service receives a corresponding Git webhook event. */
@@ -3386,61 +3473,77 @@ namespace CdTektonPipelineV2 {
     type: string;
     /** Trigger name. */
     name: string;
-    /** API URL for interacting with the trigger. */
+    /** API URL for interacting with the trigger. Only included when fetching the list of pipeline triggers. */
     href?: string;
     /** Event listener name. The name of the event listener to which the trigger is associated. The event listeners
      *  are defined in the definition repositories of the Tekton pipeline.
      */
     event_listener: string;
     /** ID. */
-    id?: string;
-    /** Trigger properties. */
+    id: string;
+    /** Optional trigger properties used to override or supplement the pipeline properties when triggering a
+     *  pipeline run.
+     */
     properties?: TriggerScmTriggerPropertiesItem[];
-    /** Trigger tags array. */
+    /** Optional trigger tags array. */
     tags?: string[];
     /** Worker used to run the trigger. If not specified the trigger will use the default pipeline worker. */
     worker?: Worker;
-    /** Defines the maximum number of concurrent runs for this trigger. Omit this property to disable the
-     *  concurrency limit.
+    /** Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is
+     *  disabled for this trigger.
      */
     max_concurrent_runs?: number;
-    /** Flag whether the trigger is disabled. If omitted the trigger is enabled by default. */
-    disabled: boolean;
-    /** SCM source repository for a Git trigger. Only needed for Git triggers. */
-    scm_source?: TriggerScmSource;
-    /** Only needed for Git triggers. Events object defines the events to which this Git trigger listens. */
-    events?: Events;
+    /** Flag whether the trigger is enabled. */
+    enabled: boolean;
+    /** Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must
+     *  match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the
+     *  toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools.
+     */
+    source?: TriggerSource;
+    /** Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from:
+     *  'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such
+     *  events map to the equivalent 'pull request' events.
+     */
+    events?: string[];
   }
 
-  /** Timer trigger, which triggers pipeline run according to the cron value and time zone. */
+  /** Timer trigger, which triggers pipeline runs according to the provided cron value and timezone. */
   export interface TriggerTimerTrigger extends Trigger {
     /** Trigger type. */
     type: string;
     /** Trigger name. */
     name: string;
-    /** API URL for interacting with the trigger. */
+    /** API URL for interacting with the trigger. Only included when fetching the list of pipeline triggers. */
     href?: string;
     /** Event listener name. The name of the event listener to which the trigger is associated. The event listeners
      *  are defined in the definition repositories of the Tekton pipeline.
      */
     event_listener: string;
     /** ID. */
-    id?: string;
-    /** Trigger properties. */
+    id: string;
+    /** Optional trigger properties used to override or supplement the pipeline properties when triggering a
+     *  pipeline run.
+     */
     properties?: TriggerTimerTriggerPropertiesItem[];
-    /** Trigger tags array. */
+    /** Optional trigger tags array. */
     tags?: string[];
     /** Worker used to run the trigger. If not specified the trigger will use the default pipeline worker. */
     worker?: Worker;
-    /** Defines the maximum number of concurrent runs for this trigger. Omit this property to disable the
-     *  concurrency limit.
+    /** Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is
+     *  disabled for this trigger.
      */
     max_concurrent_runs?: number;
-    /** Flag whether the trigger is disabled. If omitted the trigger is enabled by default. */
-    disabled: boolean;
-    /** Only needed for timer triggers. Cron expression for timer trigger. Maximum frequency is every 5 minutes. */
+    /** Flag whether the trigger is enabled. */
+    enabled: boolean;
+    /** Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum
+     *  frequency is every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day
+     *  of week. Example: 0 *_/2 * * * - every 2 hours.
+     */
     cron?: string;
-    /** Only needed for timer triggers. Timezone for timer trigger. */
+    /** Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the cron
+     *  activates this trigger relative to the specified timezone. If no timezone is specified, the default timezone
+     *  used is UTC. Valid timezones are those listed in the IANA timezone database, https://www.iana.org/time-zones.
+     */
     timezone?: string;
   }
 
