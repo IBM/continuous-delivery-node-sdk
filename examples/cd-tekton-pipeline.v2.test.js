@@ -58,7 +58,7 @@ describe('CdTektonPipelineV2', () => {
   // To access additional configuration values, uncomment this line and extract the values from config
   // const config = readExternalSources(CdTektonPipelineV2.DEFAULT_SERVICE_NAME);
 
-  test('Initialize services', async () => {
+  test('Initialize service', async () => {
     // begin-common
 
     cdTektonPipelineService = CdTektonPipelineV2.newInstance();
@@ -81,14 +81,14 @@ describe('CdTektonPipelineV2', () => {
 
     // Request models needed by this operation.
 
-    // WorkerWithId
-    const workerWithIdModel = {
+    // WorkerIdentity
+    const workerIdentityModel = {
       id: 'public',
     };
 
     const params = {
       id: '94619026-912b-4d92-8f51-6c74f0692d90',
-      worker: workerWithIdModel,
+      worker: workerIdentityModel,
     };
 
     let res;
@@ -145,14 +145,14 @@ describe('CdTektonPipelineV2', () => {
 
     // Request models needed by this operation.
 
-    // WorkerWithId
-    const workerWithIdModel = {
+    // WorkerIdentity
+    const workerIdentityModel = {
       id: 'public',
     };
 
     const params = {
       id: '94619026-912b-4d92-8f51-6c74f0692d90',
-      worker: workerWithIdModel,
+      worker: workerIdentityModel,
     };
 
     let res;
@@ -216,12 +216,20 @@ describe('CdTektonPipelineV2', () => {
     originalLog('createTektonPipelineRun() result:');
     // begin-create_tekton_pipeline_run
 
+    // Request models needed by this operation.
+
+    // Property
+    const propertyModel = {
+      name: 'testString',
+      type: 'secure',
+    };
+
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       triggerName: 'Generic Webhook Trigger - 0',
-      triggerProperties: { 'pipeline-debug': 'false' },
-      secureTriggerProperties: { 'secure-property-key': 'secure value' },
-      triggerHeader: { source: 'api' },
+      triggerProperties: [propertyModel],
+      secureTriggerProperties: [propertyModel],
+      triggerHeaders: { source: 'api' },
       triggerBody: { message: 'hello world', enable: 'true', detail: { name: 'example' } },
     };
 
@@ -427,16 +435,22 @@ describe('CdTektonPipelineV2', () => {
 
     // Request models needed by this operation.
 
-    // DefinitionScmSource
-    const definitionScmSourceModel = {
-      url: 'https://github.com/IBM/tekton-tutorial.git',
+    // DefinitionSourceProperties
+    const definitionSourcePropertiesModel = {
+      url: 'https://github.com/open-toolchain/hello-tekton.git',
       branch: 'master',
       path: '.tekton',
     };
 
+    // DefinitionSource
+    const definitionSourceModel = {
+      type: 'git',
+      properties: definitionSourcePropertiesModel,
+    };
+
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
-      scmSource: definitionScmSourceModel,
+      source: definitionSourceModel,
     };
 
     let res;
@@ -494,19 +508,22 @@ describe('CdTektonPipelineV2', () => {
 
     // Request models needed by this operation.
 
-    // DefinitionScmSource
-    const definitionScmSourceModel = {
-      url: 'https://github.com/IBM/tekton-tutorial.git',
-      branch: 'master',
-      path: '.tekton',
-      service_instance_id: '071d8049-d984-4feb-a2ed-2a1e938918ba',
+    // DefinitionSourceProperties
+    const definitionSourcePropertiesModel = {
+      url: 'testString',
+      path: 'testString',
+    };
+
+    // DefinitionSource
+    const definitionSourceModel = {
+      type: 'testString',
+      properties: definitionSourcePropertiesModel,
     };
 
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       definitionId: '94299034-d45f-4e9a-8ed5-6bd5c7bb7ada',
-      scmSource: definitionScmSourceModel,
-      id: '22f92ab1-e0ac-4c65-84e7-8a4cb32dba0f',
+      source: definitionSourceModel,
     };
 
     let res;
@@ -566,9 +583,9 @@ describe('CdTektonPipelineV2', () => {
 
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
-      name: 'key1',
+      name: 'prop1',
       type: 'text',
-      value: 'https://github.com/IBM/tekton-tutorial.git',
+      value: 'https://github.com/open-toolchain/hello-tekton.git',
     };
 
     let res;
@@ -627,9 +644,9 @@ describe('CdTektonPipelineV2', () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       propertyName: 'debug-pipeline',
-      name: 'key1',
+      name: 'prop1',
       type: 'text',
-      value: 'https://github.com/IBM/tekton-tutorial.git',
+      value: 'https://github.com/open-toolchain/hello-tekton.git',
     };
 
     let res;
@@ -699,7 +716,7 @@ describe('CdTektonPipelineV2', () => {
       type: 'manual',
       name: 'Manual Trigger',
       eventListener: 'pr-listener',
-      disabled: false,
+      enabled: true,
       worker: workerModel,
       maxConcurrentRuns: 3,
     };
@@ -852,9 +869,9 @@ describe('CdTektonPipelineV2', () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       triggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
-      name: 'key1',
+      name: 'prop1',
       type: 'text',
-      value: 'https://github.com/IBM/tekton-tutorial.git',
+      value: 'https://github.com/open-toolchain/hello-tekton.git',
     };
 
     let res;
@@ -915,9 +932,9 @@ describe('CdTektonPipelineV2', () => {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       triggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
       propertyName: 'debug-pipeline',
-      name: 'key1',
+      name: 'prop1',
       type: 'text',
-      value: 'https://github.com/IBM/tekton-tutorial.git',
+      value: 'https://github.com/open-toolchain/hello-tekton.git',
     };
 
     let res;
