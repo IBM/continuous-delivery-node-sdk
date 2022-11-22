@@ -133,9 +133,7 @@ class CdToolchainV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.resourceGroupId - The resource group ID where the toolchains exist.
    * @param {number} [params.limit] - Limit the number of results.
-   * @param {number} [params.offset] - Offset the results from the beginning of the list. Cannot be used if 'start' is
-   * provided.
-   * @param {string} [params.start] - Pagination token. Cannot be used if 'offset' is provided.
+   * @param {string} [params.start] - Pagination token.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdToolchainV2.Response<CdToolchainV2.ToolchainCollection>>}
    */
@@ -144,7 +142,7 @@ class CdToolchainV2 extends BaseService {
   ): Promise<CdToolchainV2.Response<CdToolchainV2.ToolchainCollection>> {
     const _params = { ...params };
     const _requiredParams = ['resourceGroupId'];
-    const _validParams = ['resourceGroupId', 'limit', 'offset', 'start', 'headers'];
+    const _validParams = ['resourceGroupId', 'limit', 'start', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -153,7 +151,6 @@ class CdToolchainV2 extends BaseService {
     const query = {
       'resource_group_id': _params.resourceGroupId,
       'limit': _params.limit,
-      'offset': _params.offset,
       'start': _params.start,
     };
 
@@ -391,9 +388,7 @@ class CdToolchainV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.toolchainId - ID of the toolchain that tools are bound to.
    * @param {number} [params.limit] - Limit the number of results.
-   * @param {number} [params.offset] - Offset the number of results from the beginning of the list. Cannot be used if
-   * 'start' is provided.
-   * @param {string} [params.start] - Pagination token. Cannot be used if 'offset' is provided.
+   * @param {string} [params.start] - Pagination token.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdToolchainV2.Response<CdToolchainV2.ToolchainToolCollection>>}
    */
@@ -402,7 +397,7 @@ class CdToolchainV2 extends BaseService {
   ): Promise<CdToolchainV2.Response<CdToolchainV2.ToolchainToolCollection>> {
     const _params = { ...params };
     const _requiredParams = ['toolchainId'];
-    const _validParams = ['toolchainId', 'limit', 'offset', 'start', 'headers'];
+    const _validParams = ['toolchainId', 'limit', 'start', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -410,7 +405,6 @@ class CdToolchainV2 extends BaseService {
 
     const query = {
       'limit': _params.limit,
-      'offset': _params.offset,
       'start': _params.start,
     };
 
@@ -449,7 +443,10 @@ class CdToolchainV2 extends BaseService {
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.toolchainId - ID of the toolchain to bind the tool to.
-   * @param {string} params.toolTypeId - The unique short name of the tool that should be provisioned.
+   * @param {string} params.toolTypeId - The unique short name of the tool that should be provisioned. A table of
+   * `tool_type_id` values corresponding to each tool integration can be found in the <a
+   * href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+   * integrations page</a>.
    * @param {string} [params.name] - Name of the tool.
    * @param {JsonObject} [params.parameters] - Unique key-value pairs representing parameters to be used to create the
    * tool. A list of parameters for each tool integration can be found in the <a
@@ -606,7 +603,10 @@ class CdToolchainV2 extends BaseService {
    * @param {string} params.toolchainId - ID of the toolchain.
    * @param {string} params.toolId - ID of the tool bound to the toolchain.
    * @param {string} [params.name] - Name of the tool.
-   * @param {string} [params.toolTypeId] - The unique short name of the tool that should be provisioned or updated.
+   * @param {string} [params.toolTypeId] - The unique short name of the tool that should be provisioned or updated. A
+   * table of `tool_type_id` values corresponding to each tool integration can be found in the <a
+   * href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+   * integrations page</a>.
    * @param {JsonObject} [params.parameters] - Unique key-value pairs representing parameters to be used to create the
    * tool. A list of parameters for each tool integration can be found in the <a
    * href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
@@ -696,9 +696,7 @@ namespace CdToolchainV2 {
     resourceGroupId: string;
     /** Limit the number of results. */
     limit?: number;
-    /** Offset the results from the beginning of the list. Cannot be used if 'start' is provided. */
-    offset?: number;
-    /** Pagination token. Cannot be used if 'offset' is provided. */
+    /** Pagination token. */
     start?: string;
     headers?: OutgoingHttpHeaders;
   }
@@ -745,9 +743,7 @@ namespace CdToolchainV2 {
     toolchainId: string;
     /** Limit the number of results. */
     limit?: number;
-    /** Offset the number of results from the beginning of the list. Cannot be used if 'start' is provided. */
-    offset?: number;
-    /** Pagination token. Cannot be used if 'offset' is provided. */
+    /** Pagination token. */
     start?: string;
     headers?: OutgoingHttpHeaders;
   }
@@ -756,7 +752,11 @@ namespace CdToolchainV2 {
   export interface CreateToolParams {
     /** ID of the toolchain to bind the tool to. */
     toolchainId: string;
-    /** The unique short name of the tool that should be provisioned. */
+    /** The unique short name of the tool that should be provisioned. A table of `tool_type_id` values corresponding
+     *  to each tool integration can be found in the <a
+     *  href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+     *  integrations page</a>.
+     */
     toolTypeId: string;
     /** Name of the tool. */
     name?: string;
@@ -795,7 +795,11 @@ namespace CdToolchainV2 {
     toolId: string;
     /** Name of the tool. */
     name?: string;
-    /** The unique short name of the tool that should be provisioned or updated. */
+    /** The unique short name of the tool that should be provisioned or updated. A table of `tool_type_id` values
+     *  corresponding to each tool integration can be found in the <a
+     *  href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+     *  integrations page</a>.
+     */
     toolTypeId?: string;
     /** Unique key-value pairs representing parameters to be used to create the tool. A list of parameters for each
      *  tool integration can be found in the <a
@@ -814,11 +818,15 @@ namespace CdToolchainV2 {
   export interface ToolModel {
     /** Tool ID. */
     id: string;
-    /** Resource group where the tool can be found. */
+    /** Resource group where the tool is located. */
     resource_group_id: string;
     /** Tool CRN. */
     crn: string;
-    /** The unique name of the provisioned tool. */
+    /** The unique name of the provisioned tool. A table of `tool_type_id` values corresponding to each tool
+     *  integration can be found in the <a
+     *  href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+     *  integrations page</a>.
+     */
     tool_type_id: string;
     /** ID of toolchain which the tool is bound to. */
     toolchain_id: string;
@@ -862,7 +870,7 @@ namespace CdToolchainV2 {
     account_id: string;
     /** Toolchain region. */
     location: string;
-    /** Resource group where the toolchain can be found. */
+    /** Resource group where the toolchain is located. */
     resource_group_id: string;
     /** Toolchain CRN. */
     crn: string;
@@ -886,8 +894,6 @@ namespace CdToolchainV2 {
     total_count: number;
     /** Maximum number of toolchains returned from collection. */
     limit: number;
-    /** Offset applied to toolchains collection. Returned only if 'offset' query parameter is used. */
-    offset?: number;
     /** Information about retrieving first toolchain results from the collection. */
     first: ToolchainCollectionFirst;
     /** Information about retrieving previous toolchain results from the collection. */
@@ -942,7 +948,7 @@ namespace CdToolchainV2 {
     account_id: string;
     /** Toolchain region. */
     location: string;
-    /** Resource group where the toolchain can be found. */
+    /** Resource group where the toolchain is located. */
     resource_group_id: string;
     /** Toolchain CRN. */
     crn: string;
@@ -972,7 +978,7 @@ namespace CdToolchainV2 {
     account_id: string;
     /** Toolchain region. */
     location: string;
-    /** Resource group where the toolchain can be found. */
+    /** Resource group where the toolchain is located. */
     resource_group_id: string;
     /** Toolchain CRN. */
     crn: string;
@@ -1002,7 +1008,7 @@ namespace CdToolchainV2 {
     account_id: string;
     /** Toolchain region. */
     location: string;
-    /** Resource group where the toolchain can be found. */
+    /** Resource group where the toolchain is located. */
     resource_group_id: string;
     /** Toolchain CRN. */
     crn: string;
@@ -1024,11 +1030,15 @@ namespace CdToolchainV2 {
   export interface ToolchainTool {
     /** Tool ID. */
     id: string;
-    /** Resource group where the tool can be found. */
+    /** Resource group where the tool is located. */
     resource_group_id: string;
     /** Tool CRN. */
     crn: string;
-    /** The unique name of the provisioned tool. */
+    /** The unique name of the provisioned tool. A table of `tool_type_id` values corresponding to each tool
+     *  integration can be found in the <a
+     *  href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+     *  integrations page</a>.
+     */
     tool_type_id: string;
     /** ID of toolchain which the tool is bound to. */
     toolchain_id: string;
@@ -1058,8 +1068,6 @@ namespace CdToolchainV2 {
     limit: number;
     /** Total number of tools found in collection. */
     total_count: number;
-    /** Offset applied to tools collection. */
-    offset?: number;
     /** Information about retrieving first tool results from the collection. */
     first: ToolchainToolCollectionFirst;
     /** Information about retrieving previous tool results from the collection. */
@@ -1106,11 +1114,15 @@ namespace CdToolchainV2 {
   export interface ToolchainToolPatch {
     /** Tool ID. */
     id: string;
-    /** Resource group where the tool can be found. */
+    /** Resource group where the tool is located. */
     resource_group_id: string;
     /** Tool CRN. */
     crn: string;
-    /** The unique name of the provisioned tool. */
+    /** The unique name of the provisioned tool. A table of `tool_type_id` values corresponding to each tool
+     *  integration can be found in the <a
+     *  href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+     *  integrations page</a>.
+     */
     tool_type_id: string;
     /** ID of toolchain which the tool is bound to. */
     toolchain_id: string;
@@ -1138,11 +1150,15 @@ namespace CdToolchainV2 {
   export interface ToolchainToolPost {
     /** Tool ID. */
     id: string;
-    /** Resource group where the tool can be found. */
+    /** Resource group where the tool is located. */
     resource_group_id: string;
     /** Tool CRN. */
     crn: string;
-    /** The unique name of the provisioned tool. */
+    /** The unique name of the provisioned tool. A table of `tool_type_id` values corresponding to each tool
+     *  integration can be found in the <a
+     *  href="https://cloud.ibm.com/docs/ContinuousDelivery?topic=ContinuousDelivery-integrations">Configuring tool
+     *  integrations page</a>.
+     */
     tool_type_id: string;
     /** ID of toolchain which the tool is bound to. */
     toolchain_id: string;

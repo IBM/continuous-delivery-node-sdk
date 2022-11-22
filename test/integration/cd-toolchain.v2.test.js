@@ -83,7 +83,6 @@ describe('CdToolchainV2_integration', () => {
     const params = {
       resourceGroupId: 'testString',
       limit: 1,
-      offset: 0,
       start: 'testString',
     };
 
@@ -97,7 +96,6 @@ describe('CdToolchainV2_integration', () => {
     const params = {
       resourceGroupId: 'testString',
       limit: 10,
-      offset: 0,
     };
 
     const allResults = [];
@@ -146,7 +144,6 @@ describe('CdToolchainV2_integration', () => {
     const params = {
       toolchainId: toolchainIdLink,
       limit: 1,
-      offset: 0,
       start: 'testString',
     };
 
@@ -160,7 +157,6 @@ describe('CdToolchainV2_integration', () => {
     const params = {
       toolchainId: toolchainIdLink,
       limit: 10,
-      offset: 0,
     };
 
     const allResults = [];

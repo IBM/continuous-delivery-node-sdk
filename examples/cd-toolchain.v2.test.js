@@ -33,7 +33,6 @@ const authHelper = require('../test/resources/auth-helper.js');
 // CD_TOOLCHAIN_URL=<service base url>
 // CD_TOOLCHAIN_AUTH_TYPE=iam
 // CD_TOOLCHAIN_APIKEY=<IAM apikey>
-// CD_TOOLCHAIN_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
 //
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
@@ -148,7 +147,6 @@ describe('CdToolchainV2', () => {
     const params = {
       resourceGroupId: 'testString',
       limit: 10,
-      offset: 0,
     };
 
     const allResults = [];
@@ -239,7 +237,6 @@ describe('CdToolchainV2', () => {
     const params = {
       toolchainId: toolchainIdLink,
       limit: 10,
-      offset: 0,
     };
 
     const allResults = [];

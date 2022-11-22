@@ -155,12 +155,10 @@ describe('CdToolchainV2', () => {
         // Construct the params object for operation listToolchains
         const resourceGroupId = 'testString';
         const limit = 1;
-        const offset = 0;
         const start = 'testString';
         const listToolchainsParams = {
           resourceGroupId,
           limit,
-          offset,
           start,
         };
 
@@ -180,7 +178,6 @@ describe('CdToolchainV2', () => {
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.qs.resource_group_id).toEqual(resourceGroupId);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
-        expect(mockRequestOptions.qs.offset).toEqual(offset);
         expect(mockRequestOptions.qs.start).toEqual(start);
       }
 
@@ -267,7 +264,6 @@ describe('CdToolchainV2', () => {
         const params = {
           resourceGroupId: 'testString',
           limit: 10,
-          offset: 0,
         };
         const allResults = [];
         const pager = new CdToolchainV2.ToolchainsPager(cdToolchainService, params);
@@ -284,7 +280,6 @@ describe('CdToolchainV2', () => {
         const params = {
           resourceGroupId: 'testString',
           limit: 10,
-          offset: 0,
         };
         const pager = new CdToolchainV2.ToolchainsPager(cdToolchainService, params);
         const allResults = await pager.getAll();
@@ -650,12 +645,10 @@ describe('CdToolchainV2', () => {
         // Construct the params object for operation listTools
         const toolchainId = 'testString';
         const limit = 1;
-        const offset = 0;
         const start = 'testString';
         const listToolsParams = {
           toolchainId,
           limit,
-          offset,
           start,
         };
 
@@ -674,7 +667,6 @@ describe('CdToolchainV2', () => {
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
-        expect(mockRequestOptions.qs.offset).toEqual(offset);
         expect(mockRequestOptions.qs.start).toEqual(start);
         expect(mockRequestOptions.path.toolchain_id).toEqual(toolchainId);
       }
@@ -762,7 +754,6 @@ describe('CdToolchainV2', () => {
         const params = {
           toolchainId: 'testString',
           limit: 10,
-          offset: 0,
         };
         const allResults = [];
         const pager = new CdToolchainV2.ToolsPager(cdToolchainService, params);
@@ -779,7 +770,6 @@ describe('CdToolchainV2', () => {
         const params = {
           toolchainId: 'testString',
           limit: 10,
-          offset: 0,
         };
         const pager = new CdToolchainV2.ToolsPager(cdToolchainService, params);
         const allResults = await pager.getAll();
