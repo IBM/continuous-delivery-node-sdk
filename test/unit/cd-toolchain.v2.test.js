@@ -242,9 +242,9 @@ describe('CdToolchainV2', () => {
       const serviceUrl = cdToolchainServiceOptions.url;
       const path = '/toolchains';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"toolchains":[{"id":"id","name":"name","description":"description","account_id":"account_id","location":"location","resource_group_id":"resource_group_id","crn":"crn","href":"href","ui_href":"ui_href","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"created_by","tags":["tags"]}],"limit":1}';
+        '{"next":{"start":"1"},"total_count":2,"toolchains":[{"id":"id","name":"name","description":"description","account_id":"account_id","location":"location","resource_group_id":"resource_group_id","crn":"crn","href":"href","ui_href":"ui_href","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"created_by"}],"limit":1}';
       const mockPagerResponse2 =
-        '{"total_count":2,"toolchains":[{"id":"id","name":"name","description":"description","account_id":"account_id","location":"location","resource_group_id":"resource_group_id","crn":"crn","href":"href","ui_href":"ui_href","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"created_by","tags":["tags"]}],"limit":1}';
+        '{"total_count":2,"toolchains":[{"id":"id","name":"name","description":"description","account_id":"account_id","location":"location","resource_group_id":"resource_group_id","crn":"crn","href":"href","ui_href":"ui_href","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"created_by"}],"limit":1}';
 
       beforeEach(() => {
         unmock_createRequest();

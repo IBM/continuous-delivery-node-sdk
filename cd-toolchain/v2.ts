@@ -884,8 +884,6 @@ namespace CdToolchainV2 {
     updated_at: string;
     /** Identity that created the toolchain. */
     created_by: string;
-    /** Tags associated with the toolchain. */
-    tags: string[];
   }
 
   /** Response structure for GET toolchains. */
@@ -962,8 +960,6 @@ namespace CdToolchainV2 {
     updated_at: string;
     /** Identity that created the toolchain. */
     created_by: string;
-    /** Tags associated with the toolchain. */
-    tags: string[];
   }
 
   /** Response structure for PATCH toolchain. */
@@ -992,8 +988,6 @@ namespace CdToolchainV2 {
     updated_at: string;
     /** Identity that created the toolchain. */
     created_by: string;
-    /** Tags associated with the toolchain. */
-    tags: string[];
   }
 
   /** Response structure for POST toolchain. */
@@ -1022,8 +1016,6 @@ namespace CdToolchainV2 {
     updated_at: string;
     /** Identity that created the toolchain. */
     created_by: string;
-    /** Tags associated with the toolchain. */
-    tags: string[];
   }
 
   /** Response structure for GET tool. */
