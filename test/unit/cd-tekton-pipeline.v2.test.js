@@ -334,8 +334,8 @@ describe('CdTektonPipelineV2', () => {
       function __updateTektonPipelineTest() {
         // Construct the params object for operation updateTektonPipeline
         const id = '94619026-912b-4d92-8f51-6c74f0692d90';
-        const enableNotifications = false;
-        const enablePartialCloning = false;
+        const enableNotifications = true;
+        const enablePartialCloning = true;
         const worker = workerIdentityModel;
         const updateTektonPipelineParams = {
           id,
@@ -517,14 +517,12 @@ describe('CdTektonPipelineV2', () => {
         const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
         const start = 'testString';
         const limit = 1;
-        const offset = 38;
         const status = 'succeeded';
         const triggerName = 'manual-trigger';
         const listTektonPipelineRunsParams = {
           pipelineId,
           start,
           limit,
-          offset,
           status,
           triggerName,
         };
@@ -551,7 +549,6 @@ describe('CdTektonPipelineV2', () => {
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.qs.start).toEqual(start);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
-        expect(mockRequestOptions.qs.offset).toEqual(offset);
         expect(mockRequestOptions.qs.status).toEqual(status);
         expect(mockRequestOptions.qs['trigger.name']).toEqual(triggerName);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
@@ -640,7 +637,6 @@ describe('CdTektonPipelineV2', () => {
         const params = {
           pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
           limit: 10,
-          offset: 38,
           status: 'succeeded',
           triggerName: 'manual-trigger',
         };
@@ -662,7 +658,6 @@ describe('CdTektonPipelineV2', () => {
         const params = {
           pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
           limit: 10,
-          offset: 38,
           status: 'succeeded',
           triggerName: 'manual-trigger',
         };

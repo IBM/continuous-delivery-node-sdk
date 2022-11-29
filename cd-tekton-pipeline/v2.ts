@@ -369,10 +369,8 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.pipelineId - The Tekton pipeline ID.
    * @param {string} [params.start] - A page token that identifies the start point of the list of pipeline runs. This
-   * value is computed and included in the response body. Cannot be used in combination with `offset`.
+   * value is included in the response body of each request to fetch pipeline runs.
    * @param {number} [params.limit] - The number of pipeline runs to return, sorted by creation time, most recent first.
-   * @param {number} [params.offset] - Skip the specified number of pipeline runs. Cannot be used in combination with
-   * `start`.
    * @param {string} [params.status] - Filters the collection to resources with the specified status.
    * @param {string} [params.triggerName] - Filters the collection to resources with the specified trigger name.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
@@ -383,15 +381,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.PipelineRunsCollection>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId'];
-    const _validParams = [
-      'pipelineId',
-      'start',
-      'limit',
-      'offset',
-      'status',
-      'triggerName',
-      'headers',
-    ];
+    const _validParams = ['pipelineId', 'start', 'limit', 'status', 'triggerName', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -400,7 +390,6 @@ class CdTektonPipelineV2 extends BaseService {
     const query = {
       'start': _params.start,
       'limit': _params.limit,
-      'offset': _params.offset,
       'status': _params.status,
       'trigger.name': _params.triggerName,
     };
@@ -1724,8 +1713,7 @@ class CdTektonPipelineV2 extends BaseService {
    * pipeline worker.
    * @param {number} [params.maxConcurrentRuns] - Defines the maximum number of concurrent runs for this trigger. If
    * omitted then the concurrency limit is disabled for this trigger.
-   * @param {boolean} [params.enabled] - Defines if this trigger is enabled. If omitted the trigger is enabled by
-   * default.
+   * @param {boolean} [params.enabled] - Defines if this trigger is enabled.
    * @param {GenericSecret} [params.secret] - Only needed for generic webhook trigger type. Secret used to start generic
    * webhook trigger.
    * @param {string} [params.cron] - Only needed for timer triggers. Cron expression that indicates when this trigger
@@ -2351,14 +2339,12 @@ namespace CdTektonPipelineV2 {
   export interface ListTektonPipelineRunsParams {
     /** The Tekton pipeline ID. */
     pipelineId: string;
-    /** A page token that identifies the start point of the list of pipeline runs. This value is computed and
-     *  included in the response body. Cannot be used in combination with `offset`.
+    /** A page token that identifies the start point of the list of pipeline runs. This value is included in the
+     *  response body of each request to fetch pipeline runs.
      */
     start?: string;
     /** The number of pipeline runs to return, sorted by creation time, most recent first. */
     limit?: number;
-    /** Skip the specified number of pipeline runs. Cannot be used in combination with `start`. */
-    offset?: number;
     /** Filters the collection to resources with the specified status. */
     status?: ListTektonPipelineRunsConstants.Status | string;
     /** Filters the collection to resources with the specified trigger name. */
@@ -2748,7 +2734,7 @@ namespace CdTektonPipelineV2 {
      *  disabled for this trigger.
      */
     maxConcurrentRuns?: number;
-    /** Defines if this trigger is enabled. If omitted the trigger is enabled by default. */
+    /** Defines if this trigger is enabled. */
     enabled?: boolean;
     /** Only needed for generic webhook trigger type. Secret used to start generic webhook trigger. */
     secret?: GenericSecret;
@@ -3060,20 +3046,16 @@ namespace CdTektonPipelineV2 {
   export interface PipelineRunsCollection {
     /** Tekton pipeline runs list. */
     pipeline_runs: PipelineRunsCollectionPipelineRunsItem[];
-    /** Skip a specified number of pipeline runs. */
-    offset: number;
     /** The number of pipeline runs to return, sorted by creation time, most recent first. */
     limit: number;
     /** First page of pipeline runs. */
     first: PipelineRunsCollectionFirst;
-    /** Next page of pipeline runs relative to the `start` and `limit` params, or relative to the `offset` and
-     *  `limit` params, depending on which of `start` or `offset` were used in the request. Only included when there are
-     *  more pages available.
+    /** Next page of pipeline runs relative to the `start` and `limit` params. Only included when there are more
+     *  pages available.
      */
     next?: PipelineRunsCollectionNext;
-    /** Last page of pipeline runs relative to the `start` and `limit` params, or relative to the `offset` and
-     *  `limit` params, depending on which of `start` or `offset` were used in the request. Only included when the last
-     *  page has been reached.
+    /** Last page of pipeline runs relative to the `start` and `limit` params. Only included when the last page has
+     *  been reached.
      */
     last?: PipelineRunsCollectionLast;
   }
@@ -3084,13 +3066,13 @@ namespace CdTektonPipelineV2 {
     href: string;
   }
 
-  /** Last page of pipeline runs relative to the `start` and `limit` params, or relative to the `offset` and `limit` params, depending on which of `start` or `offset` were used in the request. Only included when the last page has been reached. */
+  /** Last page of pipeline runs relative to the `start` and `limit` params. Only included when the last page has been reached. */
   export interface PipelineRunsCollectionLast {
     /** General href URL. */
     href: string;
   }
 
-  /** Next page of pipeline runs relative to the `start` and `limit` params, or relative to the `offset` and `limit` params, depending on which of `start` or `offset` were used in the request. Only included when there are more pages available. */
+  /** Next page of pipeline runs relative to the `start` and `limit` params. Only included when there are more pages available. */
   export interface PipelineRunsCollectionNext {
     /** General href URL. */
     href: string;

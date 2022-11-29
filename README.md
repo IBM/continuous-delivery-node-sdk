@@ -49,11 +49,15 @@ IBM Cloud services:
 
 Service Name | Import Path
 --- | ---
-<!-- [Example Service](https://cloud.ibm.com/apidocs/example-service) | ibm-continuous-delivery/example-service/v1 -->
+[Toolchain API](https://cloud.ibm.com/apidocs/toolchain?code=go) | cdtoolchainv2
+[Tekton Pipeline API](https://cloud.ibm.com/apidocs/tekton-pipeline?code=go) | cdtektonpipelinev2
+
+Table 1. IBM Cloud services
 
 ## Prerequisites
-* You need an [IBM Cloud][ibm-cloud-onboarding] account.
-* **Node.js >=12**: This SDK is tested with Node.js versions 12 and up. It may work on previous versions but this is not officially supported.
+
+- You need an [IBM Cloud][ibm-cloud-onboarding] account.
+- **Node.js >=12**: This SDK is tested with Node.js versions 12 and up. It may work on previous versions but this is not officially supported.
 
 [ibm-cloud-onboarding]: http://cloud.ibm.com/registration
 
@@ -66,8 +70,8 @@ npm install ibm-continuous-delivery
 ```
 
 ## Using the SDK
-For general SDK usage information, please see
-[this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/README.md)
+
+For general SDK usage information, see [IBM Cloud SDK Common README](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/README.md).
 
 ## Questions
 
@@ -76,15 +80,18 @@ please ask a question at
 [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-cloud).
 
 ## Issues
+
 If you encounter an issue with the SDK, you are welcome to submit
 a [bug report](https://github.com/IBM/continuous-delivery-node-sdk/issues).
 Before that, please search for similar issues. It's possible someone has
 already encountered this issue.
 
 ## Open source @ IBM
+
 Find more open source projects on the [IBM Github Page](http://ibm.github.io/)
 
 ## Contributing
+
 See [CONTRIBUTING](CONTRIBUTING.md).
 
 ## License
