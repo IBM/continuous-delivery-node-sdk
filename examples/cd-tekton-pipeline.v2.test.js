@@ -182,7 +182,6 @@ describe('CdTektonPipelineV2', () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       limit: 10,
-      offset: 38,
       status: 'succeeded',
       triggerName: 'manual-trigger',
     };

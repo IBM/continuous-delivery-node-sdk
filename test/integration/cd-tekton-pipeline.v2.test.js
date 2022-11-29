@@ -88,8 +88,8 @@ describe('CdTektonPipelineV2_integration', () => {
 
     const params = {
       id: '94619026-912b-4d92-8f51-6c74f0692d90',
-      enableNotifications: false,
-      enablePartialCloning: false,
+      enableNotifications: true,
+      enablePartialCloning: true,
       worker: workerIdentityModel,
     };
 
@@ -104,7 +104,6 @@ describe('CdTektonPipelineV2_integration', () => {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       start: 'testString',
       limit: 1,
-      offset: 38,
       status: 'succeeded',
       triggerName: 'manual-trigger',
     };
@@ -119,7 +118,6 @@ describe('CdTektonPipelineV2_integration', () => {
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
       limit: 10,
-      offset: 38,
       status: 'succeeded',
       triggerName: 'manual-trigger',
     };
