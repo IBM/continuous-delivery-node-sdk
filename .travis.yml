@@ -4,9 +4,7 @@ node_js:
 - 12
 - 14
 
-# remove the "echo" command from the "before_install" section below.
 before_install:
-- echo -e "machine github.ibm.com\n  login $GITHUB_OAUTH_TOKEN" > ~/.netrc
 - npm i -g npm@8
 - npm --version
 
@@ -16,7 +14,6 @@ script:
 - npm run lint
 - npm run check-packages
 
-# To enable semantic-release, uncomment this section.
 deploy:
 - provider: script
   skip_cleanup: true
