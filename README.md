@@ -1,5 +1,5 @@
 
-# IBM Cloud Continuous Delivery Node.js SDK 0.2.0
+# IBM Cloud Continuous Delivery Node.js SDK 0.2.3
 
 [![Build Status](https://app.travis-ci.com/IBM/continuous-delivery-node-sdk.svg?branch=main)](https://app.travis-ci.com/github/IBM/continuous-delivery-node-sdk)
 [![Release](https://img.shields.io/github/v/release/IBM/continuous-delivery-node-sdk)](https://github.com/IBM/continuous-delivery-node-sdk/releases/latest)
@@ -29,15 +29,17 @@ Changes might occur which impact applications that use this SDK.
 
 <!-- toc -->
 
-- [Overview](#overview)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Using the SDK](#using-the-sdk)
-- [Questions](#questions)
-- [Issues](#issues)
-- [Open source @ IBM](#open-source--ibm)
-- [Contributing](#contributing)
-- [License](#license)
+- [IBM Cloud Continuous Delivery Node.js SDK 0.2.3](#ibm-cloud-continuous-delivery-nodejs-sdk-023)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Using the SDK](#using-the-sdk)
+  - [Questions](#questions)
+  - [Issues](#issues)
+  - [Open source @ IBM](#open-source--ibm)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 <!-- tocstop -->
 
@@ -63,7 +65,7 @@ Table 1. IBM Cloud services
 
 ## Installation
 
-The current version of this SDK: 0.2.0
+The current version of this SDK: 0.2.3
 
 ```sh
 npm install ibm-continuous-delivery
