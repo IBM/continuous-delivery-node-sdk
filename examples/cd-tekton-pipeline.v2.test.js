@@ -220,6 +220,7 @@ describe('CdTektonPipelineV2', () => {
     // Property
     const propertyModel = {
       name: 'testString',
+      href: 'testString',
       type: 'secure',
     };
 
@@ -715,9 +716,9 @@ describe('CdTektonPipelineV2', () => {
       type: 'manual',
       name: 'Manual Trigger',
       eventListener: 'pr-listener',
-      enabled: true,
       worker: workerModel,
       maxConcurrentRuns: 3,
+      enabled: true,
     };
 
     let res;
@@ -947,7 +948,7 @@ describe('CdTektonPipelineV2', () => {
     // end-replace_tekton_pipeline_trigger_property
   });
 
-  test('deleteTektonPipelineTriggerProperty request example', async () => {
+  test('deleteTektonPipeline request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
     });
@@ -957,47 +958,19 @@ describe('CdTektonPipelineV2', () => {
       expect(true).toBeFalsy();
     });
 
-    // begin-delete_tekton_pipeline_trigger_property
+    // begin-delete_tekton_pipeline
 
     const params = {
-      pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
-      triggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
-      propertyName: 'debug-pipeline',
+      id: '94619026-912b-4d92-8f51-6c74f0692d90',
     };
 
     try {
-      await cdTektonPipelineService.deleteTektonPipelineTriggerProperty(params);
+      await cdTektonPipelineService.deleteTektonPipeline(params);
     } catch (err) {
       console.warn(err);
     }
 
-    // end-delete_tekton_pipeline_trigger_property
-  });
-
-  test('deleteTektonPipelineTrigger request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    // begin-delete_tekton_pipeline_trigger
-
-    const params = {
-      pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
-      triggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
-    };
-
-    try {
-      await cdTektonPipelineService.deleteTektonPipelineTrigger(params);
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-delete_tekton_pipeline_trigger
+    // end-delete_tekton_pipeline
   });
 
   test('deleteTektonPipelineRun request example', async () => {
@@ -1026,32 +999,6 @@ describe('CdTektonPipelineV2', () => {
     // end-delete_tekton_pipeline_run
   });
 
-  test('deleteTektonPipelineProperty request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    // begin-delete_tekton_pipeline_property
-
-    const params = {
-      pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
-      propertyName: 'debug-pipeline',
-    };
-
-    try {
-      await cdTektonPipelineService.deleteTektonPipelineProperty(params);
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-delete_tekton_pipeline_property
-  });
-
   test('deleteTektonPipelineDefinition request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
@@ -1078,7 +1025,7 @@ describe('CdTektonPipelineV2', () => {
     // end-delete_tekton_pipeline_definition
   });
 
-  test('deleteTektonPipeline request example', async () => {
+  test('deleteTektonPipelineProperty request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
     });
@@ -1088,18 +1035,72 @@ describe('CdTektonPipelineV2', () => {
       expect(true).toBeFalsy();
     });
 
-    // begin-delete_tekton_pipeline
+    // begin-delete_tekton_pipeline_property
 
     const params = {
-      id: '94619026-912b-4d92-8f51-6c74f0692d90',
+      pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
+      propertyName: 'debug-pipeline',
     };
 
     try {
-      await cdTektonPipelineService.deleteTektonPipeline(params);
+      await cdTektonPipelineService.deleteTektonPipelineProperty(params);
     } catch (err) {
       console.warn(err);
     }
 
-    // end-delete_tekton_pipeline
+    // end-delete_tekton_pipeline_property
+  });
+
+  test('deleteTektonPipelineTrigger request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    // begin-delete_tekton_pipeline_trigger
+
+    const params = {
+      pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
+      triggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
+    };
+
+    try {
+      await cdTektonPipelineService.deleteTektonPipelineTrigger(params);
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-delete_tekton_pipeline_trigger
+  });
+
+  test('deleteTektonPipelineTriggerProperty request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    // begin-delete_tekton_pipeline_trigger_property
+
+    const params = {
+      pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
+      triggerId: '1bb892a1-2e04-4768-a369-b1159eace147',
+      propertyName: 'debug-pipeline',
+    };
+
+    try {
+      await cdTektonPipelineService.deleteTektonPipelineTriggerProperty(params);
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-delete_tekton_pipeline_trigger_property
   });
 });
