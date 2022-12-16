@@ -19,17 +19,12 @@ const core = require('ibm-cloud-sdk-core');
 
 const { NoAuthAuthenticator, unitTestUtils } = core;
 
-const CdTektonPipelineV2 = require('../../dist/cd-tekton-pipeline/v2');
 const nock = require('nock');
+const CdTektonPipelineV2 = require('../../dist/cd-tekton-pipeline/v2');
 
 /* eslint-disable no-await-in-loop */
 
-const {
-  getOptions,
-  checkUrlAndMethod,
-  checkMediaHeaders,
-  expectToBePromise,
-} = unitTestUtils;
+const { getOptions, checkUrlAndMethod, checkMediaHeaders, expectToBePromise } = unitTestUtils;
 
 const cdTektonPipelineServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
@@ -57,7 +52,6 @@ const getAuthenticatorMock = jest.spyOn(core, 'getAuthenticatorFromEnvironment')
 getAuthenticatorMock.mockImplementation(() => new NoAuthAuthenticator());
 
 describe('CdTektonPipelineV2', () => {
-
   beforeEach(() => {
     mock_createRequest();
   });
@@ -68,7 +62,7 @@ describe('CdTektonPipelineV2', () => {
     }
     getAuthenticatorMock.mockClear();
   });
-  
+
   describe('the newInstance method', () => {
     test('should use defaults when options not provided', () => {
       const testInstance = CdTektonPipelineV2.newInstance();
@@ -125,15 +119,33 @@ describe('CdTektonPipelineV2', () => {
       expect(CdTektonPipelineV2.getServiceUrlForRegion('INVALID_REGION')).toBeFalsy();
     });
     test('should return valid service url', () => {
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('us-south')).toBe('https://api.us-south.devops.cloud.ibm.com/pipeline/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('us-east')).toBe('https://api.us-east.devops.cloud.ibm.com/pipeline/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('eu-de')).toBe('https://api.eu-de.devops.cloud.ibm.com/pipeline/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('eu-gb')).toBe('https://api.eu-gb.devops.cloud.ibm.com/pipeline/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('jp-osa')).toBe('https://api.jp-osa.devops.cloud.ibm.com/pipeline/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('jp-tok')).toBe('https://api.jp-tok.devops.cloud.ibm.com/pipeline/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('au-syd')).toBe('https://api.au-syd.devops.cloud.ibm.com/pipeline/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('ca-tor')).toBe('https://api.ca-tor.devops.cloud.ibm.com/pipeline/v2');      
-      expect(CdTektonPipelineV2.getServiceUrlForRegion('br-sao')).toBe('https://api.br-sao.devops.cloud.ibm.com/pipeline/v2');      
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('us-south')).toBe(
+        'https://api.us-south.devops.cloud.ibm.com/pipeline/v2'
+      );
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('us-east')).toBe(
+        'https://api.us-east.devops.cloud.ibm.com/pipeline/v2'
+      );
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('eu-de')).toBe(
+        'https://api.eu-de.devops.cloud.ibm.com/pipeline/v2'
+      );
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('eu-gb')).toBe(
+        'https://api.eu-gb.devops.cloud.ibm.com/pipeline/v2'
+      );
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('jp-osa')).toBe(
+        'https://api.jp-osa.devops.cloud.ibm.com/pipeline/v2'
+      );
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('jp-tok')).toBe(
+        'https://api.jp-tok.devops.cloud.ibm.com/pipeline/v2'
+      );
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('au-syd')).toBe(
+        'https://api.au-syd.devops.cloud.ibm.com/pipeline/v2'
+      );
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('ca-tor')).toBe(
+        'https://api.ca-tor.devops.cloud.ibm.com/pipeline/v2'
+      );
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('br-sao')).toBe(
+        'https://api.br-sao.devops.cloud.ibm.com/pipeline/v2'
+      );
     });
   });
 
@@ -159,7 +171,9 @@ describe('CdTektonPipelineV2', () => {
           worker,
         };
 
-        const createTektonPipelineResult = cdTektonPipelineService.createTektonPipeline(createTektonPipelineParams);
+        const createTektonPipelineResult = cdTektonPipelineService.createTektonPipeline(
+          createTektonPipelineParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(createTektonPipelineResult);
@@ -246,7 +260,8 @@ describe('CdTektonPipelineV2', () => {
           id,
         };
 
-        const getTektonPipelineResult = cdTektonPipelineService.getTektonPipeline(getTektonPipelineParams);
+        const getTektonPipelineResult =
+          cdTektonPipelineService.getTektonPipeline(getTektonPipelineParams);
 
         // all methods should return a Promise
         expectToBePromise(getTektonPipelineResult);
@@ -343,7 +358,9 @@ describe('CdTektonPipelineV2', () => {
           worker,
         };
 
-        const updateTektonPipelineResult = cdTektonPipelineService.updateTektonPipeline(updateTektonPipelineParams);
+        const updateTektonPipelineResult = cdTektonPipelineService.updateTektonPipeline(
+          updateTektonPipelineParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(updateTektonPipelineResult);
@@ -430,7 +447,9 @@ describe('CdTektonPipelineV2', () => {
           id,
         };
 
-        const deleteTektonPipelineResult = cdTektonPipelineService.deleteTektonPipeline(deleteTektonPipelineParams);
+        const deleteTektonPipelineResult = cdTektonPipelineService.deleteTektonPipeline(
+          deleteTektonPipelineParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(deleteTektonPipelineResult);
@@ -522,7 +541,9 @@ describe('CdTektonPipelineV2', () => {
           triggerName,
         };
 
-        const listTektonPipelineRunsResult = cdTektonPipelineService.listTektonPipelineRuns(listTektonPipelineRunsParams);
+        const listTektonPipelineRunsResult = cdTektonPipelineService.listTektonPipelineRuns(
+          listTektonPipelineRunsParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(listTektonPipelineRunsResult);
@@ -532,7 +553,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/pipeline_runs', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/pipeline_runs',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -611,9 +636,9 @@ describe('CdTektonPipelineV2', () => {
       beforeEach(() => {
         unmock_createRequest();
         const scope = nock(serviceUrl)
-          .get(uri => uri.includes(path))
+          .get((uri) => uri.includes(path))
           .reply(200, mockPagerResponse1)
-          .get(uri => uri.includes(path))
+          .get((uri) => uri.includes(path))
           .reply(200, mockPagerResponse2);
       });
 
@@ -630,7 +655,10 @@ describe('CdTektonPipelineV2', () => {
           triggerName: 'manual-trigger',
         };
         const allResults = [];
-        const pager = new CdTektonPipelineV2.TektonPipelineRunsPager(cdTektonPipelineService, params);
+        const pager = new CdTektonPipelineV2.TektonPipelineRunsPager(
+          cdTektonPipelineService,
+          params
+        );
         while (pager.hasNext()) {
           const nextPage = await pager.getNext();
           expect(nextPage).not.toBeNull();
@@ -647,7 +675,10 @@ describe('CdTektonPipelineV2', () => {
           status: 'succeeded',
           triggerName: 'manual-trigger',
         };
-        const pager = new CdTektonPipelineV2.TektonPipelineRunsPager(cdTektonPipelineService, params);
+        const pager = new CdTektonPipelineV2.TektonPipelineRunsPager(
+          cdTektonPipelineService,
+          params
+        );
         const allResults = await pager.getAll();
         expect(allResults).not.toBeNull();
         expect(allResults).toHaveLength(2);
@@ -686,7 +717,9 @@ describe('CdTektonPipelineV2', () => {
           triggerBody,
         };
 
-        const createTektonPipelineRunResult = cdTektonPipelineService.createTektonPipelineRun(createTektonPipelineRunParams);
+        const createTektonPipelineRunResult = cdTektonPipelineService.createTektonPipelineRun(
+          createTektonPipelineRunParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(createTektonPipelineRunResult);
@@ -696,7 +729,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/pipeline_runs', 'POST');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/pipeline_runs',
+          'POST'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -781,7 +818,9 @@ describe('CdTektonPipelineV2', () => {
           includes,
         };
 
-        const getTektonPipelineRunResult = cdTektonPipelineService.getTektonPipelineRun(getTektonPipelineRunParams);
+        const getTektonPipelineRunResult = cdTektonPipelineService.getTektonPipelineRun(
+          getTektonPipelineRunParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(getTektonPipelineRunResult);
@@ -791,7 +830,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/pipeline_runs/{id}', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/pipeline_runs/{id}',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -871,7 +914,9 @@ describe('CdTektonPipelineV2', () => {
           id,
         };
 
-        const deleteTektonPipelineRunResult = cdTektonPipelineService.deleteTektonPipelineRun(deleteTektonPipelineRunParams);
+        const deleteTektonPipelineRunResult = cdTektonPipelineService.deleteTektonPipelineRun(
+          deleteTektonPipelineRunParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(deleteTektonPipelineRunResult);
@@ -881,7 +926,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/pipeline_runs/{id}', 'DELETE');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/pipeline_runs/{id}',
+          'DELETE'
+        );
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -962,7 +1011,9 @@ describe('CdTektonPipelineV2', () => {
           force,
         };
 
-        const cancelTektonPipelineRunResult = cdTektonPipelineService.cancelTektonPipelineRun(cancelTektonPipelineRunParams);
+        const cancelTektonPipelineRunResult = cdTektonPipelineService.cancelTektonPipelineRun(
+          cancelTektonPipelineRunParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(cancelTektonPipelineRunResult);
@@ -972,7 +1023,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/pipeline_runs/{id}/cancel', 'POST');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/pipeline_runs/{id}/cancel',
+          'POST'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1052,7 +1107,9 @@ describe('CdTektonPipelineV2', () => {
           id,
         };
 
-        const rerunTektonPipelineRunResult = cdTektonPipelineService.rerunTektonPipelineRun(rerunTektonPipelineRunParams);
+        const rerunTektonPipelineRunResult = cdTektonPipelineService.rerunTektonPipelineRun(
+          rerunTektonPipelineRunParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(rerunTektonPipelineRunResult);
@@ -1062,7 +1119,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/pipeline_runs/{id}/rerun', 'POST');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/pipeline_runs/{id}/rerun',
+          'POST'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1141,7 +1202,9 @@ describe('CdTektonPipelineV2', () => {
           id,
         };
 
-        const getTektonPipelineRunLogsResult = cdTektonPipelineService.getTektonPipelineRunLogs(getTektonPipelineRunLogsParams);
+        const getTektonPipelineRunLogsResult = cdTektonPipelineService.getTektonPipelineRunLogs(
+          getTektonPipelineRunLogsParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(getTektonPipelineRunLogsResult);
@@ -1151,7 +1214,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/pipeline_runs/{id}/logs', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/pipeline_runs/{id}/logs',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1232,7 +1299,10 @@ describe('CdTektonPipelineV2', () => {
           id,
         };
 
-        const getTektonPipelineRunLogContentResult = cdTektonPipelineService.getTektonPipelineRunLogContent(getTektonPipelineRunLogContentParams);
+        const getTektonPipelineRunLogContentResult =
+          cdTektonPipelineService.getTektonPipelineRunLogContent(
+            getTektonPipelineRunLogContentParams
+          );
 
         // all methods should return a Promise
         expectToBePromise(getTektonPipelineRunLogContentResult);
@@ -1242,7 +1312,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/pipeline_runs/{pipeline_run_id}/logs/{id}', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/pipeline_runs/{pipeline_run_id}/logs/{id}',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1283,7 +1357,9 @@ describe('CdTektonPipelineV2', () => {
           },
         };
 
-        cdTektonPipelineService.getTektonPipelineRunLogContent(getTektonPipelineRunLogContentParams);
+        cdTektonPipelineService.getTektonPipelineRunLogContent(
+          getTektonPipelineRunLogContentParams
+        );
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -1322,7 +1398,10 @@ describe('CdTektonPipelineV2', () => {
           pipelineId,
         };
 
-        const listTektonPipelineDefinitionsResult = cdTektonPipelineService.listTektonPipelineDefinitions(listTektonPipelineDefinitionsParams);
+        const listTektonPipelineDefinitionsResult =
+          cdTektonPipelineService.listTektonPipelineDefinitions(
+            listTektonPipelineDefinitionsParams
+          );
 
         // all methods should return a Promise
         expectToBePromise(listTektonPipelineDefinitionsResult);
@@ -1430,7 +1509,10 @@ describe('CdTektonPipelineV2', () => {
           source,
         };
 
-        const createTektonPipelineDefinitionResult = cdTektonPipelineService.createTektonPipelineDefinition(createTektonPipelineDefinitionParams);
+        const createTektonPipelineDefinitionResult =
+          cdTektonPipelineService.createTektonPipelineDefinition(
+            createTektonPipelineDefinitionParams
+          );
 
         // all methods should return a Promise
         expectToBePromise(createTektonPipelineDefinitionResult);
@@ -1440,7 +1522,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/definitions', 'POST');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/definitions',
+          'POST'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1478,7 +1564,9 @@ describe('CdTektonPipelineV2', () => {
           },
         };
 
-        cdTektonPipelineService.createTektonPipelineDefinition(createTektonPipelineDefinitionParams);
+        cdTektonPipelineService.createTektonPipelineDefinition(
+          createTektonPipelineDefinitionParams
+        );
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -1519,7 +1607,8 @@ describe('CdTektonPipelineV2', () => {
           definitionId,
         };
 
-        const getTektonPipelineDefinitionResult = cdTektonPipelineService.getTektonPipelineDefinition(getTektonPipelineDefinitionParams);
+        const getTektonPipelineDefinitionResult =
+          cdTektonPipelineService.getTektonPipelineDefinition(getTektonPipelineDefinitionParams);
 
         // all methods should return a Promise
         expectToBePromise(getTektonPipelineDefinitionResult);
@@ -1529,7 +1618,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/definitions/{definition_id}', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/definitions/{definition_id}',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1632,7 +1725,10 @@ describe('CdTektonPipelineV2', () => {
           source,
         };
 
-        const replaceTektonPipelineDefinitionResult = cdTektonPipelineService.replaceTektonPipelineDefinition(replaceTektonPipelineDefinitionParams);
+        const replaceTektonPipelineDefinitionResult =
+          cdTektonPipelineService.replaceTektonPipelineDefinition(
+            replaceTektonPipelineDefinitionParams
+          );
 
         // all methods should return a Promise
         expectToBePromise(replaceTektonPipelineDefinitionResult);
@@ -1642,7 +1738,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/definitions/{definition_id}', 'PUT');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/definitions/{definition_id}',
+          'PUT'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1683,7 +1783,9 @@ describe('CdTektonPipelineV2', () => {
           },
         };
 
-        cdTektonPipelineService.replaceTektonPipelineDefinition(replaceTektonPipelineDefinitionParams);
+        cdTektonPipelineService.replaceTektonPipelineDefinition(
+          replaceTektonPipelineDefinitionParams
+        );
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -1724,7 +1826,10 @@ describe('CdTektonPipelineV2', () => {
           definitionId,
         };
 
-        const deleteTektonPipelineDefinitionResult = cdTektonPipelineService.deleteTektonPipelineDefinition(deleteTektonPipelineDefinitionParams);
+        const deleteTektonPipelineDefinitionResult =
+          cdTektonPipelineService.deleteTektonPipelineDefinition(
+            deleteTektonPipelineDefinitionParams
+          );
 
         // all methods should return a Promise
         expectToBePromise(deleteTektonPipelineDefinitionResult);
@@ -1734,7 +1839,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/definitions/{definition_id}', 'DELETE');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/definitions/{definition_id}',
+          'DELETE'
+        );
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1772,7 +1881,9 @@ describe('CdTektonPipelineV2', () => {
           },
         };
 
-        cdTektonPipelineService.deleteTektonPipelineDefinition(deleteTektonPipelineDefinitionParams);
+        cdTektonPipelineService.deleteTektonPipelineDefinition(
+          deleteTektonPipelineDefinitionParams
+        );
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -1817,7 +1928,8 @@ describe('CdTektonPipelineV2', () => {
           sort,
         };
 
-        const listTektonPipelinePropertiesResult = cdTektonPipelineService.listTektonPipelineProperties(listTektonPipelinePropertiesParams);
+        const listTektonPipelinePropertiesResult =
+          cdTektonPipelineService.listTektonPipelineProperties(listTektonPipelinePropertiesParams);
 
         // all methods should return a Promise
         expectToBePromise(listTektonPipelinePropertiesResult);
@@ -1914,7 +2026,10 @@ describe('CdTektonPipelineV2', () => {
           path,
         };
 
-        const createTektonPipelinePropertiesResult = cdTektonPipelineService.createTektonPipelineProperties(createTektonPipelinePropertiesParams);
+        const createTektonPipelinePropertiesResult =
+          cdTektonPipelineService.createTektonPipelineProperties(
+            createTektonPipelinePropertiesParams
+          );
 
         // all methods should return a Promise
         expectToBePromise(createTektonPipelinePropertiesResult);
@@ -1968,7 +2083,9 @@ describe('CdTektonPipelineV2', () => {
           },
         };
 
-        cdTektonPipelineService.createTektonPipelineProperties(createTektonPipelinePropertiesParams);
+        cdTektonPipelineService.createTektonPipelineProperties(
+          createTektonPipelinePropertiesParams
+        );
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -2009,7 +2126,9 @@ describe('CdTektonPipelineV2', () => {
           propertyName,
         };
 
-        const getTektonPipelinePropertyResult = cdTektonPipelineService.getTektonPipelineProperty(getTektonPipelinePropertyParams);
+        const getTektonPipelinePropertyResult = cdTektonPipelineService.getTektonPipelineProperty(
+          getTektonPipelinePropertyParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(getTektonPipelinePropertyResult);
@@ -2019,7 +2138,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/properties/{property_name}', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/properties/{property_name}',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -2108,7 +2231,10 @@ describe('CdTektonPipelineV2', () => {
           path,
         };
 
-        const replaceTektonPipelinePropertyResult = cdTektonPipelineService.replaceTektonPipelineProperty(replaceTektonPipelinePropertyParams);
+        const replaceTektonPipelinePropertyResult =
+          cdTektonPipelineService.replaceTektonPipelineProperty(
+            replaceTektonPipelinePropertyParams
+          );
 
         // all methods should return a Promise
         expectToBePromise(replaceTektonPipelinePropertyResult);
@@ -2118,7 +2244,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/properties/{property_name}', 'PUT');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/properties/{property_name}',
+          'PUT'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -2206,7 +2336,8 @@ describe('CdTektonPipelineV2', () => {
           propertyName,
         };
 
-        const deleteTektonPipelinePropertyResult = cdTektonPipelineService.deleteTektonPipelineProperty(deleteTektonPipelinePropertyParams);
+        const deleteTektonPipelinePropertyResult =
+          cdTektonPipelineService.deleteTektonPipelineProperty(deleteTektonPipelinePropertyParams);
 
         // all methods should return a Promise
         expectToBePromise(deleteTektonPipelinePropertyResult);
@@ -2216,7 +2347,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/properties/{property_name}', 'DELETE');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/properties/{property_name}',
+          'DELETE'
+        );
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -2307,7 +2442,9 @@ describe('CdTektonPipelineV2', () => {
           tags,
         };
 
-        const listTektonPipelineTriggersResult = cdTektonPipelineService.listTektonPipelineTriggers(listTektonPipelineTriggersParams);
+        const listTektonPipelineTriggersResult = cdTektonPipelineService.listTektonPipelineTriggers(
+          listTektonPipelineTriggersParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(listTektonPipelineTriggersResult);
@@ -2453,7 +2590,8 @@ describe('CdTektonPipelineV2', () => {
           events,
         };
 
-        const createTektonPipelineTriggerResult = cdTektonPipelineService.createTektonPipelineTrigger(createTektonPipelineTriggerParams);
+        const createTektonPipelineTriggerResult =
+          cdTektonPipelineService.createTektonPipelineTrigger(createTektonPipelineTriggerParams);
 
         // all methods should return a Promise
         expectToBePromise(createTektonPipelineTriggerResult);
@@ -2557,7 +2695,9 @@ describe('CdTektonPipelineV2', () => {
           triggerId,
         };
 
-        const getTektonPipelineTriggerResult = cdTektonPipelineService.getTektonPipelineTrigger(getTektonPipelineTriggerParams);
+        const getTektonPipelineTriggerResult = cdTektonPipelineService.getTektonPipelineTrigger(
+          getTektonPipelineTriggerParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(getTektonPipelineTriggerResult);
@@ -2567,7 +2707,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -2701,7 +2845,8 @@ describe('CdTektonPipelineV2', () => {
           events,
         };
 
-        const updateTektonPipelineTriggerResult = cdTektonPipelineService.updateTektonPipelineTrigger(updateTektonPipelineTriggerParams);
+        const updateTektonPipelineTriggerResult =
+          cdTektonPipelineService.updateTektonPipelineTrigger(updateTektonPipelineTriggerParams);
 
         // all methods should return a Promise
         expectToBePromise(updateTektonPipelineTriggerResult);
@@ -2711,7 +2856,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}', 'PATCH');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}',
+          'PATCH'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/merge-patch+json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -2802,7 +2951,8 @@ describe('CdTektonPipelineV2', () => {
           triggerId,
         };
 
-        const deleteTektonPipelineTriggerResult = cdTektonPipelineService.deleteTektonPipelineTrigger(deleteTektonPipelineTriggerParams);
+        const deleteTektonPipelineTriggerResult =
+          cdTektonPipelineService.deleteTektonPipelineTrigger(deleteTektonPipelineTriggerParams);
 
         // all methods should return a Promise
         expectToBePromise(deleteTektonPipelineTriggerResult);
@@ -2812,7 +2962,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}', 'DELETE');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}',
+          'DELETE'
+        );
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -2893,7 +3047,10 @@ describe('CdTektonPipelineV2', () => {
           name,
         };
 
-        const duplicateTektonPipelineTriggerResult = cdTektonPipelineService.duplicateTektonPipelineTrigger(duplicateTektonPipelineTriggerParams);
+        const duplicateTektonPipelineTriggerResult =
+          cdTektonPipelineService.duplicateTektonPipelineTrigger(
+            duplicateTektonPipelineTriggerParams
+          );
 
         // all methods should return a Promise
         expectToBePromise(duplicateTektonPipelineTriggerResult);
@@ -2903,7 +3060,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/triggers/{source_trigger_id}/duplicate', 'POST');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/triggers/{source_trigger_id}/duplicate',
+          'POST'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -2944,7 +3105,9 @@ describe('CdTektonPipelineV2', () => {
           },
         };
 
-        cdTektonPipelineService.duplicateTektonPipelineTrigger(duplicateTektonPipelineTriggerParams);
+        cdTektonPipelineService.duplicateTektonPipelineTrigger(
+          duplicateTektonPipelineTriggerParams
+        );
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -2991,7 +3154,10 @@ describe('CdTektonPipelineV2', () => {
           sort,
         };
 
-        const listTektonPipelineTriggerPropertiesResult = cdTektonPipelineService.listTektonPipelineTriggerProperties(listTektonPipelineTriggerPropertiesParams);
+        const listTektonPipelineTriggerPropertiesResult =
+          cdTektonPipelineService.listTektonPipelineTriggerProperties(
+            listTektonPipelineTriggerPropertiesParams
+          );
 
         // all methods should return a Promise
         expectToBePromise(listTektonPipelineTriggerPropertiesResult);
@@ -3001,7 +3167,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}/properties', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}/properties',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -3042,7 +3212,9 @@ describe('CdTektonPipelineV2', () => {
           },
         };
 
-        cdTektonPipelineService.listTektonPipelineTriggerProperties(listTektonPipelineTriggerPropertiesParams);
+        cdTektonPipelineService.listTektonPipelineTriggerProperties(
+          listTektonPipelineTriggerPropertiesParams
+        );
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -3093,7 +3265,10 @@ describe('CdTektonPipelineV2', () => {
           path,
         };
 
-        const createTektonPipelineTriggerPropertiesResult = cdTektonPipelineService.createTektonPipelineTriggerProperties(createTektonPipelineTriggerPropertiesParams);
+        const createTektonPipelineTriggerPropertiesResult =
+          cdTektonPipelineService.createTektonPipelineTriggerProperties(
+            createTektonPipelineTriggerPropertiesParams
+          );
 
         // all methods should return a Promise
         expectToBePromise(createTektonPipelineTriggerPropertiesResult);
@@ -3103,7 +3278,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}/properties', 'POST');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}/properties',
+          'POST'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -3150,7 +3329,9 @@ describe('CdTektonPipelineV2', () => {
           },
         };
 
-        cdTektonPipelineService.createTektonPipelineTriggerProperties(createTektonPipelineTriggerPropertiesParams);
+        cdTektonPipelineService.createTektonPipelineTriggerProperties(
+          createTektonPipelineTriggerPropertiesParams
+        );
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -3193,7 +3374,10 @@ describe('CdTektonPipelineV2', () => {
           propertyName,
         };
 
-        const getTektonPipelineTriggerPropertyResult = cdTektonPipelineService.getTektonPipelineTriggerProperty(getTektonPipelineTriggerPropertyParams);
+        const getTektonPipelineTriggerPropertyResult =
+          cdTektonPipelineService.getTektonPipelineTriggerProperty(
+            getTektonPipelineTriggerPropertyParams
+          );
 
         // all methods should return a Promise
         expectToBePromise(getTektonPipelineTriggerPropertyResult);
@@ -3203,7 +3387,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}/properties/{property_name}', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}/properties/{property_name}',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -3244,7 +3432,9 @@ describe('CdTektonPipelineV2', () => {
           },
         };
 
-        cdTektonPipelineService.getTektonPipelineTriggerProperty(getTektonPipelineTriggerPropertyParams);
+        cdTektonPipelineService.getTektonPipelineTriggerProperty(
+          getTektonPipelineTriggerPropertyParams
+        );
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -3297,7 +3487,10 @@ describe('CdTektonPipelineV2', () => {
           path,
         };
 
-        const replaceTektonPipelineTriggerPropertyResult = cdTektonPipelineService.replaceTektonPipelineTriggerProperty(replaceTektonPipelineTriggerPropertyParams);
+        const replaceTektonPipelineTriggerPropertyResult =
+          cdTektonPipelineService.replaceTektonPipelineTriggerProperty(
+            replaceTektonPipelineTriggerPropertyParams
+          );
 
         // all methods should return a Promise
         expectToBePromise(replaceTektonPipelineTriggerPropertyResult);
@@ -3307,7 +3500,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}/properties/{property_name}', 'PUT');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}/properties/{property_name}',
+          'PUT'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -3357,7 +3554,9 @@ describe('CdTektonPipelineV2', () => {
           },
         };
 
-        cdTektonPipelineService.replaceTektonPipelineTriggerProperty(replaceTektonPipelineTriggerPropertyParams);
+        cdTektonPipelineService.replaceTektonPipelineTriggerProperty(
+          replaceTektonPipelineTriggerPropertyParams
+        );
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -3400,7 +3599,10 @@ describe('CdTektonPipelineV2', () => {
           propertyName,
         };
 
-        const deleteTektonPipelineTriggerPropertyResult = cdTektonPipelineService.deleteTektonPipelineTriggerProperty(deleteTektonPipelineTriggerPropertyParams);
+        const deleteTektonPipelineTriggerPropertyResult =
+          cdTektonPipelineService.deleteTektonPipelineTriggerProperty(
+            deleteTektonPipelineTriggerPropertyParams
+          );
 
         // all methods should return a Promise
         expectToBePromise(deleteTektonPipelineTriggerPropertyResult);
@@ -3410,7 +3612,11 @@ describe('CdTektonPipelineV2', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}/properties/{property_name}', 'DELETE');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/tekton_pipelines/{pipeline_id}/triggers/{trigger_id}/properties/{property_name}',
+          'DELETE'
+        );
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -3451,7 +3657,9 @@ describe('CdTektonPipelineV2', () => {
           },
         };
 
-        cdTektonPipelineService.deleteTektonPipelineTriggerProperty(deleteTektonPipelineTriggerPropertyParams);
+        cdTektonPipelineService.deleteTektonPipelineTriggerProperty(
+          deleteTektonPipelineTriggerPropertyParams
+        );
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
