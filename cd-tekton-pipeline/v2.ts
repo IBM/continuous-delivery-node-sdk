@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -429,11 +429,11 @@ class CdTektonPipelineV2 extends BaseService {
   /**
    * Trigger a pipeline run.
    *
-   * Trigger a new pipeline run using the named trigger, using the provided additional or override properties.
+   * Trigger a new pipeline run using the named manual trigger, using the provided additional or override properties.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.pipelineId - The Tekton pipeline ID.
-   * @param {string} params.triggerName - Trigger name.
+   * @param {string} [params.triggerName] - Trigger name.
    * @param {Property[]} [params.triggerProperties] - An object containing string values only that provides additional
    * `text` properties, or overrides existing pipeline/trigger properties, to use for the created run.
    * @param {Property[]} [params.secureTriggerProperties] - An object containing string values only that provides
@@ -445,6 +445,7 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {JsonObject} [params.triggerBody] - An object that provides the request body. Use `$(body.body_key_name)` to
    * access it in a TriggerBinding. Most commonly used to pass in additional properties or override properties for the
    * pipeline run that is created.
+   * @param {PipelineRunTrigger} [params.trigger] - Trigger details passed when triggering a Tekton pipeline run.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.PipelineRun>>}
    */
@@ -452,7 +453,7 @@ class CdTektonPipelineV2 extends BaseService {
     params: CdTektonPipelineV2.CreateTektonPipelineRunParams
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.PipelineRun>> {
     const _params = { ...params };
-    const _requiredParams = ['pipelineId', 'triggerName'];
+    const _requiredParams = ['pipelineId'];
     const _validParams = [
       'pipelineId',
       'triggerName',
@@ -460,6 +461,7 @@ class CdTektonPipelineV2 extends BaseService {
       'secureTriggerProperties',
       'triggerHeaders',
       'triggerBody',
+      'trigger',
       'headers',
     ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
@@ -473,6 +475,7 @@ class CdTektonPipelineV2 extends BaseService {
       'secure_trigger_properties': _params.secureTriggerProperties,
       'trigger_headers': _params.triggerHeaders,
       'trigger_body': _params.triggerBody,
+      'trigger': _params.trigger,
     };
 
     const path = {
@@ -2375,7 +2378,7 @@ namespace CdTektonPipelineV2 {
     /** The Tekton pipeline ID. */
     pipelineId: string;
     /** Trigger name. */
-    triggerName: string;
+    triggerName?: string;
     /** An object containing string values only that provides additional `text` properties, or overrides existing
      *  pipeline/trigger properties, to use for the created run.
      */
@@ -2393,6 +2396,8 @@ namespace CdTektonPipelineV2 {
      *  commonly used to pass in additional properties or override properties for the pipeline run that is created.
      */
     triggerBody?: JsonObject;
+    /** Trigger details passed when triggering a Tekton pipeline run. */
+    trigger?: PipelineRunTrigger;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -2917,7 +2922,7 @@ namespace CdTektonPipelineV2 {
     source: DefinitionSource;
     /** API URL for interacting with the definition. */
     href: string;
-    /** UUID. */
+    /** The aggregated definition ID. */
     id: string;
   }
 
@@ -2939,30 +2944,14 @@ namespace CdTektonPipelineV2 {
     tag?: string;
     /** The path to the definition's YAML files. */
     path: string;
-    /** Reference to the repository tool, in the parent toolchain, that contains the pipeline definition. */
-    tool?: DefinitionSourcePropertiesTool;
-  }
-
-  /** Reference to the repository tool, in the parent toolchain, that contains the pipeline definition. */
-  export interface DefinitionSourcePropertiesTool {
-    /** ID of the repository tool instance in the parent toolchain. */
-    id?: string;
+    /** Reference to the repository tool in the parent toolchain. */
+    tool?: Tool;
   }
 
   /** Pipeline definitions is a collection of individual definition entries, each entry consists of a repository URL, branch/tag and path. */
   export interface DefinitionsCollection {
     /** The list of all definitions in the pipeline. */
-    definitions: DefinitionsCollectionDefinitionsItem[];
-  }
-
-  /** Tekton pipeline definition entry object, consisting of a repository url, a repository path and a branch or tag. The referenced repository URL must match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools. The branch or tag of the definition must match against a corresponding branch or tag in the chosen repository, and the path must match a subfolder in the repository. */
-  export interface DefinitionsCollectionDefinitionsItem {
-    /** Source repository containing the Tekton pipeline definition. */
-    source: DefinitionSource;
-    /** URL of the definition repository. */
-    href: string;
-    /** UUID. */
-    id: string;
+    definitions: Definition[];
   }
 
   /** Only needed for generic webhook trigger type. Secret used to start generic webhook trigger. */
@@ -2999,22 +2988,24 @@ namespace CdTektonPipelineV2 {
   export interface PipelineRun {
     /** UUID. */
     id: string;
+    /** General href URL. */
+    href: string;
     /** Information about the user that triggered a pipeline run. Only included for pipeline runs that were manually
      *  triggered.
      */
     user_info?: UserInfo;
     /** Status of the pipeline run. */
     status: string;
-    /** The aggregated definition ID used for this pipeline run. */
+    /** The aggregated definition ID. */
     definition_id: string;
-    /** Reference to the pipeline definition of this pipeline run. */
-    definition?: PipelineRunDefinition;
+    /** Reference to the pipeline definition of a pipeline run. */
+    definition?: RunDefinition;
     /** worker details used in this pipeline run. */
     worker: PipelineRunWorker;
     /** The ID of the pipeline to which this pipeline run belongs. */
     pipeline_id: string;
-    /** Reference to the pipeline to which this pipeline run belongs. */
-    pipeline?: PipelineRunPipeline;
+    /** Reference to the pipeline to which a pipeline run belongs. */
+    pipeline?: RunPipeline;
     /** Listener name used to start the run. */
     listener_name: string;
     /** Tekton pipeline trigger. */
@@ -3038,16 +3029,27 @@ namespace CdTektonPipelineV2 {
     run_url: string;
   }
 
-  /** Reference to the pipeline definition of this pipeline run. */
-  export interface PipelineRunDefinition {
-    /** The ID of the definition used for this pipeline run. */
-    id?: string;
-  }
-
-  /** Reference to the pipeline to which this pipeline run belongs. */
-  export interface PipelineRunPipeline {
-    /** The ID of the pipeline to which this pipeline run belongs. */
-    id?: string;
+  /** Trigger details passed when triggering a Tekton pipeline run. */
+  export interface PipelineRunTrigger {
+    /** Trigger name. */
+    name: string;
+    /** An object containing string values only that provides additional `text` properties, or overrides existing
+     *  pipeline/trigger properties, to use for the created run.
+     */
+    properties?: Property[];
+    /** An object containing string values only that provides additional `secure` properties, or overrides existing
+     *  `secure` pipeline/trigger properties, to use for the created run.
+     */
+    secure_properties?: Property[];
+    /** An object containing string values only that provides the request headers. Use `$(header.header_key_name)`
+     *  to access it in a TriggerBinding. Most commonly used as part of a Generic Webhook to provide a verification
+     *  token or signature in the request headers.
+     */
+    headers?: JsonObject;
+    /** An object that provides the request body. Use `$(body.body_key_name)` to access it in a TriggerBinding. Most
+     *  commonly used to pass in additional properties or override properties for the pipeline run that is created.
+     */
+    body?: JsonObject;
   }
 
   /** worker details used in this pipeline run. */
@@ -3065,82 +3067,19 @@ namespace CdTektonPipelineV2 {
   /** Tekton pipeline runs object. */
   export interface PipelineRunsCollection {
     /** Tekton pipeline runs list. */
-    pipeline_runs: PipelineRunsCollectionPipelineRunsItem[];
+    pipeline_runs: PipelineRun[];
     /** The number of pipeline runs to return, sorted by creation time, most recent first. */
     limit: number;
     /** First page of pipeline runs. */
-    first: PipelineRunsCollectionFirst;
+    first: RunsFirstPage;
     /** Next page of pipeline runs relative to the `start` and `limit` params. Only included when there are more
      *  pages available.
      */
-    next?: PipelineRunsCollectionNext;
+    next?: RunsNextPage;
     /** Last page of pipeline runs relative to the `start` and `limit` params. Only included when the last page has
      *  been reached.
      */
-    last?: PipelineRunsCollectionLast;
-  }
-
-  /** First page of pipeline runs. */
-  export interface PipelineRunsCollectionFirst {
-    /** General href URL. */
-    href: string;
-  }
-
-  /** Last page of pipeline runs relative to the `start` and `limit` params. Only included when the last page has been reached. */
-  export interface PipelineRunsCollectionLast {
-    /** General href URL. */
-    href: string;
-  }
-
-  /** Next page of pipeline runs relative to the `start` and `limit` params. Only included when there are more pages available. */
-  export interface PipelineRunsCollectionNext {
-    /** General href URL. */
-    href: string;
-  }
-
-  /** Single Tekton pipeline run object. */
-  export interface PipelineRunsCollectionPipelineRunsItem {
-    /** UUID. */
-    id: string;
-    /** Information about the user that triggered a pipeline run. Only included for pipeline runs that were manually
-     *  triggered.
-     */
-    user_info?: UserInfo;
-    /** Status of the pipeline run. */
-    status: string;
-    /** The aggregated definition ID used for this pipeline run. */
-    definition_id: string;
-    /** Reference to the pipeline definition of this pipeline run. */
-    definition?: PipelineRunDefinition;
-    /** worker details used in this pipeline run. */
-    worker: PipelineRunWorker;
-    /** The ID of the pipeline to which this pipeline run belongs. */
-    pipeline_id: string;
-    /** Reference to the pipeline to which this pipeline run belongs. */
-    pipeline?: PipelineRunPipeline;
-    /** Listener name used to start the run. */
-    listener_name: string;
-    /** Tekton pipeline trigger. */
-    trigger: Trigger;
-    /** Event parameters object in String format that was passed in upon creation of this pipeline run, the contents
-     *  depends on the type of trigger. For example, the Git event payload is included for Git triggers, or in the case
-     *  of a manual trigger the override and added properties are included.
-     */
-    event_params_blob: string;
-    /** Trigger headers object in String format that was passed in upon creation of this pipeline run. Omitted if no
-     *  trigger_headers object was provided when creating the pipeline run.
-     */
-    trigger_headers?: string;
-    /** Properties used in this Tekton pipeline run. Not included when fetching the list of pipeline runs. */
-    properties?: Property[];
-    /** Standard RFC 3339 Date Time String. */
-    created_at: string;
-    /** Standard RFC 3339 Date Time String. Only included if the run has been updated since it was created. */
-    updated_at?: string;
-    /** URL for the details page of this pipeline run. */
-    run_url: string;
-    /** API URL for interacting with the pipeline run. */
-    href?: string;
+    last?: RunsLastPage;
   }
 
   /** Pipeline properties object. */
@@ -3167,6 +3106,42 @@ namespace CdTektonPipelineV2 {
     path?: string;
   }
 
+  /** The resource group in which the pipeline was created. */
+  export interface ResourceGroupReference {
+    /** ID. */
+    id?: string;
+  }
+
+  /** Reference to the pipeline definition of a pipeline run. */
+  export interface RunDefinition {
+    /** The ID of the definition used for a pipeline run. */
+    id?: string;
+  }
+
+  /** Reference to the pipeline to which a pipeline run belongs. */
+  export interface RunPipeline {
+    /** The ID of the pipeline to which a pipeline run belongs. */
+    id?: string;
+  }
+
+  /** First page of pipeline runs. */
+  export interface RunsFirstPage {
+    /** General href URL. */
+    href: string;
+  }
+
+  /** Last page of pipeline runs relative to the `start` and `limit` params. Only included when the last page has been reached. */
+  export interface RunsLastPage {
+    /** General href URL. */
+    href: string;
+  }
+
+  /** Next page of pipeline runs relative to the `start` and `limit` params. Only included when there are more pages available. */
+  export interface RunsNextPage {
+    /** General href URL. */
+    href: string;
+  }
+
   /** Logs for a Tekton pipeline run step. */
   export interface StepLog {
     /** The raw log content of the step. Only included when fetching an individual log object. */
@@ -3181,8 +3156,8 @@ namespace CdTektonPipelineV2 {
     name: string;
     /** Pipeline status. */
     status: string;
-    /** The ID of the resource group in which the pipeline was created. */
-    resource_group: TektonPipelineResourceGroup;
+    /** The resource group in which the pipeline was created. */
+    resource_group: ResourceGroupReference;
     /** Toolchain object containing references to the parent toolchain. */
     toolchain: ToolchainReference;
     /** UUID. */
@@ -3219,10 +3194,10 @@ namespace CdTektonPipelineV2 {
     enabled: boolean;
   }
 
-  /** The ID of the resource group in which the pipeline was created. */
-  export interface TektonPipelineResourceGroup {
-    /** ID. */
-    id?: string;
+  /** Reference to the repository tool in the parent toolchain. */
+  export interface Tool {
+    /** ID of the repository tool instance in the parent toolchain. */
+    id: string;
   }
 
   /** Toolchain object containing references to the parent toolchain. */
@@ -3236,86 +3211,14 @@ namespace CdTektonPipelineV2 {
   /** Tekton pipeline trigger. */
   export interface Trigger {}
 
-  /** Trigger property object. */
-  export interface TriggerGenericTriggerPropertiesItem {
-    /** Property name. */
-    name: string;
-    /** Property value. Any string value is valid. */
-    value?: string;
-    /** API URL for interacting with the trigger property. */
-    href: string;
-    /** Options for `single_select` property type. Only needed for `single_select` property type. */
-    enum?: string[];
-    /** Property type. */
-    type: string;
-    /** A dot notation path for `integration` type properties only, that selects a value from the tool integration.
-     *  If left blank the full tool integration data will be used.
-     */
-    path?: string;
-  }
-
-  /** Trigger property object. */
-  export interface TriggerManualTriggerPropertiesItem {
-    /** Property name. */
-    name: string;
-    /** Property value. Any string value is valid. */
-    value?: string;
-    /** API URL for interacting with the trigger property. */
-    href: string;
-    /** Options for `single_select` property type. Only needed for `single_select` property type. */
-    enum?: string[];
-    /** Property type. */
-    type: string;
-    /** A dot notation path for `integration` type properties only, that selects a value from the tool integration.
-     *  If left blank the full tool integration data will be used.
-     */
-    path?: string;
-  }
-
   /** Trigger properties object. */
   export interface TriggerPropertiesCollection {
     /** Trigger properties list. */
-    properties: TriggerPropertiesCollectionPropertiesItem[];
-  }
-
-  /** Trigger property object. */
-  export interface TriggerPropertiesCollectionPropertiesItem {
-    /** Property name. */
-    name: string;
-    /** Property value. Any string value is valid. */
-    value?: string;
-    /** API URL for interacting with the trigger property. */
-    href: string;
-    /** Options for `single_select` property type. Only needed for `single_select` property type. */
-    enum?: string[];
-    /** Property type. */
-    type: string;
-    /** A dot notation path for `integration` type properties only, that selects a value from the tool integration.
-     *  If left blank the full tool integration data will be used.
-     */
-    path?: string;
+    properties: TriggerProperty[];
   }
 
   /** Trigger property object. */
   export interface TriggerProperty {
-    /** Property name. */
-    name: string;
-    /** Property value. Any string value is valid. */
-    value?: string;
-    /** API URL for interacting with the trigger property. */
-    href: string;
-    /** Options for `single_select` property type. Only needed for `single_select` property type. */
-    enum?: string[];
-    /** Property type. */
-    type: string;
-    /** A dot notation path for `integration` type properties only, that selects a value from the tool integration.
-     *  If left blank the full tool integration data will be used.
-     */
-    path?: string;
-  }
-
-  /** Trigger property object. */
-  export interface TriggerScmTriggerPropertiesItem {
     /** Property name. */
     name: string;
     /** Property value. Any string value is valid. */
@@ -3358,7 +3261,7 @@ namespace CdTektonPipelineV2 {
     /** ID of the webhook from the repo. Computed upon creation of the trigger. */
     hook_id?: string;
     /** Reference to the repository tool in the parent toolchain. */
-    tool: TriggerSourcePropertiesTool;
+    tool: Tool;
   }
 
   /** Properties of the source, which define the URL of the repository and a branch or pattern. */
@@ -3374,36 +3277,12 @@ namespace CdTektonPipelineV2 {
     pattern?: string;
   }
 
-  /** Reference to the repository tool in the parent toolchain. */
-  export interface TriggerSourcePropertiesTool {
-    /** ID of the repository tool instance in the parent toolchain. */
-    id: string;
-  }
-
   /** Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools. */
   export interface TriggerSourcePrototype {
     /** The only supported source type is "git", indicating that the source is a git repository. */
     type: string;
     /** Properties of the source, which define the URL of the repository and a branch or pattern. */
     properties: TriggerSourcePropertiesPrototype;
-  }
-
-  /** Trigger property object. */
-  export interface TriggerTimerTriggerPropertiesItem {
-    /** Property name. */
-    name: string;
-    /** Property value. Any string value is valid. */
-    value?: string;
-    /** API URL for interacting with the trigger property. */
-    href: string;
-    /** Options for `single_select` property type. Only needed for `single_select` property type. */
-    enum?: string[];
-    /** Property type. */
-    type: string;
-    /** A dot notation path for `integration` type properties only, that selects a value from the tool integration.
-     *  If left blank the full tool integration data will be used.
-     */
-    path?: string;
   }
 
   /** Tekton pipeline triggers object. */
@@ -3448,12 +3327,12 @@ namespace CdTektonPipelineV2 {
      *  are defined in the definition repositories of the Tekton pipeline.
      */
     event_listener: string;
-    /** ID. */
+    /** The Trigger ID. */
     id: string;
     /** Optional trigger properties used to override or supplement the pipeline properties when triggering a
      *  pipeline run.
      */
-    properties?: TriggerGenericTriggerPropertiesItem[];
+    properties?: TriggerProperty[];
     /** Optional trigger tags array. */
     tags?: string[];
     /** Worker used to run the trigger. If not specified the trigger will use the default pipeline worker. */
@@ -3482,12 +3361,12 @@ namespace CdTektonPipelineV2 {
      *  are defined in the definition repositories of the Tekton pipeline.
      */
     event_listener: string;
-    /** ID. */
+    /** The Trigger ID. */
     id: string;
     /** Optional trigger properties used to override or supplement the pipeline properties when triggering a
      *  pipeline run.
      */
-    properties?: TriggerManualTriggerPropertiesItem[];
+    properties?: TriggerProperty[];
     /** Optional trigger tags array. */
     tags?: string[];
     /** Worker used to run the trigger. If not specified the trigger will use the default pipeline worker. */
@@ -3512,12 +3391,12 @@ namespace CdTektonPipelineV2 {
      *  are defined in the definition repositories of the Tekton pipeline.
      */
     event_listener: string;
-    /** ID. */
+    /** The Trigger ID. */
     id: string;
     /** Optional trigger properties used to override or supplement the pipeline properties when triggering a
      *  pipeline run.
      */
-    properties?: TriggerScmTriggerPropertiesItem[];
+    properties?: TriggerProperty[];
     /** Optional trigger tags array. */
     tags?: string[];
     /** Worker used to run the trigger. If not specified the trigger will use the default pipeline worker. */
@@ -3552,12 +3431,12 @@ namespace CdTektonPipelineV2 {
      *  are defined in the definition repositories of the Tekton pipeline.
      */
     event_listener: string;
-    /** ID. */
+    /** The Trigger ID. */
     id: string;
     /** Optional trigger properties used to override or supplement the pipeline properties when triggering a
      *  pipeline run.
      */
-    properties?: TriggerTimerTriggerPropertiesItem[];
+    properties?: TriggerProperty[];
     /** Optional trigger tags array. */
     tags?: string[];
     /** Worker used to run the trigger. If not specified the trigger will use the default pipeline worker. */
@@ -3628,9 +3507,9 @@ namespace CdTektonPipelineV2 {
 
     /**
      * Returns the next page of results by invoking listTektonPipelineRuns().
-     * @returns {Promise<CdTektonPipelineV2.PipelineRunsCollectionPipelineRunsItem[]>}
+     * @returns {Promise<CdTektonPipelineV2.PipelineRun[]>}
      */
-    public async getNext(): Promise<CdTektonPipelineV2.PipelineRunsCollectionPipelineRunsItem[]> {
+    public async getNext(): Promise<CdTektonPipelineV2.PipelineRun[]> {
       if (!this.hasNext()) {
         throw new Error('No more results available');
       }
@@ -3656,10 +3535,10 @@ namespace CdTektonPipelineV2 {
 
     /**
      * Returns all results by invoking listTektonPipelineRuns() repeatedly until all pages of results have been retrieved.
-     * @returns {Promise<CdTektonPipelineV2.PipelineRunsCollectionPipelineRunsItem[]>}
+     * @returns {Promise<CdTektonPipelineV2.PipelineRun[]>}
      */
-    public async getAll(): Promise<CdTektonPipelineV2.PipelineRunsCollectionPipelineRunsItem[]> {
-      const results: PipelineRunsCollectionPipelineRunsItem[] = [];
+    public async getAll(): Promise<CdTektonPipelineV2.PipelineRun[]> {
+      const results: PipelineRun[] = [];
       while (this.hasNext()) {
         const nextPage = await this.getNext();
         results.push(...nextPage);

@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -224,13 +224,18 @@ describe('CdTektonPipelineV2', () => {
       type: 'secure',
     };
 
+    // PipelineRunTrigger
+    const pipelineRunTriggerModel = {
+      name: 'Generic Webhook Trigger - 0',
+      properties: [propertyModel],
+      secure_properties: [propertyModel],
+      headers: { source: 'api' },
+      body: { message: 'hello world', enable: 'true', detail: { name: 'example' } },
+    };
+
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
-      triggerName: 'Generic Webhook Trigger - 0',
-      triggerProperties: [propertyModel],
-      secureTriggerProperties: [propertyModel],
-      triggerHeaders: { source: 'api' },
-      triggerBody: { message: 'hello world', enable: 'true', detail: { name: 'example' } },
+      trigger: pipelineRunTriggerModel,
     };
 
     let res;
