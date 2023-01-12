@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -629,9 +629,9 @@ describe('CdTektonPipelineV2', () => {
       const serviceUrl = cdTektonPipelineServiceOptions.url;
       const path = '/tekton_pipelines/94619026-912b-4d92-8f51-6c74f0692d90/pipeline_runs';
       const mockPagerResponse1 =
-        '{"next":{"href":"https://myhost.com/somePath?start=1"},"total_count":2,"limit":1,"pipeline_runs":[{"id":"id","user_info":{"iam_id":"iam_id","sub":"sub"},"status":"pending","definition_id":"definition_id","definition":{"id":"id"},"worker":{"name":"name","agent_id":"agent_id","service_id":"service_id","id":"id"},"pipeline_id":"pipeline_id","pipeline":{"id":"id"},"listener_name":"listener_name","trigger":{"type":"type","name":"start-deploy","href":"href","event_listener":"event_listener","id":"id","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","path":"path"}],"tags":["tags"],"worker":{"name":"name","type":"type","id":"id"},"max_concurrent_runs":4,"enabled":true},"event_params_blob":"event_params_blob","trigger_headers":"trigger_headers","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","path":"path"}],"created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","run_url":"run_url","href":"href"}]}';
+        '{"next":{"href":"https://myhost.com/somePath?start=1"},"total_count":2,"limit":1,"pipeline_runs":[{"id":"id","href":"href","user_info":{"iam_id":"iam_id","sub":"sub"},"status":"pending","definition_id":"definition_id","definition":{"id":"id"},"worker":{"name":"name","agent_id":"agent_id","service_id":"service_id","id":"id"},"pipeline_id":"pipeline_id","pipeline":{"id":"id"},"listener_name":"listener_name","trigger":{"type":"type","name":"start-deploy","href":"href","event_listener":"event_listener","id":"id","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","path":"path"}],"tags":["tags"],"worker":{"name":"name","type":"type","id":"id"},"max_concurrent_runs":4,"enabled":true},"event_params_blob":"event_params_blob","trigger_headers":"trigger_headers","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","path":"path"}],"created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","run_url":"run_url"}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"pipeline_runs":[{"id":"id","user_info":{"iam_id":"iam_id","sub":"sub"},"status":"pending","definition_id":"definition_id","definition":{"id":"id"},"worker":{"name":"name","agent_id":"agent_id","service_id":"service_id","id":"id"},"pipeline_id":"pipeline_id","pipeline":{"id":"id"},"listener_name":"listener_name","trigger":{"type":"type","name":"start-deploy","href":"href","event_listener":"event_listener","id":"id","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","path":"path"}],"tags":["tags"],"worker":{"name":"name","type":"type","id":"id"},"max_concurrent_runs":4,"enabled":true},"event_params_blob":"event_params_blob","trigger_headers":"trigger_headers","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","path":"path"}],"created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","run_url":"run_url","href":"href"}]}';
+        '{"total_count":2,"limit":1,"pipeline_runs":[{"id":"id","href":"href","user_info":{"iam_id":"iam_id","sub":"sub"},"status":"pending","definition_id":"definition_id","definition":{"id":"id"},"worker":{"name":"name","agent_id":"agent_id","service_id":"service_id","id":"id"},"pipeline_id":"pipeline_id","pipeline":{"id":"id"},"listener_name":"listener_name","trigger":{"type":"type","name":"start-deploy","href":"href","event_listener":"event_listener","id":"id","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","path":"path"}],"tags":["tags"],"worker":{"name":"name","type":"type","id":"id"},"max_concurrent_runs":4,"enabled":true},"event_params_blob":"event_params_blob","trigger_headers":"trigger_headers","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","path":"path"}],"created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","run_url":"run_url"}]}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -700,14 +700,24 @@ describe('CdTektonPipelineV2', () => {
         path: 'testString',
       };
 
+      // PipelineRunTrigger
+      const pipelineRunTriggerModel = {
+        name: 'Generic Webhook Trigger - 0',
+        properties: [propertyModel],
+        secure_properties: [propertyModel],
+        headers: { foo: 'bar' },
+        body: { foo: 'bar' },
+      };
+
       function __createTektonPipelineRunTest() {
         // Construct the params object for operation createTektonPipelineRun
         const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
-        const triggerName = 'Generic Webhook Trigger - 0';
+        const triggerName = 'testString';
         const triggerProperties = [propertyModel];
         const secureTriggerProperties = [propertyModel];
         const triggerHeaders = { foo: 'bar' };
         const triggerBody = { foo: 'bar' };
+        const trigger = pipelineRunTriggerModel;
         const createTektonPipelineRunParams = {
           pipelineId,
           triggerName,
@@ -715,6 +725,7 @@ describe('CdTektonPipelineV2', () => {
           secureTriggerProperties,
           triggerHeaders,
           triggerBody,
+          trigger,
         };
 
         const createTektonPipelineRunResult = cdTektonPipelineService.createTektonPipelineRun(
@@ -742,6 +753,7 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.secure_trigger_properties).toEqual(secureTriggerProperties);
         expect(mockRequestOptions.body.trigger_headers).toEqual(triggerHeaders);
         expect(mockRequestOptions.body.trigger_body).toEqual(triggerBody);
+        expect(mockRequestOptions.body.trigger).toEqual(trigger);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
       }
 
@@ -763,12 +775,10 @@ describe('CdTektonPipelineV2', () => {
       test('should prioritize user-given headers', () => {
         // parameters
         const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
-        const triggerName = 'Generic Webhook Trigger - 0';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const createTektonPipelineRunParams = {
           pipelineId,
-          triggerName,
           headers: {
             Accept: userAccept,
             'Content-Type': userContentType,
@@ -1480,8 +1490,8 @@ describe('CdTektonPipelineV2', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
 
-      // DefinitionSourcePropertiesTool
-      const definitionSourcePropertiesToolModel = {
+      // Tool
+      const toolModel = {
         id: 'testString',
       };
 
@@ -1491,7 +1501,7 @@ describe('CdTektonPipelineV2', () => {
         branch: 'master',
         tag: 'testString',
         path: '.tekton',
-        tool: definitionSourcePropertiesToolModel,
+        tool: toolModel,
       };
 
       // DefinitionSource
@@ -1694,8 +1704,8 @@ describe('CdTektonPipelineV2', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
 
-      // DefinitionSourcePropertiesTool
-      const definitionSourcePropertiesToolModel = {
+      // Tool
+      const toolModel = {
         id: 'testString',
       };
 
@@ -1705,7 +1715,7 @@ describe('CdTektonPipelineV2', () => {
         branch: 'testString',
         tag: 'testString',
         path: 'testString',
-        tool: definitionSourcePropertiesToolModel,
+        tool: toolModel,
       };
 
       // DefinitionSource
