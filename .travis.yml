@@ -1,8 +1,11 @@
+dist: focal
+
 language: node_js
 
 node_js:
-- 12
 - 14
+- 16
+- 18
 
 before_install:
 - npm i -g npm@8
