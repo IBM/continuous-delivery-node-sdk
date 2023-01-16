@@ -51,8 +51,8 @@ IBM Cloud services:
 
 Service Name | Import Path
 --- | ---
-[Toolchain API](https://cloud.ibm.com/apidocs/toolchain?code=go) | cdtoolchainv2
-[Tekton Pipeline API](https://cloud.ibm.com/apidocs/tekton-pipeline?code=go) | cdtektonpipelinev2
+[Toolchain API](https://cloud.ibm.com/apidocs/toolchain?code=node) | ibm-continuous-delivery/cd-toolchain/v2
+[Tekton Pipeline API](https://cloud.ibm.com/apidocs/tekton-pipeline?code=node) | ibm-continuous-delivery/cd-tektonpipeline/v2
 
 Table 1. IBM Cloud services
 
