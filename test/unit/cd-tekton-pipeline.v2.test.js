@@ -2540,10 +2540,8 @@ describe('CdTektonPipelineV2', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
 
-      // Worker
-      const workerModel = {
-        name: 'testString',
-        type: 'testString',
+      // WorkerIdentity
+      const workerIdentityModel = {
         id: 'public',
       };
 
@@ -2576,7 +2574,7 @@ describe('CdTektonPipelineV2', () => {
         const name = 'Manual Trigger';
         const eventListener = 'pr-listener';
         const tags = ['testString'];
-        const worker = workerModel;
+        const worker = workerIdentityModel;
         const maxConcurrentRuns = 3;
         const enabled = true;
         const secret = genericSecretModel;
@@ -2793,10 +2791,8 @@ describe('CdTektonPipelineV2', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
 
-      // Worker
-      const workerModel = {
-        name: 'testString',
-        type: 'testString',
+      // WorkerIdentity
+      const workerIdentityModel = {
         id: 'testString',
       };
 
@@ -2830,7 +2826,7 @@ describe('CdTektonPipelineV2', () => {
         const name = 'start-deploy';
         const eventListener = 'testString';
         const tags = ['testString'];
-        const worker = workerModel;
+        const worker = workerIdentityModel;
         const maxConcurrentRuns = 38;
         const enabled = true;
         const secret = genericSecretModel;

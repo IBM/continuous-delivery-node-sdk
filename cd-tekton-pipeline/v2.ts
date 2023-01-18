@@ -1546,8 +1546,8 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} params.eventListener - Event listener name. The name of the event listener to which the trigger is
    * associated. The event listeners are defined in the definition repositories of the Tekton pipeline.
    * @param {string[]} [params.tags] - Trigger tags array.
-   * @param {Worker} [params.worker] - Worker used to run the trigger. If not specified the trigger will use the default
-   * pipeline worker.
+   * @param {WorkerIdentity} [params.worker] - Worker used to run the trigger. If not specified the trigger will use the
+   * default pipeline worker.
    * @param {number} [params.maxConcurrentRuns] - Defines the maximum number of concurrent runs for this trigger. If
    * omitted then the concurrency limit is disabled for this trigger.
    * @param {boolean} [params.enabled] - Flag whether the trigger is enabled. If omitted the trigger is enabled by
@@ -1713,8 +1713,8 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} [params.eventListener] - Event listener name. The name of the event listener to which the trigger
    * is associated. The event listeners are defined in the definition repositories of the Tekton pipeline.
    * @param {string[]} [params.tags] - Trigger tags array. Optional tags for the trigger.
-   * @param {Worker} [params.worker] - Worker used to run the trigger. If not specified the trigger will use the default
-   * pipeline worker.
+   * @param {WorkerIdentity} [params.worker] - Worker used to run the trigger. If not specified the trigger will use the
+   * default pipeline worker.
    * @param {number} [params.maxConcurrentRuns] - Defines the maximum number of concurrent runs for this trigger. If
    * omitted then the concurrency limit is disabled for this trigger.
    * @param {boolean} [params.enabled] - Defines if this trigger is enabled.
@@ -2661,7 +2661,7 @@ namespace CdTektonPipelineV2 {
     /** Trigger tags array. */
     tags?: string[];
     /** Worker used to run the trigger. If not specified the trigger will use the default pipeline worker. */
-    worker?: Worker;
+    worker?: WorkerIdentity;
     /** Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is
      *  disabled for this trigger.
      */
@@ -2736,7 +2736,7 @@ namespace CdTektonPipelineV2 {
     /** Trigger tags array. Optional tags for the trigger. */
     tags?: string[];
     /** Worker used to run the trigger. If not specified the trigger will use the default pipeline worker. */
-    worker?: Worker;
+    worker?: WorkerIdentity;
     /** Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is
      *  disabled for this trigger.
      */
@@ -2921,7 +2921,7 @@ namespace CdTektonPipelineV2 {
     /** Source repository containing the Tekton pipeline definition. */
     source: DefinitionSource;
     /** API URL for interacting with the definition. */
-    href: string;
+    href?: string;
     /** The aggregated definition ID. */
     id: string;
   }
@@ -2971,7 +2971,7 @@ namespace CdTektonPipelineV2 {
   /** Log data for Tekton pipeline run steps. */
   export interface Log {
     /** API for getting log content. */
-    href: string;
+    href?: string;
     /** Step log ID. */
     id: string;
     /** <podName>/<containerName> of this log. */
@@ -2989,7 +2989,7 @@ namespace CdTektonPipelineV2 {
     /** UUID. */
     id: string;
     /** General href URL. */
-    href: string;
+    href?: string;
     /** Information about the user that triggered a pipeline run. Only included for pipeline runs that were manually
      *  triggered.
      */
@@ -3095,7 +3095,7 @@ namespace CdTektonPipelineV2 {
     /** Property value. Any string value is valid. */
     value?: string;
     /** API URL for interacting with the property. */
-    href: string;
+    href?: string;
     /** Options for `single_select` property type. Only needed when using `single_select` property type. */
     enum?: string[];
     /** Property type. */
@@ -3177,7 +3177,7 @@ namespace CdTektonPipelineV2 {
     /** URL for this pipeline showing the list of pipeline runs. */
     runs_url: string;
     /** API URL for interacting with the pipeline. */
-    href: string;
+    href?: string;
     /** The latest pipeline run build number. If this property is absent, the pipeline hasn't had any pipeline runs. */
     build_number: number;
     /** Flag whether to enable notifications for this pipeline. When enabled, pipeline run events will be published
@@ -3224,7 +3224,7 @@ namespace CdTektonPipelineV2 {
     /** Property value. Any string value is valid. */
     value?: string;
     /** API URL for interacting with the trigger property. */
-    href: string;
+    href?: string;
     /** Options for `single_select` property type. Only needed for `single_select` property type. */
     enum?: string[];
     /** Property type. */

@@ -220,7 +220,6 @@ describe('CdTektonPipelineV2', () => {
     // Property
     const propertyModel = {
       name: 'testString',
-      href: 'testString',
       type: 'secure',
     };
 
@@ -711,8 +710,8 @@ describe('CdTektonPipelineV2', () => {
 
     // Request models needed by this operation.
 
-    // Worker
-    const workerModel = {
+    // WorkerIdentity
+    const workerIdentityModel = {
       id: 'public',
     };
 
@@ -721,7 +720,7 @@ describe('CdTektonPipelineV2', () => {
       type: 'manual',
       name: 'Manual Trigger',
       eventListener: 'pr-listener',
-      worker: workerModel,
+      worker: workerIdentityModel,
       maxConcurrentRuns: 3,
       enabled: true,
     };

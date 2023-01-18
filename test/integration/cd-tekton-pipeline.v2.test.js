@@ -116,6 +116,7 @@ describe('CdTektonPipelineV2_integration', () => {
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
     pipelineIdLink = res.result.id;
+    // console.log(`pipelineId: ${pipelineIdLink}`);
   });
 
   test('createTektonPipeline()', async () => {
