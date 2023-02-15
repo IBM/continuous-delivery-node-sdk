@@ -1,3 +1,10 @@
+## [0.2.11](https://github.com/IBM/continuous-delivery-node-sdk/compare/v0.2.10...v0.2.11) (2023-02-15)
+
+
+### Bug Fixes
+
+* **doc:** version correction ([9f0af4f](https://github.com/IBM/continuous-delivery-node-sdk/commit/9f0af4fb96a748536d3fe19e73cdfb00eef22065))
+
 ## [0.2.10](https://github.com/IBM/continuous-delivery-node-sdk/compare/v0.2.9...v0.2.10) (2023-02-15)
 
 
