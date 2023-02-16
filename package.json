@@ -9,6 +9,9 @@
   "keywords": [
     "ibm"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "IBM Corp.",
   "scripts": {
     "clean": "rm -rf node_modules",

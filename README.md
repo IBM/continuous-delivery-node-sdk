@@ -1,5 +1,5 @@
 
-# IBM Cloud Continuous Delivery Node.js SDK 0.3.0
+# IBM Cloud Continuous Delivery Node.js SDK
 
 [![Build Status](https://app.travis-ci.com/IBM/continuous-delivery-node-sdk.svg?branch=main)](https://app.travis-ci.com/github/IBM/continuous-delivery-node-sdk)
 [![npm](https://img.shields.io/npm/v/@ibm-cloud/continuous-delivery)](https://npmjs.com/package/@ibm-cloud/continuous-delivery)
@@ -26,7 +26,7 @@ Changes might occur which impact applications that use this SDK.
 
 <!-- toc -->
 
-- [IBM Cloud Continuous Delivery Node.js SDK 0.3.0](#ibm-cloud-continuous-delivery-nodejs-sdk-v030)
+- [IBM Cloud Continuous Delivery Node.js SDK](#ibm-cloud-continuous-delivery-nodejs-sdk)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Migration](#migration)
@@ -89,8 +89,6 @@ const CdTektonPipelineV2 = require("@ibm-cloud/continuous-delivery/cd-tekton-pip
 [ibm-cloud-onboarding]: http://cloud.ibm.com/registration
 
 ## Installation
-
-The current version of this SDK: 0.3.0
 
 ```sh
 npm install @ibm-cloud/continuous-delivery
