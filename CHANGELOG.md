@@ -1,3 +1,15 @@
+# [0.3.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v0.2.11...v0.3.0) (2023-02-16)
+
+
+### Bug Fixes
+
+* **npm:** ensure public scoped package ([29f01ba](https://github.com/IBM/continuous-delivery-node-sdk/commit/29f01baa05b03dcb76fbd051e32f96d1c10945a5))
+
+
+### Features
+
+* **package:** rename package to use [@ibm-cloud](https://github.com/ibm-cloud) scope ([c998a79](https://github.com/IBM/continuous-delivery-node-sdk/commit/c998a79922838bdc2e4b3fbfcaa368c0adebae27))
+
 ## [0.2.11](https://github.com/IBM/continuous-delivery-node-sdk/compare/v0.2.10...v0.2.11) (2023-02-15)
 
 
