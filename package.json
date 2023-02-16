@@ -1,5 +1,5 @@
 {
-  "name": "ibm-continuous-delivery",
+  "name": "@ibm-cloud/continuous-delivery",
   "version": "0.2.11",
   "description": "IBM Cloud Continuous Delivery Node.js SDK",
   "repository": {

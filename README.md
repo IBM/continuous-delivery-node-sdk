@@ -1,8 +1,8 @@
 
-# IBM Cloud Continuous Delivery Node.js SDK 0.2.11
+# IBM Cloud Continuous Delivery Node.js SDK 0.3.0
 
 [![Build Status](https://app.travis-ci.com/IBM/continuous-delivery-node-sdk.svg?branch=main)](https://app.travis-ci.com/github/IBM/continuous-delivery-node-sdk)
-[![npm](https://img.shields.io/npm/v/ibm-continuous-delivery)](https://npmjs.com/package/ibm-continuous-delivery)
+[![npm](https://img.shields.io/npm/v/@ibm-cloud/continuous-delivery)](https://npmjs.com/package/@ibm-cloud/continuous-delivery)
 [![Release](https://img.shields.io/github/v/release/IBM/continuous-delivery-node-sdk)](https://github.com/IBM/continuous-delivery-node-sdk/releases/latest)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
@@ -26,9 +26,10 @@ Changes might occur which impact applications that use this SDK.
 
 <!-- toc -->
 
-- [IBM Cloud Continuous Delivery Node.js SDK 0.2.11](https://npmjs.com/package/ibm-continuous-delivery/v/0.2.11)
+- [IBM Cloud Continuous Delivery Node.js SDK 0.3.0](#ibm-cloud-continuous-delivery-nodejs-sdk-v030)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
+  - [Migration](#migration)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Using the SDK](#using-the-sdk)
@@ -48,10 +49,37 @@ IBM Cloud services:
 
 Service Name | Import Path
 --- | ---
-[Toolchain API](https://cloud.ibm.com/apidocs/toolchain?code=node) | ibm-continuous-delivery/cd-toolchain/v2
-[Tekton Pipeline API](https://cloud.ibm.com/apidocs/tekton-pipeline?code=node) | ibm-continuous-delivery/cd-tektonpipeline/v2
+[Toolchain API](https://cloud.ibm.com/apidocs/toolchain?code=node) | @ibm-cloud/continuous-delivery/cd-toolchain/v2
+[Tekton Pipeline API](https://cloud.ibm.com/apidocs/tekton-pipeline?code=node) | @ibm-cloud/continuous-delivery/cd-tektonpipeline/v2
 
 Table 1. IBM Cloud services
+
+<!-- --------------------------------------------------------------- -->
+## Migration
+
+`ibm-continuous-delivery` package has been deprecated! 
+The IBM Continuous Delivery Node SDK is now available as `@ibm-cloud/continuous-delivery`.
+
+To migrate to the new package, you can use the commands listed below:
+
+```
+npm uninstall ibm-continuous-delivery
+npm install @ibm-cloud/continuous-delivery
+```
+
+You will also need to modify any references to the old package `ibm-continuous-delivery` within import/require statements so they reflect the new package `@ibm-cloud/continuous-delivery`.  Here is an example:
+
+```javascript
+
+// 'require' statements that reflect the old package name:
+const CdToolchainV2 = require("ibm-continuous-delivery/cd-toolchain/v2");
+const CdTektonPipelineV2 = require("ibm-continuous-delivery/cd-tekton-pipeline/v2");
+
+// Modify this to reflect the new package name:
+const CdToolchainV2 = require("@ibm-cloud/continuous-delivery/cd-toolchain/v2");
+const CdTektonPipelineV2 = require("@ibm-cloud/continuous-delivery/cd-tekton-pipeline/v2");
+
+```
 
 ## Prerequisites
 
@@ -62,10 +90,10 @@ Table 1. IBM Cloud services
 
 ## Installation
 
-The current version of this SDK: 0.2.11
+The current version of this SDK: 0.3.0
 
 ```sh
-npm install ibm-continuous-delivery
+npm install @ibm-cloud/continuous-delivery
 ```
 
 ## Using the SDK
