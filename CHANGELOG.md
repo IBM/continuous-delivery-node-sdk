@@ -1,3 +1,17 @@
+# [1.0.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v0.3.0...v1.0.0) (2023-02-21)
+
+
+### Features
+
+* **build:** trigger major version build ([5814fe5](https://github.com/IBM/continuous-delivery-node-sdk/commit/5814fe52ccd808cc99348c60f1d4901b0e1e4be0))
+
+
+### BREAKING CHANGES
+
+* **build:** release v1.0.0
+
+Signed-off-by: Omar Al Bastami <omar.albastami@ibm.com>
+
 # [0.3.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v0.2.11...v0.3.0) (2023-02-16)
 
 
