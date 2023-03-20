@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.62.0-a2a22f95-20221115-162524
+ * IBM OpenAPI SDK Code Generator Version: 3.68.2-ac7def68-20230310-195410
  */
 
 /* eslint-disable max-classes-per-file */
@@ -136,6 +136,8 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} params.id - The ID for the associated pipeline tool, which was already created in the target
    * toolchain. To get the pipeline ID call the toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools and
    * find the pipeline tool.
+   * @param {number} [params.nextBuildNumber] - Specify the build number that will be used for the next pipeline run.
+   * Build numbers can be any positive whole number between 0 and 100000000000000.
    * @param {boolean} [params.enableNotifications] - Flag whether to enable notifications for this pipeline. When
    * enabled, pipeline run events are published on all slack integration specified channels in the parent toolchain.
    * @param {boolean} [params.enablePartialCloning] - Flag whether to enable partial cloning for this pipeline. When
@@ -151,7 +153,14 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TektonPipeline>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = ['id', 'enableNotifications', 'enablePartialCloning', 'worker', 'headers'];
+    const _validParams = [
+      'id',
+      'nextBuildNumber',
+      'enableNotifications',
+      'enablePartialCloning',
+      'worker',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -159,6 +168,7 @@ class CdTektonPipelineV2 extends BaseService {
 
     const body = {
       'id': _params.id,
+      'next_build_number': _params.nextBuildNumber,
       'enable_notifications': _params.enableNotifications,
       'enable_partial_cloning': _params.enablePartialCloning,
       'worker': _params.worker,
@@ -252,6 +262,8 @@ class CdTektonPipelineV2 extends BaseService {
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.id - ID of current instance.
+   * @param {number} [params.nextBuildNumber] - Specify the build number that will be used for the next pipeline run.
+   * Build numbers can be any positive whole number between 0 and 100000000000000.
    * @param {boolean} [params.enableNotifications] - Flag whether to enable notifications for this pipeline. When
    * enabled, pipeline run events are published on all slack integration specified channels in the parent toolchain.
    * @param {boolean} [params.enablePartialCloning] - Flag whether to enable partial cloning for this pipeline. When
@@ -267,13 +279,21 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TektonPipeline>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = ['id', 'enableNotifications', 'enablePartialCloning', 'worker', 'headers'];
+    const _validParams = [
+      'id',
+      'nextBuildNumber',
+      'enableNotifications',
+      'enablePartialCloning',
+      'worker',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
 
     const body = {
+      'next_build_number': _params.nextBuildNumber,
       'enable_notifications': _params.enableNotifications,
       'enable_partial_cloning': _params.enablePartialCloning,
       'worker': _params.worker,
@@ -429,7 +449,8 @@ class CdTektonPipelineV2 extends BaseService {
   /**
    * Trigger a pipeline run.
    *
-   * Trigger a new pipeline run using the named manual trigger, using the provided additional or override properties.
+   * Trigger a new pipeline run with the named manual or timer trigger, using the provided additional or override
+   * properties.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.pipelineId - The Tekton pipeline ID.
@@ -2294,6 +2315,10 @@ namespace CdTektonPipelineV2 {
      *  tool.
      */
     id: string;
+    /** Specify the build number that will be used for the next pipeline run. Build numbers can be any positive
+     *  whole number between 0 and 100000000000000.
+     */
+    nextBuildNumber?: number;
     /** Flag whether to enable notifications for this pipeline. When enabled, pipeline run events are published on
      *  all slack integration specified channels in the parent toolchain.
      */
@@ -2319,6 +2344,10 @@ namespace CdTektonPipelineV2 {
   export interface UpdateTektonPipelineParams {
     /** ID of current instance. */
     id: string;
+    /** Specify the build number that will be used for the next pipeline run. Build numbers can be any positive
+     *  whole number between 0 and 100000000000000.
+     */
+    nextBuildNumber?: number;
     /** Flag whether to enable notifications for this pipeline. When enabled, pipeline run events are published on
      *  all slack integration specified channels in the parent toolchain.
      */
@@ -3180,6 +3209,8 @@ namespace CdTektonPipelineV2 {
     href?: string;
     /** The latest pipeline run build number. If this property is absent, the pipeline hasn't had any pipeline runs. */
     build_number: number;
+    /** The build number that will be used for the next pipeline run. */
+    next_build_number: number;
     /** Flag whether to enable notifications for this pipeline. When enabled, pipeline run events will be published
      *  on all slack integration specified channels in the parent toolchain. If omitted, this feature is disabled by
      *  default.
@@ -3249,9 +3280,11 @@ namespace CdTektonPipelineV2 {
     url: string;
     /** Name of a branch from the repo. One of branch or pattern must be specified, but only one or the other. */
     branch?: string;
-    /** Git branch or tag pattern to listen to, specify one of branch or pattern only. When specifying a tag to
-     *  listen to, you can also specify a simple glob pattern such as '!test' or '*master' to match against multiple
-     *  tags/branches in the repository.
+    /** The pattern of Git branch or tag to which to listen. You can specify a glob pattern such as '!test' or
+     *  '*master' to match against multiple tags/branches in the repository. The glob pattern used must conform to Bash
+     *  4.3 specifications, see bash documentation for more info:
+     *  https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching. One of branch or pattern must be specified,
+     *  but only one or the other.
      */
     pattern?: string;
     /** True if the repository server is not addressable on the public internet. IBM Cloud will not be able to
@@ -3270,9 +3303,11 @@ namespace CdTektonPipelineV2 {
     url: string;
     /** Name of a branch from the repo. One of branch or pattern must be specified, but only one or the other. */
     branch?: string;
-    /** Git branch or tag pattern to listen to, specify one of branch or pattern only. When specifying a tag to
-     *  listen to, you can also specify a simple glob pattern such as '!test' or '*master' to match against multiple
-     *  tags/branches in the repository.
+    /** The pattern of Git branch or tag to which to listen. You can specify a glob pattern such as '!test' or
+     *  '*master' to match against multiple tags/branches in the repository. The glob pattern used must conform to Bash
+     *  4.3 specifications, see bash documentation for more info:
+     *  https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching. One of branch or pattern must be specified,
+     *  but only one or the other.
      */
     pattern?: string;
   }
