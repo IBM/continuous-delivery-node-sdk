@@ -15,9 +15,9 @@
  */
 
 // need to import the whole package to mock getAuthenticatorFromEnvironment
-const core = require('ibm-cloud-sdk-core');
+const sdkCorePackage = require('ibm-cloud-sdk-core');
 
-const { NoAuthAuthenticator, unitTestUtils } = core;
+const { NoAuthAuthenticator, unitTestUtils } = sdkCorePackage;
 
 const nock = require('nock');
 const CdTektonPipelineV2 = require('../../dist/cd-tekton-pipeline/v2');
@@ -48,7 +48,7 @@ function unmock_createRequest() {
 }
 
 // dont actually construct an authenticator
-const getAuthenticatorMock = jest.spyOn(core, 'getAuthenticatorFromEnvironment');
+const getAuthenticatorMock = jest.spyOn(sdkCorePackage, 'getAuthenticatorFromEnvironment');
 getAuthenticatorMock.mockImplementation(() => new NoAuthAuthenticator());
 
 describe('CdTektonPipelineV2', () => {
@@ -161,11 +161,13 @@ describe('CdTektonPipelineV2', () => {
       function __createTektonPipelineTest() {
         // Construct the params object for operation createTektonPipeline
         const id = '94619026-912b-4d92-8f51-6c74f0692d90';
+        const nextBuildNumber = 1;
         const enableNotifications = false;
         const enablePartialCloning = false;
         const worker = workerIdentityModel;
         const createTektonPipelineParams = {
           id,
+          nextBuildNumber,
           enableNotifications,
           enablePartialCloning,
           worker,
@@ -188,6 +190,7 @@ describe('CdTektonPipelineV2', () => {
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.body.id).toEqual(id);
+        expect(mockRequestOptions.body.next_build_number).toEqual(nextBuildNumber);
         expect(mockRequestOptions.body.enable_notifications).toEqual(enableNotifications);
         expect(mockRequestOptions.body.enable_partial_cloning).toEqual(enablePartialCloning);
         expect(mockRequestOptions.body.worker).toEqual(worker);
@@ -348,11 +351,13 @@ describe('CdTektonPipelineV2', () => {
       function __updateTektonPipelineTest() {
         // Construct the params object for operation updateTektonPipeline
         const id = '94619026-912b-4d92-8f51-6c74f0692d90';
+        const nextBuildNumber = 1;
         const enableNotifications = true;
         const enablePartialCloning = true;
         const worker = workerIdentityModel;
         const updateTektonPipelineParams = {
           id,
+          nextBuildNumber,
           enableNotifications,
           enablePartialCloning,
           worker,
@@ -374,6 +379,7 @@ describe('CdTektonPipelineV2', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/merge-patch+json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.next_build_number).toEqual(nextBuildNumber);
         expect(mockRequestOptions.body.enable_notifications).toEqual(enableNotifications);
         expect(mockRequestOptions.body.enable_partial_cloning).toEqual(enablePartialCloning);
         expect(mockRequestOptions.body.worker).toEqual(worker);
