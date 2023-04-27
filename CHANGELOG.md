@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.1.0...v1.2.0) (2023-04-27)
+
+
+### Features
+
+* upgrade ibm-core-sdk-core version ([5df319c](https://github.com/IBM/continuous-delivery-node-sdk/commit/5df319c4f1e35843b8e0419848c3a5457f84c23d))
+
 # [1.1.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.0.0...v1.1.0) (2023-04-27)
 
 
