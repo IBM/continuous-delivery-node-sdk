@@ -225,7 +225,7 @@ describe('CdTektonPipelineV2', () => {
 
     // PipelineRunTrigger
     const pipelineRunTriggerModel = {
-      name: 'Generic Webhook Trigger - 0',
+      name: 'Manual Trigger 1',
       properties: [propertyModel],
       secure_properties: [propertyModel],
       headers: { source: 'api' },

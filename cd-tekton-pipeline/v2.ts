@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.68.2-ac7def68-20230310-195410
+ * IBM OpenAPI SDK Code Generator Version: 3.76.0-ad3e6f96-20230724-172814
  */
 
 /* eslint-disable max-classes-per-file */
@@ -66,7 +66,7 @@ class CdTektonPipelineV2 extends BaseService {
    * if no mapping for the region exists
    */
   public static getServiceUrlForRegion(region: string): string {
-    return this._regionalEndpoints.get(region);
+    return this._regionalEndpoints.get(region)
   }
 
   /*************************
@@ -143,8 +143,9 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {boolean} [params.enablePartialCloning] - Flag whether to enable partial cloning for this pipeline. When
    * partial clone is enabled, only the files contained within the paths specified in definition repositories are read
    * and cloned, this means that symbolic links might not work.
-   * @param {WorkerIdentity} [params.worker] - Worker object containing worker ID only. If omitted the IBM Managed
-   * shared workers are used by default.
+   * @param {WorkerIdentity} [params.worker] - Specify the worker used to run the trigger, as a worker object containing
+   * the worker ID only. If omitted, or specified as `worker: { id: 'public' }`, the IBM Managed shared workers are
+   * used.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TektonPipeline>>}
    */
@@ -153,14 +154,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TektonPipeline>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = [
-      'id',
-      'nextBuildNumber',
-      'enableNotifications',
-      'enablePartialCloning',
-      'worker',
-      'headers',
-    ];
+    const _validParams = ['id', 'nextBuildNumber', 'enableNotifications', 'enablePartialCloning', 'worker', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -269,8 +263,9 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {boolean} [params.enablePartialCloning] - Flag whether to enable partial cloning for this pipeline. When
    * partial clone is enabled, only the files contained within the paths specified in definition repositories are read
    * and cloned, this means that symbolic links might not work.
-   * @param {WorkerIdentity} [params.worker] - Worker object containing worker ID only. If omitted the IBM Managed
-   * shared workers are used by default.
+   * @param {WorkerIdentity} [params.worker] - Specify the worker used to run the trigger, as a worker object containing
+   * the worker ID only. If omitted, or specified as `worker: { id: 'public' }`, the IBM Managed shared workers are
+   * used.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TektonPipeline>>}
    */
@@ -279,14 +274,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TektonPipeline>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = [
-      'id',
-      'nextBuildNumber',
-      'enableNotifications',
-      'enablePartialCloning',
-      'worker',
-      'headers',
-    ];
+    const _validParams = ['id', 'nextBuildNumber', 'enableNotifications', 'enablePartialCloning', 'worker', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -370,7 +358,13 @@ class CdTektonPipelineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+          },
+          _params.headers
+        ),
       }),
     };
 
@@ -475,16 +469,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.PipelineRun>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId'];
-    const _validParams = [
-      'pipelineId',
-      'triggerName',
-      'triggerProperties',
-      'secureTriggerProperties',
-      'triggerHeaders',
-      'triggerBody',
-      'trigger',
-      'headers',
-    ];
+    const _validParams = ['pipelineId', 'triggerName', 'triggerProperties', 'secureTriggerProperties', 'triggerHeaders', 'triggerBody', 'trigger', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -632,7 +617,13 @@ class CdTektonPipelineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+          },
+          _params.headers
+        ),
       }),
     };
 
@@ -1146,7 +1137,13 @@ class CdTektonPipelineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+          },
+          _params.headers
+        ),
       }),
     };
 
@@ -1366,16 +1363,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Property>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'propertyName', 'name', 'type'];
-    const _validParams = [
-      'pipelineId',
-      'propertyName',
-      'name',
-      'type',
-      'value',
-      '_enum',
-      'path',
-      'headers',
-    ];
+    const _validParams = ['pipelineId', 'propertyName', 'name', 'type', 'value', '_enum', 'path', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1463,7 +1451,13 @@ class CdTektonPipelineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+          },
+          _params.headers
+        ),
       }),
     };
 
@@ -1497,17 +1491,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TriggersCollection>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId'];
-    const _validParams = [
-      'pipelineId',
-      'type',
-      'name',
-      'eventListener',
-      'workerId',
-      'workerName',
-      'disabled',
-      'tags',
-      'headers',
-    ];
+    const _validParams = ['pipelineId', 'type', 'name', 'eventListener', 'workerId', 'workerName', 'disabled', 'tags', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1567,8 +1551,8 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} params.eventListener - Event listener name. The name of the event listener to which the trigger is
    * associated. The event listeners are defined in the definition repositories of the Tekton pipeline.
    * @param {string[]} [params.tags] - Trigger tags array.
-   * @param {WorkerIdentity} [params.worker] - Worker used to run the trigger. If not specified the trigger will use the
-   * default pipeline worker.
+   * @param {WorkerIdentity} [params.worker] - Specify the worker used to run the trigger. Use `worker: { id: 'public'
+   * }` to use the IBM Managed workers. Use `worker: { id: 'inherit' }` to inherit the worker used by the pipeline.
    * @param {number} [params.maxConcurrentRuns] - Defines the maximum number of concurrent runs for this trigger. If
    * omitted then the concurrency limit is disabled for this trigger.
    * @param {boolean} [params.enabled] - Flag whether the trigger is enabled. If omitted the trigger is enabled by
@@ -1589,6 +1573,7 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string[]} [params.events] - Only needed for Git triggers. List of events to which a Git trigger listens.
    * Choose one or more from: 'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge
    * request' events, such events map to the equivalent 'pull request' events.
+   * @param {boolean} [params.favorite] - Mark the trigger as a favorite.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Trigger>>}
    */
@@ -1597,22 +1582,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Trigger>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'type', 'name', 'eventListener'];
-    const _validParams = [
-      'pipelineId',
-      'type',
-      'name',
-      'eventListener',
-      'tags',
-      'worker',
-      'maxConcurrentRuns',
-      'enabled',
-      'secret',
-      'cron',
-      'timezone',
-      'source',
-      'events',
-      'headers',
-    ];
+    const _validParams = ['pipelineId', 'type', 'name', 'eventListener', 'tags', 'worker', 'maxConcurrentRuns', 'enabled', 'secret', 'cron', 'timezone', 'source', 'events', 'favorite', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1631,6 +1601,7 @@ class CdTektonPipelineV2 extends BaseService {
       'timezone': _params.timezone,
       'source': _params.source,
       'events': _params.events,
+      'favorite': _params.favorite,
     };
 
     const path = {
@@ -1734,10 +1705,10 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} [params.eventListener] - Event listener name. The name of the event listener to which the trigger
    * is associated. The event listeners are defined in the definition repositories of the Tekton pipeline.
    * @param {string[]} [params.tags] - Trigger tags array. Optional tags for the trigger.
-   * @param {WorkerIdentity} [params.worker] - Worker used to run the trigger. If not specified the trigger will use the
-   * default pipeline worker.
-   * @param {number} [params.maxConcurrentRuns] - Defines the maximum number of concurrent runs for this trigger. If
-   * omitted then the concurrency limit is disabled for this trigger.
+   * @param {WorkerIdentity} [params.worker] - Specify the worker used to run the trigger. Use `worker: { id: 'public'
+   * }` to use the IBM Managed workers. Use `worker: { id: 'inherit' }` to inherit the worker used by the pipeline.
+   * @param {number} [params.maxConcurrentRuns] - Defines the maximum number of concurrent runs for this trigger. If set
+   * to 0 then the custom concurrency limit is disabled for this trigger.
    * @param {boolean} [params.enabled] - Defines if this trigger is enabled.
    * @param {GenericSecret} [params.secret] - Only needed for generic webhook trigger type. Secret used to start generic
    * webhook trigger.
@@ -1755,6 +1726,7 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string[]} [params.events] - Only needed for Git triggers. List of events to which a Git trigger listens.
    * Choose one or more from: 'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge
    * request' events, such events map to the equivalent 'pull request' events.
+   * @param {boolean} [params.favorite] - Mark the trigger as a favorite.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Trigger>>}
    */
@@ -1763,23 +1735,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Trigger>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'triggerId'];
-    const _validParams = [
-      'pipelineId',
-      'triggerId',
-      'type',
-      'name',
-      'eventListener',
-      'tags',
-      'worker',
-      'maxConcurrentRuns',
-      'enabled',
-      'secret',
-      'cron',
-      'timezone',
-      'source',
-      'events',
-      'headers',
-    ];
+    const _validParams = ['pipelineId', 'triggerId', 'type', 'name', 'eventListener', 'tags', 'worker', 'maxConcurrentRuns', 'enabled', 'secret', 'cron', 'timezone', 'source', 'events', 'favorite', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1798,6 +1754,7 @@ class CdTektonPipelineV2 extends BaseService {
       'timezone': _params.timezone,
       'source': _params.source,
       'events': _params.events,
+      'favorite': _params.favorite,
     };
 
     const path = {
@@ -1874,7 +1831,13 @@ class CdTektonPipelineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+          },
+          _params.headers
+        ),
       }),
     };
 
@@ -2034,16 +1997,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TriggerProperty>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'triggerId', 'name', 'type'];
-    const _validParams = [
-      'pipelineId',
-      'triggerId',
-      'name',
-      'type',
-      'value',
-      '_enum',
-      'path',
-      'headers',
-    ];
+    const _validParams = ['pipelineId', 'triggerId', 'name', 'type', 'value', '_enum', 'path', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2171,17 +2125,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TriggerProperty>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'triggerId', 'propertyName', 'name', 'type'];
-    const _validParams = [
-      'pipelineId',
-      'triggerId',
-      'propertyName',
-      'name',
-      'type',
-      'value',
-      '_enum',
-      'path',
-      'headers',
-    ];
+    const _validParams = ['pipelineId', 'triggerId', 'propertyName', 'name', 'type', 'value', '_enum', 'path', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2272,7 +2216,13 @@ class CdTektonPipelineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+          },
+          _params.headers
+        ),
       }),
     };
 
@@ -2328,7 +2278,9 @@ namespace CdTektonPipelineV2 {
      *  links might not work.
      */
     enablePartialCloning?: boolean;
-    /** Worker object containing worker ID only. If omitted the IBM Managed shared workers are used by default. */
+    /** Specify the worker used to run the trigger, as a worker object containing the worker ID only. If omitted, or
+     *  specified as `worker: { id: 'public' }`, the IBM Managed shared workers are used.
+     */
     worker?: WorkerIdentity;
     headers?: OutgoingHttpHeaders;
   }
@@ -2357,7 +2309,9 @@ namespace CdTektonPipelineV2 {
      *  links might not work.
      */
     enablePartialCloning?: boolean;
-    /** Worker object containing worker ID only. If omitted the IBM Managed shared workers are used by default. */
+    /** Specify the worker used to run the trigger, as a worker object containing the worker ID only. If omitted, or
+     *  specified as `worker: { id: 'public' }`, the IBM Managed shared workers are used.
+     */
     worker?: WorkerIdentity;
     headers?: OutgoingHttpHeaders;
   }
@@ -2689,7 +2643,9 @@ namespace CdTektonPipelineV2 {
     eventListener: string;
     /** Trigger tags array. */
     tags?: string[];
-    /** Worker used to run the trigger. If not specified the trigger will use the default pipeline worker. */
+    /** Specify the worker used to run the trigger. Use `worker: { id: 'public' }` to use the IBM Managed workers.
+     *  Use `worker: { id: 'inherit' }` to inherit the worker used by the pipeline.
+     */
     worker?: WorkerIdentity;
     /** Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is
      *  disabled for this trigger.
@@ -2719,6 +2675,8 @@ namespace CdTektonPipelineV2 {
      *  events map to the equivalent 'pull request' events.
      */
     events?: CreateTektonPipelineTriggerConstants.Events | string[];
+    /** Mark the trigger as a favorite. */
+    favorite?: boolean;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -2764,10 +2722,12 @@ namespace CdTektonPipelineV2 {
     eventListener?: string;
     /** Trigger tags array. Optional tags for the trigger. */
     tags?: string[];
-    /** Worker used to run the trigger. If not specified the trigger will use the default pipeline worker. */
+    /** Specify the worker used to run the trigger. Use `worker: { id: 'public' }` to use the IBM Managed workers.
+     *  Use `worker: { id: 'inherit' }` to inherit the worker used by the pipeline.
+     */
     worker?: WorkerIdentity;
-    /** Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is
-     *  disabled for this trigger.
+    /** Defines the maximum number of concurrent runs for this trigger. If set to 0 then the custom concurrency
+     *  limit is disabled for this trigger.
      */
     maxConcurrentRuns?: number;
     /** Defines if this trigger is enabled. */
@@ -2794,6 +2754,8 @@ namespace CdTektonPipelineV2 {
      *  events map to the equivalent 'pull request' events.
      */
     events?: UpdateTektonPipelineTriggerConstants.Events | string[];
+    /** Mark the trigger as a favorite. */
+    favorite?: boolean;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -3029,7 +2991,7 @@ namespace CdTektonPipelineV2 {
     definition_id: string;
     /** Reference to the pipeline definition of a pipeline run. */
     definition?: RunDefinition;
-    /** worker details used in this pipeline run. */
+    /** Worker details used in this pipeline run. */
     worker: PipelineRunWorker;
     /** The ID of the pipeline to which this pipeline run belongs. */
     pipeline_id: string;
@@ -3081,7 +3043,7 @@ namespace CdTektonPipelineV2 {
     body?: JsonObject;
   }
 
-  /** worker details used in this pipeline run. */
+  /** Worker details used in this pipeline run. */
   export interface PipelineRunWorker {
     /** Name of the worker. Computed based on the worker ID. */
     name?: string;
@@ -3201,7 +3163,7 @@ namespace CdTektonPipelineV2 {
     created_at: string;
     /** Tekton pipeline triggers list. */
     triggers: Trigger[];
-    /** Default pipeline worker used to run the pipeline. */
+    /** Details of the worker used to run the pipeline. */
     worker: Worker;
     /** URL for this pipeline showing the list of pipeline runs. */
     runs_url: string;
@@ -3210,7 +3172,7 @@ namespace CdTektonPipelineV2 {
     /** The latest pipeline run build number. If this property is absent, the pipeline hasn't had any pipeline runs. */
     build_number: number;
     /** The build number that will be used for the next pipeline run. */
-    next_build_number: number;
+    next_build_number?: number;
     /** Flag whether to enable notifications for this pipeline. When enabled, pipeline run events will be published
      *  on all slack integration specified channels in the parent toolchain. If omitted, this feature is disabled by
      *  default.
@@ -3240,7 +3202,8 @@ namespace CdTektonPipelineV2 {
   }
 
   /** Tekton pipeline trigger. */
-  export interface Trigger {}
+  export interface Trigger {
+  }
 
   /** Trigger properties object. */
   export interface TriggerPropertiesCollection {
@@ -3334,7 +3297,7 @@ namespace CdTektonPipelineV2 {
     sub: string;
   }
 
-  /** Default pipeline worker used to run the pipeline. */
+  /** Details of the worker used to run the pipeline. */
   export interface Worker {
     /** Name of the worker. Computed based on the worker ID. */
     name?: string;
@@ -3344,7 +3307,7 @@ namespace CdTektonPipelineV2 {
     id: string;
   }
 
-  /** Worker object containing worker ID only. If omitted the IBM Managed shared workers are used by default. */
+  /** Specify the worker used to run the trigger, as a worker object containing the worker ID only. If omitted, or specified as `worker: { id: 'public' }`, the IBM Managed shared workers are used. */
   export interface WorkerIdentity {
     /** ID of the worker. */
     id: string;
@@ -3370,7 +3333,7 @@ namespace CdTektonPipelineV2 {
     properties?: TriggerProperty[];
     /** Optional trigger tags array. */
     tags?: string[];
-    /** Worker used to run the trigger. If not specified the trigger will use the default pipeline worker. */
+    /** Details of the worker used to run the trigger. */
     worker?: Worker;
     /** Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is
      *  disabled for this trigger.
@@ -3378,6 +3341,8 @@ namespace CdTektonPipelineV2 {
     max_concurrent_runs?: number;
     /** Flag whether the trigger is enabled. */
     enabled: boolean;
+    /** Mark the trigger as a favorite. */
+    favorite?: boolean;
     /** Only needed for generic webhook trigger type. Secret used to start generic webhook trigger. */
     secret?: GenericSecret;
     /** Webhook URL that can be used to trigger pipeline runs. */
@@ -3404,7 +3369,7 @@ namespace CdTektonPipelineV2 {
     properties?: TriggerProperty[];
     /** Optional trigger tags array. */
     tags?: string[];
-    /** Worker used to run the trigger. If not specified the trigger will use the default pipeline worker. */
+    /** Details of the worker used to run the trigger. */
     worker?: Worker;
     /** Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is
      *  disabled for this trigger.
@@ -3412,6 +3377,8 @@ namespace CdTektonPipelineV2 {
     max_concurrent_runs?: number;
     /** Flag whether the trigger is enabled. */
     enabled: boolean;
+    /** Mark the trigger as a favorite. */
+    favorite?: boolean;
   }
 
   /** Git type trigger, which automatically triggers a pipeline run when the Tekton Pipeline Service receives a corresponding Git webhook event. */
@@ -3434,7 +3401,7 @@ namespace CdTektonPipelineV2 {
     properties?: TriggerProperty[];
     /** Optional trigger tags array. */
     tags?: string[];
-    /** Worker used to run the trigger. If not specified the trigger will use the default pipeline worker. */
+    /** Details of the worker used to run the trigger. */
     worker?: Worker;
     /** Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is
      *  disabled for this trigger.
@@ -3442,6 +3409,8 @@ namespace CdTektonPipelineV2 {
     max_concurrent_runs?: number;
     /** Flag whether the trigger is enabled. */
     enabled: boolean;
+    /** Mark the trigger as a favorite. */
+    favorite?: boolean;
     /** Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must
      *  match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the
      *  toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools.
@@ -3474,7 +3443,7 @@ namespace CdTektonPipelineV2 {
     properties?: TriggerProperty[];
     /** Optional trigger tags array. */
     tags?: string[];
-    /** Worker used to run the trigger. If not specified the trigger will use the default pipeline worker. */
+    /** Details of the worker used to run the trigger. */
     worker?: Worker;
     /** Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is
      *  disabled for this trigger.
@@ -3482,6 +3451,8 @@ namespace CdTektonPipelineV2 {
     max_concurrent_runs?: number;
     /** Flag whether the trigger is enabled. */
     enabled: boolean;
+    /** Mark the trigger as a favorite. */
+    favorite?: boolean;
     /** Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum
      *  frequency is every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day
      *  of week. Example: 0 *_/2 * * * - every 2 hours.
@@ -3503,7 +3474,6 @@ namespace CdTektonPipelineV2 {
    */
   export class TektonPipelineRunsPager {
     protected _hasNext: boolean;
-
     protected pageContext: any;
 
     protected client: CdTektonPipelineV2;
