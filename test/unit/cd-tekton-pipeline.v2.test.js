@@ -696,21 +696,11 @@ describe('CdTektonPipelineV2', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
 
-      // Property
-      const propertyModel = {
-        name: 'testString',
-        value: 'testString',
-        href: 'testString',
-        enum: ['testString'],
-        type: 'secure',
-        path: 'testString',
-      };
-
       // PipelineRunTrigger
       const pipelineRunTriggerModel = {
         name: 'Manual Trigger 1',
-        properties: [propertyModel],
-        secure_properties: [propertyModel],
+        properties: { anyKey: 'anyValue' },
+        secure_properties: { anyKey: 'anyValue' },
         headers: { anyKey: 'anyValue' },
         body: { anyKey: 'anyValue' },
       };
@@ -719,8 +709,8 @@ describe('CdTektonPipelineV2', () => {
         // Construct the params object for operation createTektonPipelineRun
         const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
         const triggerName = 'testString';
-        const triggerProperties = [propertyModel];
-        const secureTriggerProperties = [propertyModel];
+        const triggerProperties = { anyKey: 'anyValue' };
+        const secureTriggerProperties = { anyKey: 'anyValue' };
         const triggerHeaders = { anyKey: 'anyValue' };
         const triggerBody = { anyKey: 'anyValue' };
         const trigger = pipelineRunTriggerModel;
