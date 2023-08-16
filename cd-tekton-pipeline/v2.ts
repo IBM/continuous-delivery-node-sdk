@@ -457,9 +457,9 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.pipelineId - The Tekton pipeline ID.
    * @param {string} [params.triggerName] - Trigger name.
-   * @param {Property[]} [params.triggerProperties] - An object containing string values only that provides additional
+   * @param {JsonObject} [params.triggerProperties] - An object containing string values only that provides additional
    * `text` properties, or overrides existing pipeline/trigger properties, to use for the created run.
-   * @param {Property[]} [params.secureTriggerProperties] - An object containing string values only that provides
+   * @param {JsonObject} [params.secureTriggerProperties] - An object containing string values only that provides
    * additional `secure` properties, or overrides existing `secure` pipeline/trigger properties, to use for the created
    * run.
    * @param {JsonObject} [params.triggerHeaders] - An object containing string values only that provides the request
@@ -2423,11 +2423,11 @@ namespace CdTektonPipelineV2 {
     /** An object containing string values only that provides additional `text` properties, or overrides existing
      *  pipeline/trigger properties, to use for the created run.
      */
-    triggerProperties?: Property[];
+    triggerProperties?: JsonObject;
     /** An object containing string values only that provides additional `secure` properties, or overrides existing
      *  `secure` pipeline/trigger properties, to use for the created run.
      */
-    secureTriggerProperties?: Property[];
+    secureTriggerProperties?: JsonObject;
     /** An object containing string values only that provides the request headers. Use `$(header.header_key_name)`
      *  to access it in a TriggerBinding. Most commonly used as part of a Generic Webhook to provide a verification
      *  token or signature in the request headers.
@@ -3085,11 +3085,11 @@ namespace CdTektonPipelineV2 {
     /** An object containing string values only that provides additional `text` properties, or overrides existing
      *  pipeline/trigger properties, to use for the created run.
      */
-    properties?: Property[];
+    properties?: JsonObject;
     /** An object containing string values only that provides additional `secure` properties, or overrides existing
      *  `secure` pipeline/trigger properties, to use for the created run.
      */
-    secure_properties?: Property[];
+    secure_properties?: JsonObject;
     /** An object containing string values only that provides the request headers. Use `$(header.header_key_name)`
      *  to access it in a TriggerBinding. Most commonly used as part of a Generic Webhook to provide a verification
      *  token or signature in the request headers.

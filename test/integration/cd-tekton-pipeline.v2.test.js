@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2022, 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,7 +72,7 @@ describe('CdTektonPipelineV2_integration', () => {
 
   test('createToolchain()', async () => {
     const params = {
-      name: 'TestToolchainV2',
+      name: 'NodeIntegrationTest',
       resourceGroupId: configVars.CD_TEKTON_PIPELINE_RESOURCE_GROUP_ID,
       description: 'A sample toolchain to test the API',
     };
@@ -222,20 +222,17 @@ describe('CdTektonPipelineV2_integration', () => {
   });
 
   test('createTektonPipelineRun()', async () => {
-    const propertyModel = {
-      'textProp': 'textProp123',
+    // PipelineRunTrigger
+    const pipelineRunTriggerModel = {
+      name: 'trigger1',
+      properties: { 'pipeline-debug': 'false' },
+      secure_properties: { 'secure-property-key': 'secure value' },
+      headers: { source: 'api' },
+      body: { message: 'hello world', enable: 'true', detail: { name: 'example' } },
     };
-    const securePropertyModel = {
-      'secureProp': 'secure123',
-    };
-
     const params = {
       pipelineId: pipelineIdLink,
-      triggerName: 'trigger1',
-      triggerProperties: propertyModel,
-      secureTriggerProperties: securePropertyModel,
-      triggerHeaders: { source: 'api' },
-      triggerBody: { message: 'hello world', enable: 'true' },
+      trigger: pipelineRunTriggerModel,
     };
 
     const res = await cdTektonPipelineService.createTektonPipelineRun(params);
@@ -299,7 +296,7 @@ describe('CdTektonPipelineV2_integration', () => {
   test('createTektonPipelineProperties()', async () => {
     const params = {
       pipelineId: pipelineIdLink,
-      name: 'debug-pipeline',
+      name: 'pipeline-debug',
       type: 'text',
       value: 'prop-value-1',
     };
@@ -380,31 +377,29 @@ describe('CdTektonPipelineV2_integration', () => {
   });
 
   test('getTektonPipelineRunLogs()', async () => {
-    const params = {
+    const params1 = {
       pipelineId: pipelineIdLink,
       id: pipelineRunIdLink,
     };
 
-    const res = await cdTektonPipelineService.getTektonPipelineRunLogs(params);
-    expect(res).toBeDefined();
-    expect(res.status).toBe(200);
-    expect(res.result).toBeDefined();
-    expect(res.result.logs).toBeDefined();
-    runLogsIdLink = res.result.logs[0].id;
-  });
+    const res1 = await cdTektonPipelineService.getTektonPipelineRunLogs(params1);
+    expect(res1).toBeDefined();
+    expect(res1.status).toBe(200);
+    expect(res1.result).toBeDefined();
+    expect(res1.result.logs).toBeDefined();
+    runLogsIdLink = res1.result.logs[0].id;
 
-  test('getTektonPipelineRunLogContent()', async () => {
-    const params = {
+    const params2 = {
       pipelineId: pipelineIdLink,
       pipelineRunId: pipelineRunIdLink,
       id: runLogsIdLink,
     };
 
-    const res = await cdTektonPipelineService.getTektonPipelineRunLogContent(params);
-    expect(res).toBeDefined();
-    expect(res.status).toBe(200);
-    expect(res.result).toBeDefined();
-    expect(res.result.data).toBeDefined();
+    const res2 = await cdTektonPipelineService.getTektonPipelineRunLogContent(params2);
+    expect(res2).toBeDefined();
+    expect(res2.status).toBe(200);
+    expect(res2.result).toBeDefined();
+    expect(res2.result.data).toBeDefined();
   });
 
   test('listTektonPipelineRuns()', async () => {
@@ -473,7 +468,7 @@ describe('CdTektonPipelineV2_integration', () => {
   test('deleteTektonPipelineProperty()', async () => {
     const params = {
       pipelineId: pipelineIdLink,
-      propertyName: 'debug-pipeline',
+      propertyName: 'pipeline-debug',
     };
 
     const res = await cdTektonPipelineService.deleteTektonPipelineProperty(params);
@@ -513,6 +508,17 @@ describe('CdTektonPipelineV2_integration', () => {
     };
 
     const res = await cdTektonPipelineService.deleteTektonPipeline(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(204);
+    expect(res.result).toBeDefined();
+  });
+
+  test('deleteToolchain()', async () => {
+    const params = {
+      toolchainId: toolchainIdLink,
+    };
+
+    const res = await cdToolchainService.deleteToolchain(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();

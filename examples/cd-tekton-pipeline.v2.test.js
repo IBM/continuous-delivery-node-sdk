@@ -217,17 +217,11 @@ describe('CdTektonPipelineV2', () => {
 
     // Request models needed by this operation.
 
-    // Property
-    const propertyModel = {
-      name: 'testString',
-      type: 'secure',
-    };
-
     // PipelineRunTrigger
     const pipelineRunTriggerModel = {
       name: 'Manual Trigger 1',
-      properties: [propertyModel],
-      secure_properties: [propertyModel],
+      properties: { 'pipeline-debug': 'false' },
+      secure_properties: { 'secure-property-key': 'secure value' },
       headers: { source: 'api' },
       body: { message: 'hello world', enable: 'true', detail: { name: 'example' } },
     };
