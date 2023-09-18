@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@ describe('CdToolchainV2_integration', () => {
       toolchainId: toolchainIdLink,
       toolTypeId: 'draservicebroker',
       name: 'testString',
-      parameters: { foo: 'bar' },
+      parameters: { anyKey: 'anyValue' },
     };
 
     const res = await cdToolchainService.createTool(params);
@@ -82,8 +82,9 @@ describe('CdToolchainV2_integration', () => {
   test('listToolchains()', async () => {
     const params = {
       resourceGroupId: 'testString',
-      limit: 1,
+      limit: 20,
       start: 'testString',
+      name: 'TestToolchainV2',
     };
 
     const res = await cdToolchainService.listToolchains(params);
@@ -96,6 +97,7 @@ describe('CdToolchainV2_integration', () => {
     const params = {
       resourceGroupId: 'testString',
       limit: 10,
+      name: 'TestToolchainV2',
     };
 
     const allResults = [];
@@ -143,7 +145,7 @@ describe('CdToolchainV2_integration', () => {
   test('listTools()', async () => {
     const params = {
       toolchainId: toolchainIdLink,
-      limit: 1,
+      limit: 20,
       start: 'testString',
     };
 
@@ -195,7 +197,7 @@ describe('CdToolchainV2_integration', () => {
       toolId: toolIdLink,
       name: 'MyTool',
       toolTypeId: 'draservicebroker',
-      parameters: { foo: 'bar' },
+      parameters: { anyKey: 'anyValue' },
     };
 
     const res = await cdToolchainService.updateTool(params);

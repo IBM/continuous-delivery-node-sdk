@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-// need to import the whole package to mock getAuthenticatorFromEnvironment
-const core = require('ibm-cloud-sdk-core');
-
-const { NoAuthAuthenticator, unitTestUtils } = core;
+/* eslint-disable no-await-in-loop */
 
 const nock = require('nock');
-const CdToolchainV2 = require('../../dist/cd-toolchain/v2');
 
-/* eslint-disable no-await-in-loop */
+// need to import the whole package to mock getAuthenticatorFromEnvironment
+const sdkCorePackage = require('ibm-cloud-sdk-core');
+
+const { NoAuthAuthenticator, unitTestUtils } = sdkCorePackage;
+const CdToolchainV2 = require('../../dist/cd-toolchain/v2');
 
 const { getOptions, checkUrlAndMethod, checkMediaHeaders, expectToBePromise } = unitTestUtils;
 
@@ -48,7 +48,7 @@ function unmock_createRequest() {
 }
 
 // dont actually construct an authenticator
-const getAuthenticatorMock = jest.spyOn(core, 'getAuthenticatorFromEnvironment');
+const getAuthenticatorMock = jest.spyOn(sdkCorePackage, 'getAuthenticatorFromEnvironment');
 getAuthenticatorMock.mockImplementation(() => new NoAuthAuthenticator());
 
 describe('CdToolchainV2', () => {
@@ -154,12 +154,14 @@ describe('CdToolchainV2', () => {
       function __listToolchainsTest() {
         // Construct the params object for operation listToolchains
         const resourceGroupId = 'testString';
-        const limit = 1;
+        const limit = 20;
         const start = 'testString';
+        const name = 'TestToolchainV2';
         const listToolchainsParams = {
           resourceGroupId,
           limit,
           start,
+          name,
         };
 
         const listToolchainsResult = cdToolchainService.listToolchains(listToolchainsParams);
@@ -179,6 +181,7 @@ describe('CdToolchainV2', () => {
         expect(mockRequestOptions.qs.resource_group_id).toEqual(resourceGroupId);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.start).toEqual(start);
+        expect(mockRequestOptions.qs.name).toEqual(name);
       }
 
       test('should pass the right params to createRequest with enable and disable retries', () => {
@@ -264,6 +267,7 @@ describe('CdToolchainV2', () => {
         const params = {
           resourceGroupId: 'testString',
           limit: 10,
+          name: 'TestToolchainV2',
         };
         const allResults = [];
         const pager = new CdToolchainV2.ToolchainsPager(cdToolchainService, params);
@@ -280,6 +284,7 @@ describe('CdToolchainV2', () => {
         const params = {
           resourceGroupId: 'testString',
           limit: 10,
+          name: 'TestToolchainV2',
         };
         const pager = new CdToolchainV2.ToolchainsPager(cdToolchainService, params);
         const allResults = await pager.getAll();
@@ -644,7 +649,7 @@ describe('CdToolchainV2', () => {
       function __listToolsTest() {
         // Construct the params object for operation listTools
         const toolchainId = 'testString';
-        const limit = 1;
+        const limit = 20;
         const start = 'testString';
         const listToolsParams = {
           toolchainId,
@@ -786,7 +791,7 @@ describe('CdToolchainV2', () => {
         const toolchainId = 'testString';
         const toolTypeId = 'draservicebroker';
         const name = 'testString';
-        const parameters = { foo: 'bar' };
+        const parameters = { anyKey: 'anyValue' };
         const createToolParams = {
           toolchainId,
           toolTypeId,
@@ -1064,7 +1069,7 @@ describe('CdToolchainV2', () => {
         const toolId = 'testString';
         const name = 'MyTool';
         const toolTypeId = 'draservicebroker';
-        const parameters = { foo: 'bar' };
+        const parameters = { anyKey: 'anyValue' };
         const updateToolParams = {
           toolchainId,
           toolId,
