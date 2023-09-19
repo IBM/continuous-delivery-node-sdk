@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.60.0-13f6e1ba-20221019-164457
+ * IBM OpenAPI SDK Code Generator Version: 3.77.0-42417df0-20230811-192318
  */
 
 /* eslint-disable max-classes-per-file */
@@ -26,9 +26,9 @@ import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import {
   Authenticator,
   BaseService,
+  UserOptions,
   getAuthenticatorFromEnvironment,
   validateParams,
-  UserOptions,
 } from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
 
@@ -134,6 +134,7 @@ class CdToolchainV2 extends BaseService {
    * @param {string} params.resourceGroupId - The resource group ID where the toolchains exist.
    * @param {number} [params.limit] - Limit the number of results.
    * @param {string} [params.start] - Pagination token.
+   * @param {string} [params.name] - Name of toolchain to look up.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdToolchainV2.Response<CdToolchainV2.ToolchainCollection>>}
    */
@@ -142,7 +143,7 @@ class CdToolchainV2 extends BaseService {
   ): Promise<CdToolchainV2.Response<CdToolchainV2.ToolchainCollection>> {
     const _params = { ...params };
     const _requiredParams = ['resourceGroupId'];
-    const _validParams = ['resourceGroupId', 'limit', 'start', 'headers'];
+    const _validParams = ['resourceGroupId', 'limit', 'start', 'name', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -152,6 +153,7 @@ class CdToolchainV2 extends BaseService {
       'resource_group_id': _params.resourceGroupId,
       'limit': _params.limit,
       'start': _params.start,
+      'name': _params.name,
     };
 
     const sdkHeaders = getSdkHeaders(CdToolchainV2.DEFAULT_SERVICE_NAME, 'v2', 'listToolchains');
@@ -698,6 +700,8 @@ namespace CdToolchainV2 {
     limit?: number;
     /** Pagination token. */
     start?: string;
+    /** Name of toolchain to look up. */
+    name?: string;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -1232,7 +1236,7 @@ namespace CdToolchainV2 {
       const response = await this.client.listToolchains(this.params);
       const { result } = response;
 
-      let next = null;
+      let next;
       if (result && result.next) {
         next = result.next.start;
       }
@@ -1311,7 +1315,7 @@ namespace CdToolchainV2 {
       const response = await this.client.listTools(this.params);
       const { result } = response;
 
-      let next = null;
+      let next;
       if (result && result.next) {
         next = result.next.start;
       }
