@@ -3076,6 +3076,8 @@ namespace CdTektonPipelineV2 {
     updated_at?: string;
     /** URL for the details page of this pipeline run. */
     run_url: string;
+    /** Error message that provides details when a pipeline run encounters an error. */
+    error_message?: string;
   }
 
   /** Trigger details passed when triggering a Tekton pipeline run. */
