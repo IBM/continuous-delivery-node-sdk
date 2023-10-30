@@ -1,3 +1,24 @@
+## [1.3.1](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.3.0...v1.3.1) (2023-10-27)
+
+
+### Bug Fixes
+
+* **tekton:** add error message for PipelineRun ([0668ef2](https://github.com/IBM/continuous-delivery-node-sdk/commit/0668ef21ff9f9dc559da972eac08223169781092))
+
+# [1.3.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.2.0...v1.3.0) (2023-09-20)
+
+
+### Bug Fixes
+
+* **tekton:** add trigger favorite ([f92d325](https://github.com/IBM/continuous-delivery-node-sdk/commit/f92d325479a9d67b49eb481908490fee468e6daa))
+* **tekton:** pipelineRun trigger properties ([01239ea](https://github.com/IBM/continuous-delivery-node-sdk/commit/01239ea6b3a41584590b83bf38767e27ec384fe3))
+* upgrade deploy node version ([425b37d](https://github.com/IBM/continuous-delivery-node-sdk/commit/425b37d7c5513d2014b86ee08690c9475eee0bb1))
+
+
+### Features
+
+* **toolchain:** add name query param to list toolchains ([64a2a08](https://github.com/IBM/continuous-delivery-node-sdk/commit/64a2a08bdb23d44cefc24214adee4f19e6b68b09))
+
 # [1.2.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.1.0...v1.2.0) (2023-04-27)
 
 
