@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.3.1...v1.3.2) (2023-11-08)
+
+
+### Bug Fixes
+
+* upgrade deploy node version ([23ff7b4](https://github.com/IBM/continuous-delivery-node-sdk/commit/23ff7b4184500a998e868ef0ecd665ae673a2317))
+
 ## [1.3.1](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.3.0...v1.3.1) (2023-10-27)
 
 
