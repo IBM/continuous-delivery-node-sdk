@@ -145,7 +145,7 @@ describe('CdToolchainV2', () => {
     // begin-list_toolchains
 
     const params = {
-      resourceGroupId: 'testString',
+      resourceGroupId: '6a9a01f2cff54a7f966f803d92877123',
       limit: 10,
       name: 'TestToolchainV2',
     };
