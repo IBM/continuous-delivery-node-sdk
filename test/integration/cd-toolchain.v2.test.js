@@ -81,7 +81,7 @@ describe('CdToolchainV2_integration', () => {
 
   test('listToolchains()', async () => {
     const params = {
-      resourceGroupId: 'testString',
+      resourceGroupId: '6a9a01f2cff54a7f966f803d92877123',
       limit: 20,
       start: 'testString',
       name: 'TestToolchainV2',
@@ -95,7 +95,7 @@ describe('CdToolchainV2_integration', () => {
 
   test('listToolchains() via ToolchainsPager', async () => {
     const params = {
-      resourceGroupId: 'testString',
+      resourceGroupId: '6a9a01f2cff54a7f966f803d92877123',
       limit: 10,
       name: 'TestToolchainV2',
     };
