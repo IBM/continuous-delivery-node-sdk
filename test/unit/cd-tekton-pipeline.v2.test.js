@@ -131,6 +131,9 @@ describe('CdTektonPipelineV2', () => {
       expect(CdTektonPipelineV2.getServiceUrlForRegion('eu-gb')).toBe(
         'https://api.eu-gb.devops.cloud.ibm.com/pipeline/v2'
       );
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('eu-es')).toBe(
+        'https://api.eu-es.devops.cloud.ibm.com/pipeline/v2'
+      );
       expect(CdTektonPipelineV2.getServiceUrlForRegion('jp-osa')).toBe(
         'https://api.jp-osa.devops.cloud.ibm.com/pipeline/v2'
       );

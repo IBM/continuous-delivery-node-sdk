@@ -146,6 +146,9 @@ describe('CdToolchainV2', () => {
       expect(CdToolchainV2.getServiceUrlForRegion('br-sao')).toBe(
         'https://api.br-sao.devops.cloud.ibm.com/toolchain/v2'
       );
+      expect(CdToolchainV2.getServiceUrlForRegion('eu-es')).toBe(
+        'https://api.eu-es.devops.cloud.ibm.com/toolchain/v2'
+      );
     });
   });
 
@@ -153,7 +156,7 @@ describe('CdToolchainV2', () => {
     describe('positive tests', () => {
       function __listToolchainsTest() {
         // Construct the params object for operation listToolchains
-        const resourceGroupId = 'testString';
+        const resourceGroupId = '6a9a01f2cff54a7f966f803d92877123';
         const limit = 20;
         const start = 'testString';
         const name = 'TestToolchainV2';
@@ -201,7 +204,7 @@ describe('CdToolchainV2', () => {
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const resourceGroupId = 'testString';
+        const resourceGroupId = '6a9a01f2cff54a7f966f803d92877123';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const listToolchainsParams = {
@@ -245,9 +248,9 @@ describe('CdToolchainV2', () => {
       const serviceUrl = cdToolchainServiceOptions.url;
       const path = '/toolchains';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"toolchains":[{"id":"id","name":"name","description":"description","account_id":"account_id","location":"location","resource_group_id":"resource_group_id","crn":"crn","href":"href","ui_href":"ui_href","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"created_by"}],"limit":1}';
+        '{"next":{"start":"1"},"total_count":2,"toolchains":[{"id":"id","name":"TestToolchainV2","description":"A sample toolchain to test the API","account_id":"account_id","location":"location","resource_group_id":"6a9a01f2cff54a7f966f803d92877123","crn":"crn","href":"href","ui_href":"ui_href","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"created_by"}],"limit":1}';
       const mockPagerResponse2 =
-        '{"total_count":2,"toolchains":[{"id":"id","name":"name","description":"description","account_id":"account_id","location":"location","resource_group_id":"resource_group_id","crn":"crn","href":"href","ui_href":"ui_href","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"created_by"}],"limit":1}';
+        '{"total_count":2,"toolchains":[{"id":"id","name":"TestToolchainV2","description":"A sample toolchain to test the API","account_id":"account_id","location":"location","resource_group_id":"6a9a01f2cff54a7f966f803d92877123","crn":"crn","href":"href","ui_href":"ui_href","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","created_by":"created_by"}],"limit":1}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -265,7 +268,7 @@ describe('CdToolchainV2', () => {
 
       test('getNext()', async () => {
         const params = {
-          resourceGroupId: 'testString',
+          resourceGroupId: '6a9a01f2cff54a7f966f803d92877123',
           limit: 10,
           name: 'TestToolchainV2',
         };
@@ -282,7 +285,7 @@ describe('CdToolchainV2', () => {
 
       test('getAll()', async () => {
         const params = {
-          resourceGroupId: 'testString',
+          resourceGroupId: '6a9a01f2cff54a7f966f803d92877123',
           limit: 10,
           name: 'TestToolchainV2',
         };
@@ -737,9 +740,9 @@ describe('CdToolchainV2', () => {
       const serviceUrl = cdToolchainServiceOptions.url;
       const path = '/toolchains/testString/tools';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"limit":1,"tools":[{"id":"id","resource_group_id":"resource_group_id","crn":"crn","tool_type_id":"tool_type_id","toolchain_id":"toolchain_id","toolchain_crn":"toolchain_crn","href":"href","referent":{"ui_href":"ui_href","api_href":"api_href"},"name":"name","updated_at":"2019-01-01T12:00:00.000Z","parameters":{"anyKey":"anyValue"},"state":"configured"}]}';
+        '{"next":{"start":"1"},"total_count":2,"limit":1,"tools":[{"id":"id","resource_group_id":"resource_group_id","crn":"crn","tool_type_id":"tool_type_id","toolchain_id":"toolchain_id","toolchain_crn":"toolchain_crn","href":"href","referent":{"ui_href":"ui_href","api_href":"api_href"},"name":"MyTool","updated_at":"2019-01-01T12:00:00.000Z","parameters":{"anyKey":"anyValue"},"state":"configured"}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"tools":[{"id":"id","resource_group_id":"resource_group_id","crn":"crn","tool_type_id":"tool_type_id","toolchain_id":"toolchain_id","toolchain_crn":"toolchain_crn","href":"href","referent":{"ui_href":"ui_href","api_href":"api_href"},"name":"name","updated_at":"2019-01-01T12:00:00.000Z","parameters":{"anyKey":"anyValue"},"state":"configured"}]}';
+        '{"total_count":2,"limit":1,"tools":[{"id":"id","resource_group_id":"resource_group_id","crn":"crn","tool_type_id":"tool_type_id","toolchain_id":"toolchain_id","toolchain_crn":"toolchain_crn","href":"href","referent":{"ui_href":"ui_href","api_href":"api_href"},"name":"MyTool","updated_at":"2019-01-01T12:00:00.000Z","parameters":{"anyKey":"anyValue"},"state":"configured"}]}';
 
       beforeEach(() => {
         unmock_createRequest();

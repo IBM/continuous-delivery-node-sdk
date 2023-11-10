@@ -57,6 +57,7 @@ class CdToolchainV2 extends BaseService {
     ['au-syd', 'https://api.au-syd.devops.cloud.ibm.com/toolchain/v2'], // The toolchain API endpoint in the au-syd region
     ['ca-tor', 'https://api.ca-tor.devops.cloud.ibm.com/toolchain/v2'], // The toolchain API endpoint in the ca-tor region
     ['br-sao', 'https://api.br-sao.devops.cloud.ibm.com/toolchain/v2'], // The toolchain API endpoint in the br-sao region
+    ['eu-es', 'https://api.eu-es.devops.cloud.ibm.com/toolchain/v2'], // The toolchain API endpoint in the eu-es region
   ]);
 
   /**
@@ -134,7 +135,7 @@ class CdToolchainV2 extends BaseService {
    * @param {string} params.resourceGroupId - The resource group ID where the toolchains exist.
    * @param {number} [params.limit] - Limit the number of results.
    * @param {string} [params.start] - Pagination token.
-   * @param {string} [params.name] - Name of toolchain to look up.
+   * @param {string} [params.name] - Exact name of toolchain to look up. This parameter is case sensitive.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdToolchainV2.Response<CdToolchainV2.ToolchainCollection>>}
    */
@@ -700,7 +701,7 @@ namespace CdToolchainV2 {
     limit?: number;
     /** Pagination token. */
     start?: string;
-    /** Name of toolchain to look up. */
+    /** Exact name of toolchain to look up. This parameter is case sensitive. */
     name?: string;
     headers?: OutgoingHttpHeaders;
   }
@@ -840,7 +841,7 @@ namespace CdToolchainV2 {
     href: string;
     /** Information on URIs to access this resource through the UI or API. */
     referent: ToolModelReferent;
-    /** Tool name. */
+    /** Name of the tool. */
     name?: string;
     /** Latest tool update timestamp. */
     updated_at: string;
@@ -868,7 +869,7 @@ namespace CdToolchainV2 {
     id: string;
     /** Toolchain name. */
     name: string;
-    /** Toolchain description. */
+    /** Describes the toolchain. */
     description: string;
     /** Account ID where toolchain can be found. */
     account_id: string;
@@ -944,7 +945,7 @@ namespace CdToolchainV2 {
     id: string;
     /** Toolchain name. */
     name: string;
-    /** Toolchain description. */
+    /** Describes the toolchain. */
     description: string;
     /** Account ID where toolchain can be found. */
     account_id: string;
@@ -972,7 +973,7 @@ namespace CdToolchainV2 {
     id: string;
     /** Toolchain name. */
     name: string;
-    /** Toolchain description. */
+    /** Describes the toolchain. */
     description: string;
     /** Account ID where toolchain can be found. */
     account_id: string;
@@ -1000,7 +1001,7 @@ namespace CdToolchainV2 {
     id: string;
     /** Toolchain name. */
     name: string;
-    /** Toolchain description. */
+    /** Describes the toolchain. */
     description: string;
     /** Account ID where toolchain can be found. */
     account_id: string;
@@ -1044,7 +1045,7 @@ namespace CdToolchainV2 {
     href: string;
     /** Information on URIs to access this resource through the UI or API. */
     referent: ToolModelReferent;
-    /** Tool name. */
+    /** Name of the tool. */
     name?: string;
     /** Latest tool update timestamp. */
     updated_at: string;
@@ -1128,7 +1129,7 @@ namespace CdToolchainV2 {
     href: string;
     /** Information on URIs to access this resource through the UI or API. */
     referent: ToolModelReferent;
-    /** Tool name. */
+    /** Name of the tool. */
     name?: string;
     /** Latest tool update timestamp. */
     updated_at: string;
@@ -1164,7 +1165,7 @@ namespace CdToolchainV2 {
     href: string;
     /** Information on URIs to access this resource through the UI or API. */
     referent: ToolModelReferent;
-    /** Tool name. */
+    /** Name of the tool. */
     name?: string;
     /** Latest tool update timestamp. */
     updated_at: string;
