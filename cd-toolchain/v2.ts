@@ -39,7 +39,7 @@ import { getSdkHeaders } from '../lib/common';
  * that all resources must have a corresponding <b>resource_group_id</b> to use the API, resources within a Cloud
  * Foundry organization cannot be accessed or modified using the API.
  *
- * API Version: 2.0.0 
+ * API Version: 2.0.0
  */
 
 class CdToolchainV2 extends BaseService {
