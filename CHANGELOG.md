@@ -1,3 +1,11 @@
+# [1.4.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.3.2...v1.4.0) (2023-11-10)
+
+
+### Features
+
+* bump SDK version ([#45](https://github.com/IBM/continuous-delivery-node-sdk/issues/45)) ([7785e14](https://github.com/IBM/continuous-delivery-node-sdk/commit/7785e142fab9e352b411d272c8f4e71129559fdd))
+* support eu-es region ([#44](https://github.com/IBM/continuous-delivery-node-sdk/issues/44)) ([6b231f0](https://github.com/IBM/continuous-delivery-node-sdk/commit/6b231f0cf4d13ff1b3a13872ae34b9c84ef25cb1)), closes [#42](https://github.com/IBM/continuous-delivery-node-sdk/issues/42)
+
 ## [1.3.2](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.3.1...v1.3.2) (2023-11-08)
 
 
