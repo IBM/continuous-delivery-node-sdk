@@ -378,6 +378,74 @@ class CdToolchainV2 extends BaseService {
 
     return this.createRequest(parameters);
   }
+
+  /**
+   * Create a toolchain event.
+   *
+   * Creates and sends a custom event to Event Notifications. This requires an Event Notification tool. This method is
+   * BETA and subject to change.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.toolchainId - ID of the toolchain to send events from.
+   * @param {string} params.title - Event title.
+   * @param {string} params.description - Describes the event.
+   * @param {string} params.contentType - The content type of the attached data. Supported values are `text/plain`,
+   * `application/json`, and `none`.
+   * @param {ToolchainEventPrototypeData} [params.data] - Additional data to be added with the event. The format must
+   * correspond to the value of `content_type`.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<CdToolchainV2.Response<CdToolchainV2.ToolchainEventPost>>}
+   */
+  public createToolchainEvent(
+    params: CdToolchainV2.CreateToolchainEventParams
+  ): Promise<CdToolchainV2.Response<CdToolchainV2.ToolchainEventPost>> {
+    const _params = { ...params };
+    const _requiredParams = ['toolchainId', 'title', 'description', 'contentType'];
+    const _validParams = ['toolchainId', 'title', 'description', 'contentType', 'data', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'title': _params.title,
+      'description': _params.description,
+      'content_type': _params.contentType,
+      'data': _params.data,
+    };
+
+    const path = {
+      'toolchain_id': _params.toolchainId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      CdToolchainV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'createToolchainEvent'
+    );
+
+    const parameters = {
+      options: {
+        url: '/toolchains/{toolchain_id}/events',
+        method: 'POST',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
   /*************************
    * tools
    ************************/
@@ -742,6 +810,31 @@ namespace CdToolchainV2 {
     headers?: OutgoingHttpHeaders;
   }
 
+  /** Parameters for the `createToolchainEvent` operation. */
+  export interface CreateToolchainEventParams {
+    /** ID of the toolchain to send events from. */
+    toolchainId: string;
+    /** Event title. */
+    title: string;
+    /** Describes the event. */
+    description: string;
+    /** The content type of the attached data. Supported values are `text/plain`, `application/json`, and `none`. */
+    contentType: CreateToolchainEventConstants.ContentType | string;
+    /** Additional data to be added with the event. The format must correspond to the value of `content_type`. */
+    data?: ToolchainEventPrototypeData;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `createToolchainEvent` operation. */
+  export namespace CreateToolchainEventConstants {
+    /** The content type of the attached data. Supported values are `text/plain`, `application/json`, and `none`. */
+    export enum ContentType {
+      APPLICATION_JSON = 'application/json',
+      TEXT_PLAIN = 'text/plain',
+      NONE = 'none',
+    }
+  }
+
   /** Parameters for the `listTools` operation. */
   export interface ListToolsParams {
     /** ID of the toolchain that tools are bound to. */
@@ -937,6 +1030,26 @@ namespace CdToolchainV2 {
     start?: string;
     /** URI that can be used to get previous results from the collection. */
     href: string;
+  }
+
+  /** Response structure for POST toolchain event. */
+  export interface ToolchainEventPost {
+    /** Event ID. */
+    id: string;
+  }
+
+  /** Additional data to be added with the event. The format must correspond to the value of `content_type`. */
+  export interface ToolchainEventPrototypeData {
+    /** Contains JSON data to be added with the event. `content_type` must be set to `application/json`. */
+    application_json?: ToolchainEventPrototypeDataApplicationJson;
+    /** Contains text data to be added with the event. `content_type` must be set to `text/plain`. */
+    text_plain?: string;
+  }
+
+  /** Contains JSON data to be added with the event. `content_type` must be set to `application/json`. */
+  export interface ToolchainEventPrototypeDataApplicationJson {
+    /** JSON-formatted key-value pairs representing any additional information to be included with the event. */
+    content: JsonObject;
   }
 
   /** Model describing toolchain resource. */

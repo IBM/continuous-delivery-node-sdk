@@ -142,6 +142,38 @@ describe('CdToolchainV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
+  test('createToolchainEvent()', async () => {
+    // Request models needed by this operation.
+
+    // ToolchainEventPrototypeDataApplicationJson
+    const toolchainEventPrototypeDataApplicationJsonModel = {
+      content: {
+        customKey1: 'myCustomData',
+        customKey2: 123,
+        customKey3: { nestedKey: 'moreData' },
+      },
+    };
+
+    // ToolchainEventPrototypeData
+    const toolchainEventPrototypeDataModel = {
+      application_json: toolchainEventPrototypeDataApplicationJsonModel,
+      text_plain: 'This event is dispatched because the pipeline failed',
+    };
+
+    const params = {
+      toolchainId: toolchainIdLink,
+      title: 'My-custom-event',
+      description: 'This is my custom event',
+      contentType: 'application/json',
+      data: toolchainEventPrototypeDataModel,
+    };
+
+    const res = await cdToolchainService.createToolchainEvent(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
   test('listTools()', async () => {
     const params = {
       toolchainId: toolchainIdLink,
