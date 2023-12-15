@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.4.0...v1.5.0) (2023-12-15)
+
+
+### Features
+
+* **toolchain:** add function to create toolchain event  ([#47](https://github.com/IBM/continuous-delivery-node-sdk/issues/47)) ([419e1df](https://github.com/IBM/continuous-delivery-node-sdk/commit/419e1df06af3a503b0dfbd1723a0088bb2f386dd))
+
 # [1.4.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.3.2...v1.4.0) (2023-11-10)
 
 
