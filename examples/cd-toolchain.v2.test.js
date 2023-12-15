@@ -222,6 +222,37 @@ describe('CdToolchainV2', () => {
     // end-update_toolchain
   });
 
+  test('createToolchainEvent request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('createToolchainEvent() result:');
+    // begin-create_toolchain_event
+
+    const params = {
+      toolchainId: toolchainIdLink,
+      title: 'My-custom-event',
+      description: 'This is my custom event',
+      contentType: 'application/json',
+    };
+
+    let res;
+    try {
+      res = await cdToolchainService.createToolchainEvent(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-create_toolchain_event
+  });
+
   test('listTools request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);

@@ -647,6 +647,123 @@ describe('CdToolchainV2', () => {
     });
   });
 
+  describe('createToolchainEvent', () => {
+    describe('positive tests', () => {
+      // Request models needed by this operation.
+
+      // ToolchainEventPrototypeDataApplicationJson
+      const toolchainEventPrototypeDataApplicationJsonModel = {
+        content: { anyKey: 'anyValue' },
+      };
+
+      // ToolchainEventPrototypeData
+      const toolchainEventPrototypeDataModel = {
+        application_json: toolchainEventPrototypeDataApplicationJsonModel,
+        text_plain: 'This event is dispatched because the pipeline failed',
+      };
+
+      function __createToolchainEventTest() {
+        // Construct the params object for operation createToolchainEvent
+        const toolchainId = 'testString';
+        const title = 'My-custom-event';
+        const description = 'This is my custom event';
+        const contentType = 'application/json';
+        const data = toolchainEventPrototypeDataModel;
+        const createToolchainEventParams = {
+          toolchainId,
+          title,
+          description,
+          contentType,
+          data,
+        };
+
+        const createToolchainEventResult = cdToolchainService.createToolchainEvent(
+          createToolchainEventParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(createToolchainEventResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(mockRequestOptions, '/toolchains/{toolchain_id}/events', 'POST');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.title).toEqual(title);
+        expect(mockRequestOptions.body.description).toEqual(description);
+        expect(mockRequestOptions.body.content_type).toEqual(contentType);
+        expect(mockRequestOptions.body.data).toEqual(data);
+        expect(mockRequestOptions.path.toolchain_id).toEqual(toolchainId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __createToolchainEventTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        cdToolchainService.enableRetries();
+        __createToolchainEventTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        cdToolchainService.disableRetries();
+        __createToolchainEventTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const toolchainId = 'testString';
+        const title = 'My-custom-event';
+        const description = 'This is my custom event';
+        const contentType = 'application/json';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const createToolchainEventParams = {
+          toolchainId,
+          title,
+          description,
+          contentType,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        cdToolchainService.createToolchainEvent(createToolchainEventParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await cdToolchainService.createToolchainEvent({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await cdToolchainService.createToolchainEvent();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
   describe('listTools', () => {
     describe('positive tests', () => {
       function __listToolsTest() {
