@@ -1,3 +1,11 @@
+## [1.5.1](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.5.0...v1.5.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* bump nock version ([fe5d341](https://github.com/IBM/continuous-delivery-node-sdk/commit/fe5d3417b5450f9d7e515d98edf7845f351499c7))
+* update core-sdk ([a0f56f3](https://github.com/IBM/continuous-delivery-node-sdk/commit/a0f56f3ecb109fd182a1e4253881be686ca66dd7))
+
 # [1.5.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.4.0...v1.5.0) (2023-12-15)
 
 
