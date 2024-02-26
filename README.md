@@ -1,7 +1,7 @@
 
 # IBM Cloud Continuous Delivery Node.js SDK 
 
-[![Build Status](https://app.travis-ci.com/IBM/continuous-delivery-node-sdk.svg?branch=main)](https://app.travis-ci.com/github/IBM/continuous-delivery-node-sdk)
+[![Build Status](https://v3.travis.ibm.com/CloudEngineering/node-sdk-template.svg?token=Z799xXryYYPor3yyJxEs&branch=main)](https://v3.travis.ibm.com/CloudEngineering/node-sdk-template)
 [![npm](https://img.shields.io/npm/v/@ibm-cloud/continuous-delivery)](https://npmjs.com/package/@ibm-cloud/continuous-delivery)
 [![Release](https://img.shields.io/github/v/release/IBM/continuous-delivery-node-sdk)](https://github.com/IBM/continuous-delivery-node-sdk/releases/latest)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
