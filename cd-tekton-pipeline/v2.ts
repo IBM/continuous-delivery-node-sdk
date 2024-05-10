@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.76.0-ad3e6f96-20230724-172814
+ * IBM OpenAPI SDK Code Generator Version: 3.89.1-ed9d96f4-20240417-193115
  */
 
 /* eslint-disable max-classes-per-file */
@@ -26,10 +26,10 @@ import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import {
   Authenticator,
   BaseService,
-  getAuthenticatorFromEnvironment,
-  validateParams,
   UserOptions,
+  getAuthenticatorFromEnvironment,
   getQueryParam,
+  validateParams,
 } from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
 
@@ -80,7 +80,7 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {UserOptions} [options] - The parameters to send to the service.
    * @param {string} [options.serviceName] - The name of the service to configure
    * @param {Authenticator} [options.authenticator] - The Authenticator object used to authenticate requests to the service
-   * @param {string} [options.serviceUrl] - The URL for the service
+   * @param {string} [options.serviceUrl] - The base URL for the service
    * @returns {CdTektonPipelineV2}
    */
 
@@ -105,7 +105,7 @@ class CdTektonPipelineV2 extends BaseService {
    * Construct a CdTektonPipelineV2 object.
    *
    * @param {Object} options - Options for the service.
-   * @param {string} [options.serviceUrl] - The base url to use when contacting the service. The base url may differ between IBM Cloud regions.
+   * @param {string} [options.serviceUrl] - The base URL for the service
    * @param {OutgoingHttpHeaders} [options.headers] - Default headers that shall be included with every request to the service.
    * @param {Authenticator} options.authenticator - The Authenticator object used to authenticate requests to the service
    * @constructor
@@ -1234,6 +1234,8 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} [params.value] - Property value. Any string value is valid.
    * @param {string[]} [params._enum] - Options for `single_select` property type. Only needed when using
    * `single_select` property type.
+   * @param {boolean} [params.locked] - When true, this property cannot be overridden by a trigger property or at
+   * runtime. Attempting to override it will result in run requests being rejected. The default is false.
    * @param {string} [params.path] - A dot notation path for `integration` type properties only, to select a value from
    * the tool integration. If left blank the full tool integration data will be used.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
@@ -1244,7 +1246,16 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Property>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'name', 'type'];
-    const _validParams = ['pipelineId', 'name', 'type', 'value', '_enum', 'path', 'headers'];
+    const _validParams = [
+      'pipelineId',
+      'name',
+      'type',
+      'value',
+      '_enum',
+      'locked',
+      'path',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1255,6 +1266,7 @@ class CdTektonPipelineV2 extends BaseService {
       'type': _params.type,
       'value': _params.value,
       'enum': _params._enum,
+      'locked': _params.locked,
       'path': _params.path,
     };
 
@@ -1359,6 +1371,8 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} [params.value] - Property value. Any string value is valid.
    * @param {string[]} [params._enum] - Options for `single_select` property type. Only needed when using
    * `single_select` property type.
+   * @param {boolean} [params.locked] - When true, this property cannot be overridden by a trigger property or at
+   * runtime. Attempting to override it will result in run requests being rejected. The default is false.
    * @param {string} [params.path] - A dot notation path for `integration` type properties only, to select a value from
    * the tool integration. If left blank the full tool integration data will be used.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
@@ -1376,6 +1390,7 @@ class CdTektonPipelineV2 extends BaseService {
       'type',
       'value',
       '_enum',
+      'locked',
       'path',
       'headers',
     ];
@@ -1389,6 +1404,7 @@ class CdTektonPipelineV2 extends BaseService {
       'type': _params.type,
       'value': _params.value,
       'enum': _params._enum,
+      'locked': _params.locked,
       'path': _params.path,
     };
 
@@ -1571,7 +1587,8 @@ class CdTektonPipelineV2 extends BaseService {
    * associated. The event listeners are defined in the definition repositories of the Tekton pipeline.
    * @param {string[]} [params.tags] - Trigger tags array.
    * @param {WorkerIdentity} [params.worker] - Specify the worker used to run the trigger. Use `worker: { id: 'public'
-   * }` to use the IBM Managed workers. Use `worker: { id: 'inherit' }` to inherit the worker used by the pipeline.
+   * }` to use the IBM Managed workers. The default is to inherit the worker set in the pipeline settings, which can
+   * also be explicitly set using `worker: { id: 'inherit' }`.
    * @param {number} [params.maxConcurrentRuns] - Defines the maximum number of concurrent runs for this trigger. If
    * omitted then the concurrency limit is disabled for this trigger.
    * @param {boolean} [params.enabled] - Flag whether the trigger is enabled. If omitted the trigger is enabled by
@@ -2035,6 +2052,8 @@ class CdTektonPipelineV2 extends BaseService {
    * property type.
    * @param {string} [params.path] - A dot notation path for `integration` type properties only, to select a value from
    * the tool integration. If left blank the full tool integration data will be used.
+   * @param {boolean} [params.locked] - When true, this property cannot be overridden at runtime. Attempting to override
+   * it will result in run requests being rejected. The default is false.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TriggerProperty>>}
    */
@@ -2051,6 +2070,7 @@ class CdTektonPipelineV2 extends BaseService {
       'value',
       '_enum',
       'path',
+      'locked',
       'headers',
     ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
@@ -2064,6 +2084,7 @@ class CdTektonPipelineV2 extends BaseService {
       'value': _params.value,
       'enum': _params._enum,
       'path': _params.path,
+      'locked': _params.locked,
     };
 
     const path = {
@@ -2172,6 +2193,8 @@ class CdTektonPipelineV2 extends BaseService {
    * property type.
    * @param {string} [params.path] - A dot notation path for `integration` type properties only, to select a value from
    * the tool integration. If left blank the full tool integration data will be used.
+   * @param {boolean} [params.locked] - When true, this property cannot be overridden at runtime. Attempting to override
+   * it will result in run requests being rejected. The default is false.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TriggerProperty>>}
    */
@@ -2189,6 +2212,7 @@ class CdTektonPipelineV2 extends BaseService {
       'value',
       '_enum',
       'path',
+      'locked',
       'headers',
     ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
@@ -2202,6 +2226,7 @@ class CdTektonPipelineV2 extends BaseService {
       'value': _params.value,
       'enum': _params._enum,
       'path': _params.path,
+      'locked': _params.locked,
     };
 
     const path = {
@@ -2408,7 +2433,6 @@ namespace CdTektonPipelineV2 {
       QUEUED = 'queued',
       RUNNING = 'running',
       CANCELLED = 'cancelled',
-      CANCELLING = 'cancelling',
       FAILED = 'failed',
       ERROR = 'error',
       SUCCEEDED = 'succeeded',
@@ -2593,6 +2617,10 @@ namespace CdTektonPipelineV2 {
     value?: string;
     /** Options for `single_select` property type. Only needed when using `single_select` property type. */
     _enum?: string[];
+    /** When true, this property cannot be overridden by a trigger property or at runtime. Attempting to override it
+     *  will result in run requests being rejected. The default is false.
+     */
+    locked?: boolean;
     /** A dot notation path for `integration` type properties only, to select a value from the tool integration. If
      *  left blank the full tool integration data will be used.
      */
@@ -2635,6 +2663,10 @@ namespace CdTektonPipelineV2 {
     value?: string;
     /** Options for `single_select` property type. Only needed when using `single_select` property type. */
     _enum?: string[];
+    /** When true, this property cannot be overridden by a trigger property or at runtime. Attempting to override it
+     *  will result in run requests being rejected. The default is false.
+     */
+    locked?: boolean;
     /** A dot notation path for `integration` type properties only, to select a value from the tool integration. If
      *  left blank the full tool integration data will be used.
      */
@@ -2703,7 +2735,8 @@ namespace CdTektonPipelineV2 {
     /** Trigger tags array. */
     tags?: string[];
     /** Specify the worker used to run the trigger. Use `worker: { id: 'public' }` to use the IBM Managed workers.
-     *  Use `worker: { id: 'inherit' }` to inherit the worker used by the pipeline.
+     *  The default is to inherit the worker set in the pipeline settings, which can also be explicitly set using
+     *  `worker: { id: 'inherit' }`.
      */
     worker?: WorkerIdentity;
     /** Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is
@@ -2733,7 +2766,7 @@ namespace CdTektonPipelineV2 {
      *  'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such
      *  events map to the equivalent 'pull request' events.
      */
-    events?: CreateTektonPipelineTriggerConstants.Events | string[];
+    events?: CreateTektonPipelineTriggerConstants.Events[] | string[];
     /** Mark the trigger as a favorite. */
     favorite?: boolean;
     headers?: OutgoingHttpHeaders;
@@ -2812,7 +2845,7 @@ namespace CdTektonPipelineV2 {
      *  'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such
      *  events map to the equivalent 'pull request' events.
      */
-    events?: UpdateTektonPipelineTriggerConstants.Events | string[];
+    events?: UpdateTektonPipelineTriggerConstants.Events[] | string[];
     /** Mark the trigger as a favorite. */
     favorite?: boolean;
     headers?: OutgoingHttpHeaders;
@@ -2890,6 +2923,10 @@ namespace CdTektonPipelineV2 {
      *  left blank the full tool integration data will be used.
      */
     path?: string;
+    /** When true, this property cannot be overridden at runtime. Attempting to override it will result in run
+     *  requests being rejected. The default is false.
+     */
+    locked?: boolean;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -2936,6 +2973,10 @@ namespace CdTektonPipelineV2 {
      *  left blank the full tool integration data will be used.
      */
     path?: string;
+    /** When true, this property cannot be overridden at runtime. Attempting to override it will result in run
+     *  requests being rejected. The default is false.
+     */
+    locked?: boolean;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -3007,15 +3048,43 @@ namespace CdTektonPipelineV2 {
   /** Only needed for generic webhook trigger type. Secret used to start generic webhook trigger. */
   export interface GenericSecret {
     /** Secret type. */
-    type?: string;
+    type?: GenericSecret.Constants.Type | string;
     /** Secret value, not needed if secret type is `internal_validation`. */
     value?: string;
     /** Secret location, not needed if secret type is `internal_validation`. */
-    source?: string;
+    source?: GenericSecret.Constants.Source | string;
     /** Secret name, not needed if type is `internal_validation`. */
     key_name?: string;
     /** Algorithm used for `digest_matches` secret type. Only needed for `digest_matches` secret type. */
-    algorithm?: string;
+    algorithm?: GenericSecret.Constants.Algorithm | string;
+  }
+  export namespace GenericSecret {
+    export namespace Constants {
+      /** Secret type. */
+      export enum Type {
+        TOKEN_MATCHES = 'token_matches',
+        DIGEST_MATCHES = 'digest_matches',
+        INTERNAL_VALIDATION = 'internal_validation',
+      }
+      /** Secret location, not needed if secret type is `internal_validation`. */
+      export enum Source {
+        HEADER = 'header',
+        PAYLOAD = 'payload',
+        QUERY = 'query',
+      }
+      /** Algorithm used for `digest_matches` secret type. Only needed for `digest_matches` secret type. */
+      export enum Algorithm {
+        MD4 = 'md4',
+        MD5 = 'md5',
+        SHA1 = 'sha1',
+        SHA256 = 'sha256',
+        SHA384 = 'sha384',
+        SHA512 = 'sha512',
+        SHA512_224 = 'sha512_224',
+        SHA512_256 = 'sha512_256',
+        RIPEMD160 = 'ripemd160',
+      }
+    }
   }
 
   /** Log data for Tekton pipeline run steps. */
@@ -3045,7 +3114,7 @@ namespace CdTektonPipelineV2 {
      */
     user_info?: UserInfo;
     /** Status of the pipeline run. */
-    status: string;
+    status: PipelineRun.Constants.Status | string;
     /** The aggregated definition ID. */
     definition_id: string;
     /** Reference to the pipeline definition of a pipeline run. */
@@ -3079,6 +3148,21 @@ namespace CdTektonPipelineV2 {
     run_url: string;
     /** Error message that provides details when a pipeline run encounters an error. */
     error_message?: string;
+  }
+  export namespace PipelineRun {
+    export namespace Constants {
+      /** Status of the pipeline run. */
+      export enum Status {
+        PENDING = 'pending',
+        WAITING = 'waiting',
+        QUEUED = 'queued',
+        RUNNING = 'running',
+        CANCELLED = 'cancelled',
+        FAILED = 'failed',
+        ERROR = 'error',
+        SUCCEEDED = 'succeeded',
+      }
+    }
   }
 
   /** Trigger details passed when triggering a Tekton pipeline run. */
@@ -3151,11 +3235,27 @@ namespace CdTektonPipelineV2 {
     /** Options for `single_select` property type. Only needed when using `single_select` property type. */
     enum?: string[];
     /** Property type. */
-    type: string;
+    type: Property.Constants.Type | string;
+    /** When true, this property cannot be overridden by a trigger property or at runtime. Attempting to override it
+     *  will result in run requests being rejected. The default is false.
+     */
+    locked?: boolean;
     /** A dot notation path for `integration` type properties only, that selects a value from the tool integration.
      *  If left blank the full tool integration data will be used.
      */
     path?: string;
+  }
+  export namespace Property {
+    export namespace Constants {
+      /** Property type. */
+      export enum Type {
+        SECURE = 'secure',
+        TEXT = 'text',
+        INTEGRATION = 'integration',
+        SINGLE_SELECT = 'single_select',
+        APPCONFIG = 'appconfig',
+      }
+    }
   }
 
   /** The resource group in which the pipeline was created. */
@@ -3207,7 +3307,7 @@ namespace CdTektonPipelineV2 {
     /** String. */
     name: string;
     /** Pipeline status. */
-    status: string;
+    status: TektonPipeline.Constants.Status | string;
     /** The resource group in which the pipeline was created. */
     resource_group: ResourceGroupReference;
     /** Toolchain object containing references to the parent toolchain. */
@@ -3247,6 +3347,15 @@ namespace CdTektonPipelineV2 {
     /** Flag whether this pipeline is enabled. */
     enabled: boolean;
   }
+  export namespace TektonPipeline {
+    export namespace Constants {
+      /** Pipeline status. */
+      export enum Status {
+        CONFIGURED = 'configured',
+        CONFIGURING = 'configuring',
+      }
+    }
+  }
 
   /** Reference to the repository tool in the parent toolchain. */
   export interface Tool {
@@ -3282,11 +3391,27 @@ namespace CdTektonPipelineV2 {
     /** Options for `single_select` property type. Only needed for `single_select` property type. */
     enum?: string[];
     /** Property type. */
-    type: string;
+    type: TriggerProperty.Constants.Type | string;
     /** A dot notation path for `integration` type properties only, that selects a value from the tool integration.
      *  If left blank the full tool integration data will be used.
      */
     path?: string;
+    /** When true, this property cannot be overridden at runtime. Attempting to override it will result in run
+     *  requests being rejected. The default is false.
+     */
+    locked?: boolean;
+  }
+  export namespace TriggerProperty {
+    export namespace Constants {
+      /** Property type. */
+      export enum Type {
+        SECURE = 'secure',
+        TEXT = 'text',
+        INTEGRATION = 'integration',
+        SINGLE_SELECT = 'single_select',
+        APPCONFIG = 'appconfig',
+      }
+    }
   }
 
   /** Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools. */
@@ -3480,7 +3605,17 @@ namespace CdTektonPipelineV2 {
      *  'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such
      *  events map to the equivalent 'pull request' events.
      */
-    events?: string[];
+    events?: TriggerScmTrigger.Constants.Events[] | string[];
+  }
+  export namespace TriggerScmTrigger {
+    export namespace Constants {
+      /** Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from: 'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such events map to the equivalent 'pull request' events. */
+      export enum Events {
+        PUSH = 'push',
+        PULL_REQUEST = 'pull_request',
+        PULL_REQUEST_CLOSED = 'pull_request_closed',
+      }
+    }
   }
 
   /** Timer trigger, which triggers pipeline runs according to the provided cron value and timezone. */
@@ -3586,7 +3721,7 @@ namespace CdTektonPipelineV2 {
       const response = await this.client.listTektonPipelineRuns(this.params);
       const { result } = response;
 
-      let next = null;
+      let next;
       if (result && result.next) {
         if (result.next.href) {
           next = getQueryParam(result.next.href, 'start');
