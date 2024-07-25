@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-/* eslint-disable no-await-in-loop */
-
-const nock = require('nock');
-
 // need to import the whole package to mock getAuthenticatorFromEnvironment
 const sdkCorePackage = require('ibm-cloud-sdk-core');
 
 const { NoAuthAuthenticator, unitTestUtils } = sdkCorePackage;
+
+const nock = require('nock');
 const CdTektonPipelineV2 = require('../../dist/cd-tekton-pipeline/v2');
+
+/* eslint-disable no-await-in-loop */
 
 const { getOptions, checkUrlAndMethod, checkMediaHeaders, expectToBePromise } = unitTestUtils;
 
@@ -702,20 +702,20 @@ describe('CdTektonPipelineV2', () => {
       // PipelineRunTrigger
       const pipelineRunTriggerModel = {
         name: 'Manual Trigger 1',
-        properties: { 'pipeline-debug': 'false' },
-        secure_properties: { 'secure-property-key': 'secure value' },
-        headers: { source: 'api' },
-        body: { message: 'hello world', enable: 'true', detail: { name: 'example' } },
+        properties: { foo: 'bar' },
+        secure_properties: { foo: 'bar' },
+        headers: { foo: 'bar' },
+        body: { foo: 'bar' },
       };
 
       function __createTektonPipelineRunTest() {
         // Construct the params object for operation createTektonPipelineRun
         const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
         const triggerName = 'testString';
-        const triggerProperties = { anyKey: 'anyValue' };
-        const secureTriggerProperties = { anyKey: 'anyValue' };
-        const triggerHeaders = { anyKey: 'anyValue' };
-        const triggerBody = { anyKey: 'anyValue' };
+        const triggerProperties = { foo: 'bar' };
+        const secureTriggerProperties = { foo: 'bar' };
+        const triggerHeaders = { foo: 'bar' };
+        const triggerBody = { foo: 'bar' };
         const trigger = pipelineRunTriggerModel;
         const createTektonPipelineRunParams = {
           pipelineId,
@@ -2587,6 +2587,7 @@ describe('CdTektonPipelineV2', () => {
         const timezone = 'testString';
         const source = triggerSourcePrototypeModel;
         const events = ['push'];
+        const filter = 'testString';
         const favorite = false;
         const createTektonPipelineTriggerParams = {
           pipelineId,
@@ -2602,6 +2603,7 @@ describe('CdTektonPipelineV2', () => {
           timezone,
           source,
           events,
+          filter,
           favorite,
         };
 
@@ -2632,6 +2634,7 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.timezone).toEqual(timezone);
         expect(mockRequestOptions.body.source).toEqual(source);
         expect(mockRequestOptions.body.events).toEqual(events);
+        expect(mockRequestOptions.body.filter).toEqual(filter);
         expect(mockRequestOptions.body.favorite).toEqual(favorite);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
       }
@@ -2842,6 +2845,7 @@ describe('CdTektonPipelineV2', () => {
         const timezone = 'testString';
         const source = triggerSourcePrototypeModel;
         const events = ['push'];
+        const filter = 'testString';
         const favorite = false;
         const updateTektonPipelineTriggerParams = {
           pipelineId,
@@ -2858,6 +2862,7 @@ describe('CdTektonPipelineV2', () => {
           timezone,
           source,
           events,
+          filter,
           favorite,
         };
 
@@ -2892,6 +2897,7 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.timezone).toEqual(timezone);
         expect(mockRequestOptions.body.source).toEqual(source);
         expect(mockRequestOptions.body.events).toEqual(events);
+        expect(mockRequestOptions.body.filter).toEqual(filter);
         expect(mockRequestOptions.body.favorite).toEqual(favorite);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
         expect(mockRequestOptions.path.trigger_id).toEqual(triggerId);
