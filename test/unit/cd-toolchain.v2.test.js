@@ -22,9 +22,13 @@ const nock = require('nock');
 const sdkCorePackage = require('ibm-cloud-sdk-core');
 
 const { NoAuthAuthenticator } = sdkCorePackage;
+const {
+  getOptions,
+  checkUrlAndMethod,
+  checkMediaHeaders,
+  expectToBePromise,
+} = require('@ibm-cloud/sdk-test-utilities');
 const CdToolchainV2 = require('../../dist/cd-toolchain/v2');
-
-const { getOptions, checkUrlAndMethod, checkMediaHeaders, expectToBePromise } = require('@ibm-cloud/sdk-test-utilities');;
 
 const cdToolchainServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
