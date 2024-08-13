@@ -1,3 +1,17 @@
+# [1.7.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.6.0...v1.7.0) (2024-07-29)
+
+
+### Features
+
+* **tekton:** Add support for CEL filtering ([94670d7](https://github.com/IBM/continuous-delivery-node-sdk/commit/94670d73fc0fa2694d43f6f9dd90f273fb4ab9b6))
+
+# [1.6.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.5.1...v1.6.0) (2024-05-16)
+
+
+### Features
+
+* **tekton:** Add locked property support ([fd3caae](https://github.com/IBM/continuous-delivery-node-sdk/commit/fd3caae37e3901ad2b90567d5a2cd2a13372c909))
+
 ## [1.5.1](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.5.0...v1.5.1) (2024-01-26)
 
 

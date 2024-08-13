@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.76.0-ad3e6f96-20230724-172814
+ * IBM OpenAPI SDK Code Generator Version: 3.72.0-5d70f2bb-20230511-203609
  */
 
 /* eslint-disable max-classes-per-file */
@@ -139,14 +139,15 @@ class CdTektonPipelineV2 extends BaseService {
    * find the pipeline tool.
    * @param {number} [params.nextBuildNumber] - Specify the build number that will be used for the next pipeline run.
    * Build numbers can be any positive whole number between 0 and 100000000000000.
-   * @param {boolean} [params.enableNotifications] - Flag whether to enable notifications for this pipeline. When
-   * enabled, pipeline run events are published on all slack integration specified channels in the parent toolchain.
-   * @param {boolean} [params.enablePartialCloning] - Flag whether to enable partial cloning for this pipeline. When
-   * partial clone is enabled, only the files contained within the paths specified in definition repositories are read
-   * and cloned, this means that symbolic links might not work.
-   * @param {WorkerIdentity} [params.worker] - Specify the worker used to run the trigger, as a worker object containing
-   * the worker ID only. If omitted, or specified as `worker: { id: 'public' }`, the IBM Managed shared workers are
-   * used.
+   * @param {boolean} [params.enableNotifications] - Flag to enable notifications for this pipeline. If enabled, the
+   * Tekton pipeline run events will be published to all the destinations specified by the Slack and Event Notifications
+   * integrations in the parent toolchain.
+   * @param {boolean} [params.enablePartialCloning] - Flag to enable partial cloning for this pipeline. When partial
+   * clone is enabled, only the files contained within the paths specified in definition repositories are read and
+   * cloned, this means that symbolic links might not work.
+   * @param {WorkerIdentity} [params.worker] - Specify the worker that is to be used to run the trigger, indicated by a
+   * worker object with only the worker ID. If not specified or set as `worker: { id: 'public' }`, the IBM Managed
+   * shared workers are used.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TektonPipeline>>}
    */
@@ -266,14 +267,15 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} params.id - ID of current instance.
    * @param {number} [params.nextBuildNumber] - Specify the build number that will be used for the next pipeline run.
    * Build numbers can be any positive whole number between 0 and 100000000000000.
-   * @param {boolean} [params.enableNotifications] - Flag whether to enable notifications for this pipeline. When
-   * enabled, pipeline run events are published on all slack integration specified channels in the parent toolchain.
-   * @param {boolean} [params.enablePartialCloning] - Flag whether to enable partial cloning for this pipeline. When
-   * partial clone is enabled, only the files contained within the paths specified in definition repositories are read
-   * and cloned, this means that symbolic links might not work.
-   * @param {WorkerIdentity} [params.worker] - Specify the worker used to run the trigger, as a worker object containing
-   * the worker ID only. If omitted, or specified as `worker: { id: 'public' }`, the IBM Managed shared workers are
-   * used.
+   * @param {boolean} [params.enableNotifications] - Flag to enable notifications for this pipeline. If enabled, the
+   * Tekton pipeline run events will be published to all the destinations specified by the Slack and Event Notifications
+   * integrations in the parent toolchain.
+   * @param {boolean} [params.enablePartialCloning] - Flag to enable partial cloning for this pipeline. When partial
+   * clone is enabled, only the files contained within the paths specified in definition repositories are read and
+   * cloned, this means that symbolic links might not work.
+   * @param {WorkerIdentity} [params.worker] - Specify the worker that is to be used to run the trigger, indicated by a
+   * worker object with only the worker ID. If not specified or set as `worker: { id: 'public' }`, the IBM Managed
+   * shared workers are used.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TektonPipeline>>}
    */
@@ -452,17 +454,17 @@ class CdTektonPipelineV2 extends BaseService {
   /**
    * Trigger a pipeline run.
    *
-   * Trigger a new pipeline run with the named manual or timer trigger, using the provided additional or override
-   * properties.
+   * Trigger a new pipeline run using either the manual or the timed trigger, specifying the additional properties or
+   * overriding existing ones as needed.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.pipelineId - The Tekton pipeline ID.
    * @param {string} [params.triggerName] - Trigger name.
-   * @param {JsonObject} [params.triggerProperties] - An object containing string values only that provides additional
-   * `text` properties, or overrides existing pipeline/trigger properties, to use for the created run.
-   * @param {JsonObject} [params.secureTriggerProperties] - An object containing string values only that provides
-   * additional `secure` properties, or overrides existing `secure` pipeline/trigger properties, to use for the created
-   * run.
+   * @param {JsonObject} [params.triggerProperties] - An object containing string values only. It provides additional
+   * 'text' properties or overrides existing pipeline/trigger properties that can be used in the created run.
+   * @param {JsonObject} [params.secureTriggerProperties] - An object containing string values only. It provides
+   * additional `secure` properties or overrides existing `secure` pipeline/trigger properties that can be used in the
+   * created run.
    * @param {JsonObject} [params.triggerHeaders] - An object containing string values only that provides the request
    * headers. Use `$(header.header_key_name)` to access it in a TriggerBinding. Most commonly used as part of a Generic
    * Webhook to provide a verification token or signature in the request headers.
@@ -651,7 +653,7 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.pipelineId - The Tekton pipeline ID.
    * @param {string} params.id - ID of current instance.
-   * @param {boolean} [params.force] - Flag whether force cancel.
+   * @param {boolean} [params.force] - Flag indicating whether the pipeline cancellation action is forced or not.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.PipelineRun>>}
    */
@@ -996,8 +998,8 @@ class CdTektonPipelineV2 extends BaseService {
   /**
    * Retrieve a single definition entry.
    *
-   * This request fetches a single definition entry, which consists of the definition repository URL, branch/tag and
-   * path.
+   * This request fetches a single definition entry, which consists of the definition repository URL, a repository path,
+   * and a branch or tag.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.pipelineId - The Tekton pipeline ID.
@@ -1162,7 +1164,7 @@ class CdTektonPipelineV2 extends BaseService {
   /**
    * List the pipeline's environment properties.
    *
-   * This request lists the environment properties the pipeline identified by `{pipeline_id}`.
+   * This request lists the environment properties of the pipeline identified by  `{pipeline_id}`.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.pipelineId - The Tekton pipeline ID.
@@ -1234,6 +1236,8 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} [params.value] - Property value. Any string value is valid.
    * @param {string[]} [params._enum] - Options for `single_select` property type. Only needed when using
    * `single_select` property type.
+   * @param {boolean} [params.locked] - When true, this property cannot be overridden by a trigger property or at
+   * runtime. Attempting to override it will result in run requests being rejected. The default is false.
    * @param {string} [params.path] - A dot notation path for `integration` type properties only, to select a value from
    * the tool integration. If left blank the full tool integration data will be used.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
@@ -1244,7 +1248,16 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Property>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'name', 'type'];
-    const _validParams = ['pipelineId', 'name', 'type', 'value', '_enum', 'path', 'headers'];
+    const _validParams = [
+      'pipelineId',
+      'name',
+      'type',
+      'value',
+      '_enum',
+      'locked',
+      'path',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1255,6 +1268,7 @@ class CdTektonPipelineV2 extends BaseService {
       'type': _params.type,
       'value': _params.value,
       'enum': _params._enum,
+      'locked': _params.locked,
       'path': _params.path,
     };
 
@@ -1348,7 +1362,7 @@ class CdTektonPipelineV2 extends BaseService {
   /**
    * Replace the value of an environment property.
    *
-   * This request updates the value of an environment property identified by `{property_name}`, its type or name are
+   * This request updates the value of an environment property identified by `{property_name}`, its type and name are
    * immutable.
    *
    * @param {Object} params - The parameters to send to the service.
@@ -1359,6 +1373,8 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} [params.value] - Property value. Any string value is valid.
    * @param {string[]} [params._enum] - Options for `single_select` property type. Only needed when using
    * `single_select` property type.
+   * @param {boolean} [params.locked] - When true, this property cannot be overridden by a trigger property or at
+   * runtime. Attempting to override it will result in run requests being rejected. The default is false.
    * @param {string} [params.path] - A dot notation path for `integration` type properties only, to select a value from
    * the tool integration. If left blank the full tool integration data will be used.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
@@ -1376,6 +1392,7 @@ class CdTektonPipelineV2 extends BaseService {
       'type',
       'value',
       '_enum',
+      'locked',
       'path',
       'headers',
     ];
@@ -1389,6 +1406,7 @@ class CdTektonPipelineV2 extends BaseService {
       'type': _params.type,
       'value': _params.value,
       'enum': _params._enum,
+      'locked': _params.locked,
       'path': _params.path,
     };
 
@@ -1571,27 +1589,31 @@ class CdTektonPipelineV2 extends BaseService {
    * associated. The event listeners are defined in the definition repositories of the Tekton pipeline.
    * @param {string[]} [params.tags] - Trigger tags array.
    * @param {WorkerIdentity} [params.worker] - Specify the worker used to run the trigger. Use `worker: { id: 'public'
-   * }` to use the IBM Managed workers. Use `worker: { id: 'inherit' }` to inherit the worker used by the pipeline.
+   * }` to use the IBM Managed workers. The default is to inherit the worker set in the pipeline settings, which can
+   * also be explicitly set using `worker: { id: 'inherit' }`.
    * @param {number} [params.maxConcurrentRuns] - Defines the maximum number of concurrent runs for this trigger. If
    * omitted then the concurrency limit is disabled for this trigger.
-   * @param {boolean} [params.enabled] - Flag whether the trigger is enabled. If omitted the trigger is enabled by
+   * @param {boolean} [params.enabled] - Flag to check if the trigger is enabled. If omitted the trigger is enabled by
    * default.
-   * @param {GenericSecret} [params.secret] - Only needed for generic webhook trigger type. Secret used to start generic
-   * webhook trigger.
-   * @param {string} [params.cron] - Only needed for timer triggers. Cron expression that indicates when this trigger
+   * @param {GenericSecret} [params.secret] - Only needed for Generic Webhook trigger type. The secret is used to start
+   * the Generic Webhook trigger.
+   * @param {string} [params.cron] - Only needed for timer triggers. CRON expression that indicates when this trigger
    * will activate. Maximum frequency is every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day
-   * of month, month, day of week. Example: 0 *_/2 * * * - every 2 hours.
+   * of month, month, day of week. Example: The CRON expression 0 *_/2 * * * - translates to - every 2 hours.
    * @param {string} [params.timezone] - Only used for timer triggers. Specify the timezone used for this timer trigger,
-   * which will ensure the cron activates this trigger relative to the specified timezone. If no timezone is specified,
+   * which will ensure the CRON activates this trigger relative to the specified timezone. If no timezone is specified,
    * the default timezone used is UTC. Valid timezones are those listed in the IANA timezone database,
    * https://www.iana.org/time-zones.
    * @param {TriggerSourcePrototype} [params.source] - Source repository for a Git trigger. Only required for Git
    * triggers. The referenced repository URL must match the URL of a repository tool integration in the parent
    * toolchain. Obtain the list of integrations from the toolchain API
    * https://cloud.ibm.com/apidocs/toolchain#list-tools.
-   * @param {string[]} [params.events] - Only needed for Git triggers. List of events to which a Git trigger listens.
-   * Choose one or more from: 'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge
-   * request' events, such events map to the equivalent 'pull request' events.
+   * @param {string[]} [params.events] - Either 'events' or 'filter' is required specifically for Git triggers. Stores a
+   * list of events that a Git trigger listens to. Choose one or more from 'push', 'pull_request', and
+   * 'pull_request_closed'. If SCM repositories use the 'merge request' term, they correspond to the generic term i.e.
+   * 'pull request'.
+   * @param {string} [params.filter] - Either 'events' or 'filter' can be used. Stores the CEL (Common Expression
+   * Language) expression value which is used for event filtering against the Git webhook payloads.
    * @param {boolean} [params.favorite] - Mark the trigger as a favorite.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Trigger>>}
@@ -1615,6 +1637,7 @@ class CdTektonPipelineV2 extends BaseService {
       'timezone',
       'source',
       'events',
+      'filter',
       'favorite',
       'headers',
     ];
@@ -1636,6 +1659,7 @@ class CdTektonPipelineV2 extends BaseService {
       'timezone': _params.timezone,
       'source': _params.source,
       'events': _params.events,
+      'filter': _params.filter,
       'favorite': _params.favorite,
     };
 
@@ -1745,22 +1769,25 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {number} [params.maxConcurrentRuns] - Defines the maximum number of concurrent runs for this trigger. If set
    * to 0 then the custom concurrency limit is disabled for this trigger.
    * @param {boolean} [params.enabled] - Defines if this trigger is enabled.
-   * @param {GenericSecret} [params.secret] - Only needed for generic webhook trigger type. Secret used to start generic
-   * webhook trigger.
-   * @param {string} [params.cron] - Only needed for timer triggers. Cron expression that indicates when this trigger
+   * @param {GenericSecret} [params.secret] - Only needed for Generic Webhook trigger type. The secret is used to start
+   * the Generic Webhook trigger.
+   * @param {string} [params.cron] - Only needed for timer triggers. CRON expression that indicates when this trigger
    * will activate. Maximum frequency is every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day
-   * of month, month, day of week. Example: 0 *_/2 * * * - every 2 hours.
+   * of month, month, day of week. Example: The CRON expression 0 *_/2 * * * - translates to - every 2 hours.
    * @param {string} [params.timezone] - Only used for timer triggers. Specify the timezone used for this timer trigger,
-   * which will ensure the cron activates this trigger relative to the specified timezone. If no timezone is specified,
+   * which will ensure the CRON activates this trigger relative to the specified timezone. If no timezone is specified,
    * the default timezone used is UTC. Valid timezones are those listed in the IANA timezone database,
    * https://www.iana.org/time-zones.
    * @param {TriggerSourcePrototype} [params.source] - Source repository for a Git trigger. Only required for Git
    * triggers. The referenced repository URL must match the URL of a repository tool integration in the parent
    * toolchain. Obtain the list of integrations from the toolchain API
    * https://cloud.ibm.com/apidocs/toolchain#list-tools.
-   * @param {string[]} [params.events] - Only needed for Git triggers. List of events to which a Git trigger listens.
-   * Choose one or more from: 'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge
-   * request' events, such events map to the equivalent 'pull request' events.
+   * @param {string[]} [params.events] - Either 'events' or 'filter' is required specifically for Git triggers. Stores a
+   * list of events that a Git trigger listens to. Choose one or more from 'push', 'pull_request', and
+   * 'pull_request_closed'. If SCM repositories use the 'merge request' term, they correspond to the generic term i.e.
+   * 'pull request'.
+   * @param {string} [params.filter] - Either 'events' or 'filter' can be used. Stores the CEL (Common Expression
+   * Language) expression value which is used for event filtering against the Git webhook payloads.
    * @param {boolean} [params.favorite] - Mark the trigger as a favorite.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Trigger>>}
@@ -1785,6 +1812,7 @@ class CdTektonPipelineV2 extends BaseService {
       'timezone',
       'source',
       'events',
+      'filter',
       'favorite',
       'headers',
     ];
@@ -1806,6 +1834,7 @@ class CdTektonPipelineV2 extends BaseService {
       'timezone': _params.timezone,
       'source': _params.source,
       'events': _params.events,
+      'filter': _params.filter,
       'favorite': _params.favorite,
     };
 
@@ -2035,6 +2064,8 @@ class CdTektonPipelineV2 extends BaseService {
    * property type.
    * @param {string} [params.path] - A dot notation path for `integration` type properties only, to select a value from
    * the tool integration. If left blank the full tool integration data will be used.
+   * @param {boolean} [params.locked] - When true, this property cannot be overridden at runtime. Attempting to override
+   * it will result in run requests being rejected. The default is false.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TriggerProperty>>}
    */
@@ -2051,6 +2082,7 @@ class CdTektonPipelineV2 extends BaseService {
       'value',
       '_enum',
       'path',
+      'locked',
       'headers',
     ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
@@ -2064,6 +2096,7 @@ class CdTektonPipelineV2 extends BaseService {
       'value': _params.value,
       'enum': _params._enum,
       'path': _params.path,
+      'locked': _params.locked,
     };
 
     const path = {
@@ -2172,6 +2205,8 @@ class CdTektonPipelineV2 extends BaseService {
    * property type.
    * @param {string} [params.path] - A dot notation path for `integration` type properties only, to select a value from
    * the tool integration. If left blank the full tool integration data will be used.
+   * @param {boolean} [params.locked] - When true, this property cannot be overridden at runtime. Attempting to override
+   * it will result in run requests being rejected. The default is false.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TriggerProperty>>}
    */
@@ -2189,6 +2224,7 @@ class CdTektonPipelineV2 extends BaseService {
       'value',
       '_enum',
       'path',
+      'locked',
       'headers',
     ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
@@ -2202,6 +2238,7 @@ class CdTektonPipelineV2 extends BaseService {
       'value': _params.value,
       'enum': _params._enum,
       'path': _params.path,
+      'locked': _params.locked,
     };
 
     const path = {
@@ -2328,17 +2365,17 @@ namespace CdTektonPipelineV2 {
      *  whole number between 0 and 100000000000000.
      */
     nextBuildNumber?: number;
-    /** Flag whether to enable notifications for this pipeline. When enabled, pipeline run events are published on
-     *  all slack integration specified channels in the parent toolchain.
+    /** Flag to enable notifications for this pipeline. If enabled, the Tekton pipeline run events will be published
+     *  to all the destinations specified by the Slack and Event Notifications integrations in the parent toolchain.
      */
     enableNotifications?: boolean;
-    /** Flag whether to enable partial cloning for this pipeline. When partial clone is enabled, only the files
-     *  contained within the paths specified in definition repositories are read and cloned, this means that symbolic
-     *  links might not work.
+    /** Flag to enable partial cloning for this pipeline. When partial clone is enabled, only the files contained
+     *  within the paths specified in definition repositories are read and cloned, this means that symbolic links might
+     *  not work.
      */
     enablePartialCloning?: boolean;
-    /** Specify the worker used to run the trigger, as a worker object containing the worker ID only. If omitted, or
-     *  specified as `worker: { id: 'public' }`, the IBM Managed shared workers are used.
+    /** Specify the worker that is to be used to run the trigger, indicated by a worker object with only the worker
+     *  ID. If not specified or set as `worker: { id: 'public' }`, the IBM Managed shared workers are used.
      */
     worker?: WorkerIdentity;
     headers?: OutgoingHttpHeaders;
@@ -2359,17 +2396,17 @@ namespace CdTektonPipelineV2 {
      *  whole number between 0 and 100000000000000.
      */
     nextBuildNumber?: number;
-    /** Flag whether to enable notifications for this pipeline. When enabled, pipeline run events are published on
-     *  all slack integration specified channels in the parent toolchain.
+    /** Flag to enable notifications for this pipeline. If enabled, the Tekton pipeline run events will be published
+     *  to all the destinations specified by the Slack and Event Notifications integrations in the parent toolchain.
      */
     enableNotifications?: boolean;
-    /** Flag whether to enable partial cloning for this pipeline. When partial clone is enabled, only the files
-     *  contained within the paths specified in definition repositories are read and cloned, this means that symbolic
-     *  links might not work.
+    /** Flag to enable partial cloning for this pipeline. When partial clone is enabled, only the files contained
+     *  within the paths specified in definition repositories are read and cloned, this means that symbolic links might
+     *  not work.
      */
     enablePartialCloning?: boolean;
-    /** Specify the worker used to run the trigger, as a worker object containing the worker ID only. If omitted, or
-     *  specified as `worker: { id: 'public' }`, the IBM Managed shared workers are used.
+    /** Specify the worker that is to be used to run the trigger, indicated by a worker object with only the worker
+     *  ID. If not specified or set as `worker: { id: 'public' }`, the IBM Managed shared workers are used.
      */
     worker?: WorkerIdentity;
     headers?: OutgoingHttpHeaders;
@@ -2408,7 +2445,6 @@ namespace CdTektonPipelineV2 {
       QUEUED = 'queued',
       RUNNING = 'running',
       CANCELLED = 'cancelled',
-      CANCELLING = 'cancelling',
       FAILED = 'failed',
       ERROR = 'error',
       SUCCEEDED = 'succeeded',
@@ -2421,12 +2457,12 @@ namespace CdTektonPipelineV2 {
     pipelineId: string;
     /** Trigger name. */
     triggerName?: string;
-    /** An object containing string values only that provides additional `text` properties, or overrides existing
-     *  pipeline/trigger properties, to use for the created run.
+    /** An object containing string values only. It provides additional 'text' properties or overrides existing
+     *  pipeline/trigger properties that can be used in the created run.
      */
     triggerProperties?: JsonObject;
-    /** An object containing string values only that provides additional `secure` properties, or overrides existing
-     *  `secure` pipeline/trigger properties, to use for the created run.
+    /** An object containing string values only. It provides additional `secure` properties or overrides existing
+     *  `secure` pipeline/trigger properties that can be used in the created run.
      */
     secureTriggerProperties?: JsonObject;
     /** An object containing string values only that provides the request headers. Use `$(header.header_key_name)`
@@ -2477,7 +2513,7 @@ namespace CdTektonPipelineV2 {
     pipelineId: string;
     /** ID of current instance. */
     id: string;
-    /** Flag whether force cancel. */
+    /** Flag indicating whether the pipeline cancellation action is forced or not. */
     force?: boolean;
     headers?: OutgoingHttpHeaders;
   }
@@ -2593,6 +2629,10 @@ namespace CdTektonPipelineV2 {
     value?: string;
     /** Options for `single_select` property type. Only needed when using `single_select` property type. */
     _enum?: string[];
+    /** When true, this property cannot be overridden by a trigger property or at runtime. Attempting to override it
+     *  will result in run requests being rejected. The default is false.
+     */
+    locked?: boolean;
     /** A dot notation path for `integration` type properties only, to select a value from the tool integration. If
      *  left blank the full tool integration data will be used.
      */
@@ -2635,6 +2675,10 @@ namespace CdTektonPipelineV2 {
     value?: string;
     /** Options for `single_select` property type. Only needed when using `single_select` property type. */
     _enum?: string[];
+    /** When true, this property cannot be overridden by a trigger property or at runtime. Attempting to override it
+     *  will result in run requests being rejected. The default is false.
+     */
+    locked?: boolean;
     /** A dot notation path for `integration` type properties only, to select a value from the tool integration. If
      *  left blank the full tool integration data will be used.
      */
@@ -2703,23 +2747,24 @@ namespace CdTektonPipelineV2 {
     /** Trigger tags array. */
     tags?: string[];
     /** Specify the worker used to run the trigger. Use `worker: { id: 'public' }` to use the IBM Managed workers.
-     *  Use `worker: { id: 'inherit' }` to inherit the worker used by the pipeline.
+     *  The default is to inherit the worker set in the pipeline settings, which can also be explicitly set using
+     *  `worker: { id: 'inherit' }`.
      */
     worker?: WorkerIdentity;
     /** Defines the maximum number of concurrent runs for this trigger. If omitted then the concurrency limit is
      *  disabled for this trigger.
      */
     maxConcurrentRuns?: number;
-    /** Flag whether the trigger is enabled. If omitted the trigger is enabled by default. */
+    /** Flag to check if the trigger is enabled. If omitted the trigger is enabled by default. */
     enabled?: boolean;
-    /** Only needed for generic webhook trigger type. Secret used to start generic webhook trigger. */
+    /** Only needed for Generic Webhook trigger type. The secret is used to start the Generic Webhook trigger. */
     secret?: GenericSecret;
-    /** Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum
+    /** Only needed for timer triggers. CRON expression that indicates when this trigger will activate. Maximum
      *  frequency is every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day
-     *  of week. Example: 0 *_/2 * * * - every 2 hours.
+     *  of week. Example: The CRON expression 0 *_/2 * * * - translates to - every 2 hours.
      */
     cron?: string;
-    /** Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the cron
+    /** Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the CRON
      *  activates this trigger relative to the specified timezone. If no timezone is specified, the default timezone
      *  used is UTC. Valid timezones are those listed in the IANA timezone database, https://www.iana.org/time-zones.
      */
@@ -2729,11 +2774,15 @@ namespace CdTektonPipelineV2 {
      *  toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools.
      */
     source?: TriggerSourcePrototype;
-    /** Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from:
-     *  'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such
-     *  events map to the equivalent 'pull request' events.
+    /** Either 'events' or 'filter' is required specifically for Git triggers. Stores a list of events that a Git
+     *  trigger listens to. Choose one or more from 'push', 'pull_request', and 'pull_request_closed'. If SCM
+     *  repositories use the 'merge request' term, they correspond to the generic term i.e. 'pull request'.
      */
     events?: CreateTektonPipelineTriggerConstants.Events | string[];
+    /** Either 'events' or 'filter' can be used. Stores the CEL (Common Expression Language) expression value which
+     *  is used for event filtering against the Git webhook payloads.
+     */
+    filter?: string;
     /** Mark the trigger as a favorite. */
     favorite?: boolean;
     headers?: OutgoingHttpHeaders;
@@ -2791,14 +2840,14 @@ namespace CdTektonPipelineV2 {
     maxConcurrentRuns?: number;
     /** Defines if this trigger is enabled. */
     enabled?: boolean;
-    /** Only needed for generic webhook trigger type. Secret used to start generic webhook trigger. */
+    /** Only needed for Generic Webhook trigger type. The secret is used to start the Generic Webhook trigger. */
     secret?: GenericSecret;
-    /** Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum
+    /** Only needed for timer triggers. CRON expression that indicates when this trigger will activate. Maximum
      *  frequency is every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day
-     *  of week. Example: 0 *_/2 * * * - every 2 hours.
+     *  of week. Example: The CRON expression 0 *_/2 * * * - translates to - every 2 hours.
      */
     cron?: string;
-    /** Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the cron
+    /** Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the CRON
      *  activates this trigger relative to the specified timezone. If no timezone is specified, the default timezone
      *  used is UTC. Valid timezones are those listed in the IANA timezone database, https://www.iana.org/time-zones.
      */
@@ -2808,11 +2857,15 @@ namespace CdTektonPipelineV2 {
      *  toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools.
      */
     source?: TriggerSourcePrototype;
-    /** Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from:
-     *  'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such
-     *  events map to the equivalent 'pull request' events.
+    /** Either 'events' or 'filter' is required specifically for Git triggers. Stores a list of events that a Git
+     *  trigger listens to. Choose one or more from 'push', 'pull_request', and 'pull_request_closed'. If SCM
+     *  repositories use the 'merge request' term, they correspond to the generic term i.e. 'pull request'.
      */
     events?: UpdateTektonPipelineTriggerConstants.Events | string[];
+    /** Either 'events' or 'filter' can be used. Stores the CEL (Common Expression Language) expression value which
+     *  is used for event filtering against the Git webhook payloads.
+     */
+    filter?: string;
     /** Mark the trigger as a favorite. */
     favorite?: boolean;
     headers?: OutgoingHttpHeaders;
@@ -2890,6 +2943,10 @@ namespace CdTektonPipelineV2 {
      *  left blank the full tool integration data will be used.
      */
     path?: string;
+    /** When true, this property cannot be overridden at runtime. Attempting to override it will result in run
+     *  requests being rejected. The default is false.
+     */
+    locked?: boolean;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -2936,6 +2993,10 @@ namespace CdTektonPipelineV2 {
      *  left blank the full tool integration data will be used.
      */
     path?: string;
+    /** When true, this property cannot be overridden at runtime. Attempting to override it will result in run
+     *  requests being rejected. The default is false.
+     */
+    locked?: boolean;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -2998,13 +3059,13 @@ namespace CdTektonPipelineV2 {
     tool?: Tool;
   }
 
-  /** Pipeline definitions is a collection of individual definition entries, each entry consists of a repository URL, branch/tag and path. */
+  /** Pipeline definitions is a collection of individual definition entries, each entry consists of a repository URL, a repository path, and a branch or tag. */
   export interface DefinitionsCollection {
     /** The list of all definitions in the pipeline. */
     definitions: Definition[];
   }
 
-  /** Only needed for generic webhook trigger type. Secret used to start generic webhook trigger. */
+  /** Only needed for Generic Webhook trigger type. The secret is used to start the Generic Webhook trigger. */
   export interface GenericSecret {
     /** Secret type. */
     type?: string;
@@ -3085,12 +3146,12 @@ namespace CdTektonPipelineV2 {
   export interface PipelineRunTrigger {
     /** Trigger name. */
     name: string;
-    /** An object containing string values only that provides additional `text` properties, or overrides existing
-     *  pipeline/trigger properties, to use for the created run.
+    /** An object containing string values only. It provides additional 'text' properties or overrides existing
+     *  pipeline/trigger properties that can be used in the created run.
      */
     properties?: JsonObject;
-    /** An object containing string values only that provides additional `secure` properties, or overrides existing
-     *  `secure` pipeline/trigger properties, to use for the created run.
+    /** An object containing string values only. It provides additional `secure` properties or overrides existing
+     *  `secure` pipeline/trigger properties that can be used in the created run.
      */
     secure_properties?: JsonObject;
     /** An object containing string values only that provides the request headers. Use `$(header.header_key_name)`
@@ -3152,6 +3213,10 @@ namespace CdTektonPipelineV2 {
     enum?: string[];
     /** Property type. */
     type: string;
+    /** When true, this property cannot be overridden by a trigger property or at runtime. Attempting to override it
+     *  will result in run requests being rejected. The default is false.
+     */
+    locked?: boolean;
     /** A dot notation path for `integration` type properties only, that selects a value from the tool integration.
      *  If left blank the full tool integration data will be used.
      */
@@ -3234,17 +3299,17 @@ namespace CdTektonPipelineV2 {
     build_number: number;
     /** The build number that will be used for the next pipeline run. */
     next_build_number?: number;
-    /** Flag whether to enable notifications for this pipeline. When enabled, pipeline run events will be published
-     *  on all slack integration specified channels in the parent toolchain. If omitted, this feature is disabled by
-     *  default.
+    /** Flag to enable notifications for this pipeline. If enabled, the Tekton pipeline run events will be published
+     *  to all the destinations specified by the Slack and Event Notifications integrations in the parent toolchain. If
+     *  omitted, this feature is disabled by default.
      */
     enable_notifications: boolean;
-    /** Flag whether to enable partial cloning for this pipeline. When partial clone is enabled, only the files
-     *  contained within the paths specified in definition repositories are read and cloned, this means that symbolic
-     *  links might not work. If omitted, this feature is disabled by default.
+    /** Flag to enable partial cloning for this pipeline. When partial clone is enabled, only the files contained
+     *  within the paths specified in definition repositories are read and cloned, this means that symbolic links might
+     *  not work. If omitted, this feature is disabled by default.
      */
     enable_partial_cloning: boolean;
-    /** Flag whether this pipeline is enabled. */
+    /** Flag to check if the trigger is enabled. */
     enabled: boolean;
   }
 
@@ -3287,6 +3352,10 @@ namespace CdTektonPipelineV2 {
      *  If left blank the full tool integration data will be used.
      */
     path?: string;
+    /** When true, this property cannot be overridden at runtime. Attempting to override it will result in run
+     *  requests being rejected. The default is false.
+     */
+    locked?: boolean;
   }
 
   /** Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools. */
@@ -3301,20 +3370,20 @@ namespace CdTektonPipelineV2 {
   export interface TriggerSourceProperties {
     /** URL of the repository to which the trigger is listening. */
     url: string;
-    /** Name of a branch from the repo. One of branch or pattern must be specified, but only one or the other. */
+    /** Name of a branch from the repo. Only one of branch, pattern, or filter should be specified. */
     branch?: string;
-    /** The pattern of Git branch or tag to which to listen. You can specify a glob pattern such as '!test' or
-     *  '*master' to match against multiple tags/branches in the repository. The glob pattern used must conform to Bash
-     *  4.3 specifications, see bash documentation for more info:
-     *  https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching. One of branch or pattern must be specified,
-     *  but only one or the other.
+    /** The pattern of Git branch or tag. You can specify a glob pattern such as '!test' or '*master' to match
+     *  against multiple tags or branches in the repository.The glob pattern used must conform to Bash 4.3
+     *  specifications, see bash documentation for more info:
+     *  https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching. Only one of branch, pattern, or filter
+     *  should be specified.
      */
     pattern?: string;
     /** True if the repository server is not addressable on the public internet. IBM Cloud will not be able to
      *  validate the connection details you provide.
      */
     blind_connection: boolean;
-    /** ID of the webhook from the repo. Computed upon creation of the trigger. */
+    /** Repository webhook ID. It is generated upon trigger creation. */
     hook_id?: string;
     /** Reference to the repository tool in the parent toolchain. */
     tool: Tool;
@@ -3324,13 +3393,13 @@ namespace CdTektonPipelineV2 {
   export interface TriggerSourcePropertiesPrototype {
     /** URL of the repository to which the trigger is listening. */
     url: string;
-    /** Name of a branch from the repo. One of branch or pattern must be specified, but only one or the other. */
+    /** Name of a branch from the repo. Only one of branch, pattern, or filter should be specified. */
     branch?: string;
-    /** The pattern of Git branch or tag to which to listen. You can specify a glob pattern such as '!test' or
-     *  '*master' to match against multiple tags/branches in the repository. The glob pattern used must conform to Bash
-     *  4.3 specifications, see bash documentation for more info:
-     *  https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching. One of branch or pattern must be specified,
-     *  but only one or the other.
+    /** The pattern of Git branch or tag. You can specify a glob pattern such as '!test' or '*master' to match
+     *  against multiple tags or branches in the repository.The glob pattern used must conform to Bash 4.3
+     *  specifications, see bash documentation for more info:
+     *  https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching. Only one of branch, pattern, or filter
+     *  should be specified.
      */
     pattern?: string;
   }
@@ -3367,7 +3436,7 @@ namespace CdTektonPipelineV2 {
     id: string;
   }
 
-  /** Specify the worker used to run the trigger, as a worker object containing the worker ID only. If omitted, or specified as `worker: { id: 'public' }`, the IBM Managed shared workers are used. */
+  /** Specify the worker that is to be used to run the trigger, indicated by a worker object with only the worker ID. If not specified or set as `worker: { id: 'public' }`, the IBM Managed shared workers are used. */
   export interface WorkerIdentity {
     /** ID of the worker. */
     id: string;
@@ -3387,7 +3456,7 @@ namespace CdTektonPipelineV2 {
     event_listener: string;
     /** The Trigger ID. */
     id: string;
-    /** Optional trigger properties used to override or supplement the pipeline properties when triggering a
+    /** Optional trigger properties are used to override or supplement the pipeline properties when triggering a
      *  pipeline run.
      */
     properties?: TriggerProperty[];
@@ -3399,14 +3468,18 @@ namespace CdTektonPipelineV2 {
      *  disabled for this trigger.
      */
     max_concurrent_runs?: number;
-    /** Flag whether the trigger is enabled. */
+    /** Flag to check if the trigger is enabled. */
     enabled: boolean;
     /** Mark the trigger as a favorite. */
     favorite?: boolean;
-    /** Only needed for generic webhook trigger type. Secret used to start generic webhook trigger. */
+    /** Only needed for Generic Webhook trigger type. The secret is used to start the Generic Webhook trigger. */
     secret?: GenericSecret;
     /** Webhook URL that can be used to trigger pipeline runs. */
     webhook_url?: string;
+    /** Stores the CEL (Common Expression Language) expression value which is used for event filtering against the
+     *  webhook payloads.
+     */
+    filter?: string;
   }
 
   /** Manual trigger. */
@@ -3423,7 +3496,7 @@ namespace CdTektonPipelineV2 {
     event_listener: string;
     /** The Trigger ID. */
     id: string;
-    /** Optional trigger properties used to override or supplement the pipeline properties when triggering a
+    /** Optional trigger properties are used to override or supplement the pipeline properties when triggering a
      *  pipeline run.
      */
     properties?: TriggerProperty[];
@@ -3435,13 +3508,13 @@ namespace CdTektonPipelineV2 {
      *  disabled for this trigger.
      */
     max_concurrent_runs?: number;
-    /** Flag whether the trigger is enabled. */
+    /** Flag to check if the trigger is enabled. */
     enabled: boolean;
     /** Mark the trigger as a favorite. */
     favorite?: boolean;
   }
 
-  /** Git type trigger, which automatically triggers a pipeline run when the Tekton Pipeline Service receives a corresponding Git webhook event. */
+  /** Git trigger type. It automatically triggers a pipeline run when the Tekton Pipeline Service receives a corresponding Git webhook event. */
   export interface TriggerScmTrigger extends Trigger {
     /** Trigger type. */
     type: string;
@@ -3455,7 +3528,7 @@ namespace CdTektonPipelineV2 {
     event_listener: string;
     /** The Trigger ID. */
     id: string;
-    /** Optional trigger properties used to override or supplement the pipeline properties when triggering a
+    /** Optional trigger properties are used to override or supplement the pipeline properties when triggering a
      *  pipeline run.
      */
     properties?: TriggerProperty[];
@@ -3467,7 +3540,7 @@ namespace CdTektonPipelineV2 {
      *  disabled for this trigger.
      */
     max_concurrent_runs?: number;
-    /** Flag whether the trigger is enabled. */
+    /** Flag to check if the trigger is enabled. */
     enabled: boolean;
     /** Mark the trigger as a favorite. */
     favorite?: boolean;
@@ -3476,14 +3549,18 @@ namespace CdTektonPipelineV2 {
      *  toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools.
      */
     source?: TriggerSource;
-    /** Only needed for Git triggers. List of events to which a Git trigger listens. Choose one or more from:
-     *  'push', 'pull_request' and 'pull_request_closed'. For SCM repositories that use 'merge request' events, such
-     *  events map to the equivalent 'pull request' events.
+    /** Either 'events' or 'filter' is required specifically for Git triggers. Stores a list of events that a Git
+     *  trigger listens to. Choose one or more from 'push', 'pull_request', and 'pull_request_closed'. If SCM
+     *  repositories use the 'merge request' term, they correspond to the generic term i.e. 'pull request'.
      */
     events?: string[];
+    /** Either 'events' or 'filter' can be used. Stores the CEL (Common Expression Language) expression value which
+     *  is used for event filtering against the Git webhook payloads.
+     */
+    filter?: string;
   }
 
-  /** Timer trigger, which triggers pipeline runs according to the provided cron value and timezone. */
+  /** Timer trigger, which triggers pipeline runs according to the provided CRON value and timezone. */
   export interface TriggerTimerTrigger extends Trigger {
     /** Trigger type. */
     type: string;
@@ -3497,7 +3574,7 @@ namespace CdTektonPipelineV2 {
     event_listener: string;
     /** The Trigger ID. */
     id: string;
-    /** Optional trigger properties used to override or supplement the pipeline properties when triggering a
+    /** Optional trigger properties are used to override or supplement the pipeline properties when triggering a
      *  pipeline run.
      */
     properties?: TriggerProperty[];
@@ -3509,16 +3586,16 @@ namespace CdTektonPipelineV2 {
      *  disabled for this trigger.
      */
     max_concurrent_runs?: number;
-    /** Flag whether the trigger is enabled. */
+    /** Flag to check if the trigger is enabled. */
     enabled: boolean;
     /** Mark the trigger as a favorite. */
     favorite?: boolean;
-    /** Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum
+    /** Only needed for timer triggers. CRON expression that indicates when this trigger will activate. Maximum
      *  frequency is every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day
-     *  of week. Example: 0 *_/2 * * * - every 2 hours.
+     *  of week. Example: The CRON expression 0 *_/2 * * * - translates to - every 2 hours.
      */
     cron?: string;
-    /** Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the cron
+    /** Only used for timer triggers. Specify the timezone used for this timer trigger, which will ensure the CRON
      *  activates this trigger relative to the specified timezone. If no timezone is specified, the default timezone
      *  used is UTC. Valid timezones are those listed in the IANA timezone database, https://www.iana.org/time-zones.
      */

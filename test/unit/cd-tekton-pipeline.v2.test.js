@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -638,9 +638,9 @@ describe('CdTektonPipelineV2', () => {
       const serviceUrl = cdTektonPipelineServiceOptions.url;
       const path = '/tekton_pipelines/94619026-912b-4d92-8f51-6c74f0692d90/pipeline_runs';
       const mockPagerResponse1 =
-        '{"next":{"href":"https://myhost.com/somePath?start=1"},"total_count":2,"limit":1,"pipeline_runs":[{"id":"id","href":"href","user_info":{"iam_id":"iam_id","sub":"sub"},"status":"pending","definition_id":"definition_id","definition":{"id":"id"},"worker":{"name":"name","agent_id":"agent_id","service_id":"service_id","id":"id"},"pipeline_id":"pipeline_id","pipeline":{"id":"id"},"listener_name":"listener_name","trigger":{"type":"type","name":"start-deploy","href":"href","event_listener":"event_listener","id":"id","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","path":"path"}],"tags":["tags"],"worker":{"name":"name","type":"type","id":"id"},"max_concurrent_runs":4,"enabled":true,"favorite":false},"event_params_blob":"event_params_blob","trigger_headers":"trigger_headers","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","path":"path"}],"created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","run_url":"run_url","error_message":"error_message"}]}';
+        '{"next":{"href":"https://myhost.com/somePath?start=1"},"total_count":2,"limit":1,"pipeline_runs":[{"id":"id","href":"href","user_info":{"iam_id":"iam_id","sub":"sub"},"status":"pending","definition_id":"definition_id","definition":{"id":"id"},"worker":{"name":"name","agent_id":"agent_id","service_id":"service_id","id":"id"},"pipeline_id":"pipeline_id","pipeline":{"id":"id"},"listener_name":"listener_name","trigger":{"type":"type","name":"start-deploy","href":"href","event_listener":"event_listener","id":"id","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","path":"path","locked":true}],"tags":["tags"],"worker":{"name":"name","type":"type","id":"id"},"max_concurrent_runs":4,"enabled":true,"favorite":false},"event_params_blob":"event_params_blob","trigger_headers":"trigger_headers","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","locked":true,"path":"path"}],"created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","run_url":"run_url","error_message":"error_message"}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"pipeline_runs":[{"id":"id","href":"href","user_info":{"iam_id":"iam_id","sub":"sub"},"status":"pending","definition_id":"definition_id","definition":{"id":"id"},"worker":{"name":"name","agent_id":"agent_id","service_id":"service_id","id":"id"},"pipeline_id":"pipeline_id","pipeline":{"id":"id"},"listener_name":"listener_name","trigger":{"type":"type","name":"start-deploy","href":"href","event_listener":"event_listener","id":"id","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","path":"path"}],"tags":["tags"],"worker":{"name":"name","type":"type","id":"id"},"max_concurrent_runs":4,"enabled":true,"favorite":false},"event_params_blob":"event_params_blob","trigger_headers":"trigger_headers","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","path":"path"}],"created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","run_url":"run_url","error_message":"error_message"}]}';
+        '{"total_count":2,"limit":1,"pipeline_runs":[{"id":"id","href":"href","user_info":{"iam_id":"iam_id","sub":"sub"},"status":"pending","definition_id":"definition_id","definition":{"id":"id"},"worker":{"name":"name","agent_id":"agent_id","service_id":"service_id","id":"id"},"pipeline_id":"pipeline_id","pipeline":{"id":"id"},"listener_name":"listener_name","trigger":{"type":"type","name":"start-deploy","href":"href","event_listener":"event_listener","id":"id","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","path":"path","locked":true}],"tags":["tags"],"worker":{"name":"name","type":"type","id":"id"},"max_concurrent_runs":4,"enabled":true,"favorite":false},"event_params_blob":"event_params_blob","trigger_headers":"trigger_headers","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","locked":true,"path":"path"}],"created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","run_url":"run_url","error_message":"error_message"}]}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -702,20 +702,20 @@ describe('CdTektonPipelineV2', () => {
       // PipelineRunTrigger
       const pipelineRunTriggerModel = {
         name: 'Manual Trigger 1',
-        properties: { anyKey: 'anyValue' },
-        secure_properties: { anyKey: 'anyValue' },
-        headers: { anyKey: 'anyValue' },
-        body: { anyKey: 'anyValue' },
+        properties: { foo: 'bar' },
+        secure_properties: { foo: 'bar' },
+        headers: { foo: 'bar' },
+        body: { foo: 'bar' },
       };
 
       function __createTektonPipelineRunTest() {
         // Construct the params object for operation createTektonPipelineRun
         const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
         const triggerName = 'testString';
-        const triggerProperties = { anyKey: 'anyValue' };
-        const secureTriggerProperties = { anyKey: 'anyValue' };
-        const triggerHeaders = { anyKey: 'anyValue' };
-        const triggerBody = { anyKey: 'anyValue' };
+        const triggerProperties = { foo: 'bar' };
+        const secureTriggerProperties = { foo: 'bar' };
+        const triggerHeaders = { foo: 'bar' };
+        const triggerBody = { foo: 'bar' };
         const trigger = pipelineRunTriggerModel;
         const createTektonPipelineRunParams = {
           pipelineId,
@@ -2025,6 +2025,7 @@ describe('CdTektonPipelineV2', () => {
         const type = 'text';
         const value = 'https://github.com/open-toolchain/hello-tekton.git';
         const _enum = ['testString'];
+        const locked = false;
         const path = 'testString';
         const createTektonPipelinePropertiesParams = {
           pipelineId,
@@ -2032,6 +2033,7 @@ describe('CdTektonPipelineV2', () => {
           type,
           value,
           _enum,
+          locked,
           path,
         };
 
@@ -2056,6 +2058,7 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.type).toEqual(type);
         expect(mockRequestOptions.body.value).toEqual(value);
         expect(mockRequestOptions.body.enum).toEqual(_enum);
+        expect(mockRequestOptions.body.locked).toEqual(locked);
         expect(mockRequestOptions.body.path).toEqual(path);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
       }
@@ -2229,6 +2232,7 @@ describe('CdTektonPipelineV2', () => {
         const type = 'text';
         const value = 'https://github.com/open-toolchain/hello-tekton.git';
         const _enum = ['testString'];
+        const locked = false;
         const path = 'testString';
         const replaceTektonPipelinePropertyParams = {
           pipelineId,
@@ -2237,6 +2241,7 @@ describe('CdTektonPipelineV2', () => {
           type,
           value,
           _enum,
+          locked,
           path,
         };
 
@@ -2265,6 +2270,7 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.type).toEqual(type);
         expect(mockRequestOptions.body.value).toEqual(value);
         expect(mockRequestOptions.body.enum).toEqual(_enum);
+        expect(mockRequestOptions.body.locked).toEqual(locked);
         expect(mockRequestOptions.body.path).toEqual(path);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
         expect(mockRequestOptions.path.property_name).toEqual(propertyName);
@@ -2581,6 +2587,7 @@ describe('CdTektonPipelineV2', () => {
         const timezone = 'testString';
         const source = triggerSourcePrototypeModel;
         const events = ['push'];
+        const filter = 'testString';
         const favorite = false;
         const createTektonPipelineTriggerParams = {
           pipelineId,
@@ -2596,6 +2603,7 @@ describe('CdTektonPipelineV2', () => {
           timezone,
           source,
           events,
+          filter,
           favorite,
         };
 
@@ -2626,6 +2634,7 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.timezone).toEqual(timezone);
         expect(mockRequestOptions.body.source).toEqual(source);
         expect(mockRequestOptions.body.events).toEqual(events);
+        expect(mockRequestOptions.body.filter).toEqual(filter);
         expect(mockRequestOptions.body.favorite).toEqual(favorite);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
       }
@@ -2836,6 +2845,7 @@ describe('CdTektonPipelineV2', () => {
         const timezone = 'testString';
         const source = triggerSourcePrototypeModel;
         const events = ['push'];
+        const filter = 'testString';
         const favorite = false;
         const updateTektonPipelineTriggerParams = {
           pipelineId,
@@ -2852,6 +2862,7 @@ describe('CdTektonPipelineV2', () => {
           timezone,
           source,
           events,
+          filter,
           favorite,
         };
 
@@ -2886,6 +2897,7 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.timezone).toEqual(timezone);
         expect(mockRequestOptions.body.source).toEqual(source);
         expect(mockRequestOptions.body.events).toEqual(events);
+        expect(mockRequestOptions.body.filter).toEqual(filter);
         expect(mockRequestOptions.body.favorite).toEqual(favorite);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
         expect(mockRequestOptions.path.trigger_id).toEqual(triggerId);
@@ -3266,6 +3278,7 @@ describe('CdTektonPipelineV2', () => {
         const value = 'https://github.com/open-toolchain/hello-tekton.git';
         const _enum = ['testString'];
         const path = 'testString';
+        const locked = false;
         const createTektonPipelineTriggerPropertiesParams = {
           pipelineId,
           triggerId,
@@ -3274,6 +3287,7 @@ describe('CdTektonPipelineV2', () => {
           value,
           _enum,
           path,
+          locked,
         };
 
         const createTektonPipelineTriggerPropertiesResult =
@@ -3302,6 +3316,7 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.value).toEqual(value);
         expect(mockRequestOptions.body.enum).toEqual(_enum);
         expect(mockRequestOptions.body.path).toEqual(path);
+        expect(mockRequestOptions.body.locked).toEqual(locked);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
         expect(mockRequestOptions.path.trigger_id).toEqual(triggerId);
       }
@@ -3487,6 +3502,7 @@ describe('CdTektonPipelineV2', () => {
         const value = 'https://github.com/open-toolchain/hello-tekton.git';
         const _enum = ['testString'];
         const path = 'testString';
+        const locked = false;
         const replaceTektonPipelineTriggerPropertyParams = {
           pipelineId,
           triggerId,
@@ -3496,6 +3512,7 @@ describe('CdTektonPipelineV2', () => {
           value,
           _enum,
           path,
+          locked,
         };
 
         const replaceTektonPipelineTriggerPropertyResult =
@@ -3524,6 +3541,7 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.value).toEqual(value);
         expect(mockRequestOptions.body.enum).toEqual(_enum);
         expect(mockRequestOptions.body.path).toEqual(path);
+        expect(mockRequestOptions.body.locked).toEqual(locked);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
         expect(mockRequestOptions.path.trigger_id).toEqual(triggerId);
         expect(mockRequestOptions.path.property_name).toEqual(propertyName);
