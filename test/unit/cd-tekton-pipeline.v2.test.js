@@ -17,14 +17,18 @@
 // need to import the whole package to mock getAuthenticatorFromEnvironment
 const sdkCorePackage = require('ibm-cloud-sdk-core');
 
-const { NoAuthAuthenticator, unitTestUtils } = sdkCorePackage;
+const { NoAuthAuthenticator } = sdkCorePackage;
 
 const nock = require('nock');
+const {
+  getOptions,
+  checkUrlAndMethod,
+  checkMediaHeaders,
+  expectToBePromise,
+} = require('@ibm-cloud/sdk-test-utilities');
 const CdTektonPipelineV2 = require('../../dist/cd-tekton-pipeline/v2');
 
 /* eslint-disable no-await-in-loop */
-
-const { getOptions, checkUrlAndMethod, checkMediaHeaders, expectToBePromise } = unitTestUtils;
 
 const cdTektonPipelineServiceOptions = {
   authenticator: new NoAuthAuthenticator(),

@@ -21,10 +21,14 @@ const nock = require('nock');
 // need to import the whole package to mock getAuthenticatorFromEnvironment
 const sdkCorePackage = require('ibm-cloud-sdk-core');
 
-const { NoAuthAuthenticator, unitTestUtils } = sdkCorePackage;
+const { NoAuthAuthenticator } = sdkCorePackage;
+const {
+  getOptions,
+  checkUrlAndMethod,
+  checkMediaHeaders,
+  expectToBePromise,
+} = require('@ibm-cloud/sdk-test-utilities');
 const CdToolchainV2 = require('../../dist/cd-toolchain/v2');
-
-const { getOptions, checkUrlAndMethod, checkMediaHeaders, expectToBePromise } = unitTestUtils;
 
 const cdToolchainServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
