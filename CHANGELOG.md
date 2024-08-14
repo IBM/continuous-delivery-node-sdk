@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.7.0...v1.8.0) (2024-08-14)
+
+
+### Features
+
+* bump node core version and minimum node version required ([#52](https://github.com/IBM/continuous-delivery-node-sdk/issues/52)) ([68614df](https://github.com/IBM/continuous-delivery-node-sdk/commit/68614df39e6fd617e562379209c2ff8441fb0a98))
+
 # [1.7.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.6.0...v1.7.0) (2024-07-29)
 
 
