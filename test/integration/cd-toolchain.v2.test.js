@@ -14,6 +14,15 @@
  * limitations under the License.
  */
 
+/*
+ * Required environment variables:
+ * CD_TOOLCHAIN_APIKEY=<IAM apikey>
+ * CD_TOOLCHAIN_AUTHTYPE=iam
+ * CD_TOOLCHAIN_EVENT_NOTIFICATIONS_SERVICE_CRN=<event notifications service CRN>
+ * CD_TOOLCHAIN_RESOURCE_GROUP_ID=<resource group where resources will be created>
+ * CD_TOOLCHAIN_URL=<service base url>
+ */
+
 /* eslint-disable no-console */
 /* eslint-disable no-await-in-loop */
 
@@ -32,6 +41,7 @@ const describe = authHelper.prepareTests(configFile);
 describe('CdToolchainV2_integration', () => {
   jest.setTimeout(timeout);
 
+  let config;
   // Service instance
   let cdToolchainService;
 
@@ -39,12 +49,15 @@ describe('CdToolchainV2_integration', () => {
   let toolIdLink;
   let toolchainIdLink;
 
+  const currentTime = Date.now();
+  const toolchainName = `TestNodeSdk_${currentTime}`;
+
   test('Initialize service', async () => {
     cdToolchainService = CdToolchainV2.newInstance();
 
     expect(cdToolchainService).not.toBeNull();
 
-    const config = readExternalSources(CdToolchainV2.DEFAULT_SERVICE_NAME);
+    config = readExternalSources(CdToolchainV2.DEFAULT_SERVICE_NAME);
     expect(config).not.toBeNull();
 
     cdToolchainService.enableRetries();
@@ -52,8 +65,8 @@ describe('CdToolchainV2_integration', () => {
 
   test('createToolchain()', async () => {
     const params = {
-      name: 'TestToolchainV2',
-      resourceGroupId: '6a9a01f2cff54a7f966f803d92877123',
+      name: toolchainName,
+      resourceGroupId: config.resourceGroupId,
       description: 'A sample toolchain to test the API',
     };
 
@@ -81,10 +94,9 @@ describe('CdToolchainV2_integration', () => {
 
   test('listToolchains()', async () => {
     const params = {
-      resourceGroupId: '6a9a01f2cff54a7f966f803d92877123',
+      resourceGroupId: config.resourceGroupId,
       limit: 20,
-      start: 'testString',
-      name: 'TestToolchainV2',
+      name: toolchainName,
     };
 
     const res = await cdToolchainService.listToolchains(params);
@@ -95,27 +107,33 @@ describe('CdToolchainV2_integration', () => {
 
   test('listToolchains() via ToolchainsPager', async () => {
     const params = {
-      resourceGroupId: '6a9a01f2cff54a7f966f803d92877123',
+      resourceGroupId: config.resourceGroupId,
       limit: 10,
-      name: 'TestToolchainV2',
+      name: toolchainName,
     };
 
-    const allResults = [];
+    const filteredResults = [];
 
     // Test getNext().
     let pager = new CdToolchainV2.ToolchainsPager(cdToolchainService, params);
     while (pager.hasNext()) {
-      const nextPage = await pager.getNext();
+      const nextPage = (await pager.getNext()).filter(
+        (toolchain) => toolchain.name === toolchainName
+      );
       expect(nextPage).not.toBeNull();
-      allResults.push(...nextPage);
+      filteredResults.push(...nextPage);
     }
 
     // Test getAll().
     pager = new CdToolchainV2.ToolchainsPager(cdToolchainService, params);
-    const allItems = await pager.getAll();
-    expect(allItems).not.toBeNull();
-    expect(allItems).toHaveLength(allResults.length);
-    console.log(`Retrieved a total of ${allResults.length} items(s) with pagination.`);
+    const filteredItems = (await pager.getAll()).filter(
+      (toolchain) => toolchain.name === toolchainName
+    );
+    expect(filteredItems).not.toBeNull();
+    expect(filteredItems).toHaveLength(
+      filteredResults.filter((toolchain) => toolchain.name === toolchainName).length
+    );
+    console.log(`Retrieved a total of ${filteredResults.length} items(s) with pagination.`);
   });
 
   test('getToolchainById()', async () => {
@@ -142,6 +160,21 @@ describe('CdToolchainV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
+  test('createTool() - Create Event Notifications tool', async () => {
+    const params = {
+      toolchainId: toolchainIdLink,
+      toolTypeId: 'eventnotifications',
+      parameters: {
+        name: 'test-en-tool',
+        'instance-crn': config.eventNotificationsServiceCrn,
+      },
+    };
+    const res = await cdToolchainService.createTool(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+
   test('createToolchainEvent()', async () => {
     // Request models needed by this operation.
 
@@ -157,7 +190,6 @@ describe('CdToolchainV2_integration', () => {
     // ToolchainEventPrototypeData
     const toolchainEventPrototypeDataModel = {
       application_json: toolchainEventPrototypeDataApplicationJsonModel,
-      text_plain: 'This event is dispatched because the pipeline failed',
     };
 
     const params = {
@@ -178,7 +210,6 @@ describe('CdToolchainV2_integration', () => {
     const params = {
       toolchainId: toolchainIdLink,
       limit: 20,
-      start: 'testString',
     };
 
     const res = await cdToolchainService.listTools(params);
