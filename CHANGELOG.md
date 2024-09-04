@@ -1,3 +1,11 @@
+## [1.8.1](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.8.0...v1.8.1) (2024-09-04)
+
+
+### Bug Fixes
+
+* dummy commit to bump SDK version ([f02aa56](https://github.com/IBM/continuous-delivery-node-sdk/commit/f02aa56b2a1e6e09242e2a65efca84acf45daace))
+* lint fix ([6faab2d](https://github.com/IBM/continuous-delivery-node-sdk/commit/6faab2d1468f44037b19a10141a5c9cf2648c8d6))
+
 # [1.8.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.7.0...v1.8.0) (2024-08-14)
 
 
