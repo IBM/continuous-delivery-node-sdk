@@ -459,6 +459,7 @@ class CdTektonPipelineV2 extends BaseService {
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.pipelineId - The Tekton pipeline ID.
+   * @param {string} [params.description] - Optional description for the created PipelineRun.
    * @param {string} [params.triggerName] - Trigger name.
    * @param {JsonObject} [params.triggerProperties] - An object containing string values only. It provides additional
    * 'text' properties or overrides existing pipeline/trigger properties that can be used in the created run.
@@ -482,6 +483,7 @@ class CdTektonPipelineV2 extends BaseService {
     const _requiredParams = ['pipelineId'];
     const _validParams = [
       'pipelineId',
+      'description',
       'triggerName',
       'triggerProperties',
       'secureTriggerProperties',
@@ -496,6 +498,7 @@ class CdTektonPipelineV2 extends BaseService {
     }
 
     const body = {
+      'description': _params.description,
       'trigger_name': _params.triggerName,
       'trigger_properties': _params.triggerProperties,
       'secure_trigger_properties': _params.secureTriggerProperties,
@@ -2455,6 +2458,8 @@ namespace CdTektonPipelineV2 {
   export interface CreateTektonPipelineRunParams {
     /** The Tekton pipeline ID. */
     pipelineId: string;
+    /** Optional description for the created PipelineRun. */
+    description?: string;
     /** Trigger name. */
     triggerName?: string;
     /** An object containing string values only. It provides additional 'text' properties or overrides existing
@@ -3111,6 +3116,8 @@ namespace CdTektonPipelineV2 {
     definition_id: string;
     /** Reference to the pipeline definition of a pipeline run. */
     definition?: RunDefinition;
+    /** A description of the PipelineRun. */
+    description?: any;
     /** Worker details used in this pipeline run. */
     worker: PipelineRunWorker;
     /** The ID of the pipeline to which this pipeline run belongs. */
