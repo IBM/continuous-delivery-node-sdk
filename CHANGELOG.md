@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.8.1...v1.9.0) (2024-09-25)
+
+
+### Features
+
+* **tekton:** add run description for pipeline runs ([4badc80](https://github.com/IBM/continuous-delivery-node-sdk/commit/4badc80acb3247717f334f48c08eca3c70b76c7e))
+
 ## [1.8.1](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.8.0...v1.8.1) (2024-09-04)
 
 
