@@ -3551,6 +3551,8 @@ namespace CdTektonPipelineV2 {
     enabled: boolean;
     /** Mark the trigger as a favorite. */
     favorite?: boolean;
+    /** When enabled, pull request events from forks of the selected repository will trigger a pipeline run. */
+    enable_events_from_forks?: boolean;
     /** Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must
      *  match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the
      *  toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools.
