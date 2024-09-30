@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.9.0...v1.10.0) (2024-09-30)
+
+
+### Features
+
+* **tekton:** Add fork events option ([ca89b09](https://github.com/IBM/continuous-delivery-node-sdk/commit/ca89b091a60842febdfbffb14d422eab62f3a06e))
+
 # [1.9.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.8.1...v1.9.0) (2024-09-25)
 
 
