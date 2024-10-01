@@ -2596,6 +2596,7 @@ describe('CdTektonPipelineV2', () => {
         const events = ['push'];
         const filter = 'testString';
         const favorite = false;
+        const enableEventsFromForks = false;
         const createTektonPipelineTriggerParams = {
           pipelineId,
           type,
@@ -2612,6 +2613,7 @@ describe('CdTektonPipelineV2', () => {
           events,
           filter,
           favorite,
+          enableEventsFromForks,
         };
 
         const createTektonPipelineTriggerResult =
@@ -2643,6 +2645,7 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.events).toEqual(events);
         expect(mockRequestOptions.body.filter).toEqual(filter);
         expect(mockRequestOptions.body.favorite).toEqual(favorite);
+        expect(mockRequestOptions.body.enable_events_from_forks).toEqual(enableEventsFromForks);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
       }
 
@@ -2854,6 +2857,7 @@ describe('CdTektonPipelineV2', () => {
         const events = ['push'];
         const filter = 'testString';
         const favorite = false;
+        const enableEventsFromForks = false;
         const updateTektonPipelineTriggerParams = {
           pipelineId,
           triggerId,
@@ -2871,6 +2875,7 @@ describe('CdTektonPipelineV2', () => {
           events,
           filter,
           favorite,
+          enableEventsFromForks,
         };
 
         const updateTektonPipelineTriggerResult =
@@ -2906,6 +2911,7 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.events).toEqual(events);
         expect(mockRequestOptions.body.filter).toEqual(filter);
         expect(mockRequestOptions.body.favorite).toEqual(favorite);
+        expect(mockRequestOptions.body.enable_events_from_forks).toEqual(enableEventsFromForks);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
         expect(mockRequestOptions.path.trigger_id).toEqual(triggerId);
       }
