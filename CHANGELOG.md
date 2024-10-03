@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.10.0...v1.11.0) (2024-10-03)
+
+
+### Features
+
+* **tekton:** more fork support ([4df308c](https://github.com/IBM/continuous-delivery-node-sdk/commit/4df308cfaf12c6bf4f53582b63ed8abd38d5a2d9))
+
 # [1.10.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.9.0...v1.10.0) (2024-09-30)
 
 
