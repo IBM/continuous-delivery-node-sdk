@@ -1618,6 +1618,8 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} [params.filter] - Either 'events' or 'filter' can be used. Stores the CEL (Common Expression
    * Language) expression value which is used for event filtering against the Git webhook payloads.
    * @param {boolean} [params.favorite] - Mark the trigger as a favorite.
+   * @param {boolean} [params.enableEventsFromForks] - Only used for SCM triggers. When enabled, pull request events
+   * from forks of the selected repository will trigger a pipeline run.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Trigger>>}
    */
@@ -1642,6 +1644,7 @@ class CdTektonPipelineV2 extends BaseService {
       'events',
       'filter',
       'favorite',
+      'enableEventsFromForks',
       'headers',
     ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
@@ -1664,6 +1667,7 @@ class CdTektonPipelineV2 extends BaseService {
       'events': _params.events,
       'filter': _params.filter,
       'favorite': _params.favorite,
+      'enable_events_from_forks': _params.enableEventsFromForks,
     };
 
     const path = {
@@ -1792,6 +1796,8 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {string} [params.filter] - Either 'events' or 'filter' can be used. Stores the CEL (Common Expression
    * Language) expression value which is used for event filtering against the Git webhook payloads.
    * @param {boolean} [params.favorite] - Mark the trigger as a favorite.
+   * @param {boolean} [params.enableEventsFromForks] - Only used for SCM triggers. When enabled, pull request events
+   * from forks of the selected repository will trigger a pipeline run.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Trigger>>}
    */
@@ -1817,6 +1823,7 @@ class CdTektonPipelineV2 extends BaseService {
       'events',
       'filter',
       'favorite',
+      'enableEventsFromForks',
       'headers',
     ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
@@ -1839,6 +1846,7 @@ class CdTektonPipelineV2 extends BaseService {
       'events': _params.events,
       'filter': _params.filter,
       'favorite': _params.favorite,
+      'enable_events_from_forks': _params.enableEventsFromForks,
     };
 
     const path = {
@@ -2790,6 +2798,10 @@ namespace CdTektonPipelineV2 {
     filter?: string;
     /** Mark the trigger as a favorite. */
     favorite?: boolean;
+    /** Only used for SCM triggers. When enabled, pull request events from forks of the selected repository will
+     *  trigger a pipeline run.
+     */
+    enableEventsFromForks?: boolean;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -2873,6 +2885,10 @@ namespace CdTektonPipelineV2 {
     filter?: string;
     /** Mark the trigger as a favorite. */
     favorite?: boolean;
+    /** Only used for SCM triggers. When enabled, pull request events from forks of the selected repository will
+     *  trigger a pipeline run.
+     */
+    enableEventsFromForks?: boolean;
     headers?: OutgoingHttpHeaders;
   }
 
