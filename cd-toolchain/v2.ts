@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.77.0-42417df0-20230811-192318
+ * IBM OpenAPI SDK Code Generator Version: 3.96.0-d6dec9d7-20241008-212902
  */
 
 /* eslint-disable max-classes-per-file */
@@ -31,16 +31,6 @@ import {
   validateParams,
 } from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
-
-/**
- * This swagger document describes the options and endpoints of the Toolchain API.<br><br> All calls require an
- * <strong>Authorization</strong> HTTP header to be set with a bearer token, which can be generated using the <a
- * href="https://cloud.ibm.com/apidocs/iam-identity-token-api">Identity and Access Management (IAM) API</a>.<br><br>Note
- * that all resources must have a corresponding <b>resource_group_id</b> to use the API, resources within a Cloud
- * Foundry organization cannot be accessed or modified using the API.
- *
- * API Version: 2.0.0
- */
 
 class CdToolchainV2 extends BaseService {
   static DEFAULT_SERVICE_URL: string = 'https://api.us-south.devops.cloud.ibm.com/toolchain/v2';
@@ -80,7 +70,7 @@ class CdToolchainV2 extends BaseService {
    * @param {UserOptions} [options] - The parameters to send to the service.
    * @param {string} [options.serviceName] - The name of the service to configure
    * @param {Authenticator} [options.authenticator] - The Authenticator object used to authenticate requests to the service
-   * @param {string} [options.serviceUrl] - The URL for the service
+   * @param {string} [options.serviceUrl] - The base URL for the service
    * @returns {CdToolchainV2}
    */
 
@@ -105,7 +95,7 @@ class CdToolchainV2 extends BaseService {
    * Construct a CdToolchainV2 object.
    *
    * @param {Object} options - Options for the service.
-   * @param {string} [options.serviceUrl] - The base url to use when contacting the service. The base url may differ between IBM Cloud regions.
+   * @param {string} [options.serviceUrl] - The base URL for the service
    * @param {OutgoingHttpHeaders} [options.headers] - Default headers that shall be included with every request to the service.
    * @param {Authenticator} options.authenticator - The Authenticator object used to authenticate requests to the service
    * @constructor
@@ -382,8 +372,8 @@ class CdToolchainV2 extends BaseService {
   /**
    * Create a toolchain event.
    *
-   * Creates and sends a custom event to Event Notifications. This requires an Event Notification tool. This method is
-   * BETA and subject to change.
+   * Creates and sends a custom event to each Event Notifications instance configured as a tool into the toolchain. This
+   * operation will fail if no Event Notifications instances are configured into the toolchain.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.toolchainId - ID of the toolchain to send events from.
@@ -912,7 +902,9 @@ namespace CdToolchainV2 {
    * model interfaces
    ************************/
 
-  /** Model describing tool resource. */
+  /**
+   * Model describing tool resource.
+   */
   export interface ToolModel {
     /** Tool ID. */
     id: string;
@@ -945,10 +937,23 @@ namespace CdToolchainV2 {
      */
     parameters: JsonObject;
     /** Current configuration state of the tool. */
-    state: string;
+    state: ToolModel.Constants.State | string;
+  }
+  export namespace ToolModel {
+    export namespace Constants {
+      /** Current configuration state of the tool. */
+      export enum State {
+        CONFIGURED = 'configured',
+        CONFIGURING = 'configuring',
+        MISCONFIGURED = 'misconfigured',
+        UNCONFIGURED = 'unconfigured',
+      }
+    }
   }
 
-  /** Information on URIs to access this resource through the UI or API. */
+  /**
+   * Information on URIs to access this resource through the UI or API.
+   */
   export interface ToolModelReferent {
     /** URI representing this resource through the UI. */
     ui_href?: string;
@@ -956,7 +961,9 @@ namespace CdToolchainV2 {
     api_href?: string;
   }
 
-  /** Response structure for GET toolchains. */
+  /**
+   * Response structure for GET toolchains.
+   */
   export interface Toolchain {
     /** Toolchain ID. */
     id: string;
@@ -984,7 +991,9 @@ namespace CdToolchainV2 {
     created_by: string;
   }
 
-  /** Response structure for GET toolchains. */
+  /**
+   * Response structure for GET toolchains.
+   */
   export interface ToolchainCollection {
     /** Total number of toolchains found in collection. */
     total_count: number;
@@ -1002,13 +1011,17 @@ namespace CdToolchainV2 {
     toolchains?: ToolchainModel[];
   }
 
-  /** Information about retrieving first toolchain results from the collection. */
+  /**
+   * Information about retrieving first toolchain results from the collection.
+   */
   export interface ToolchainCollectionFirst {
     /** URI that can be used to get first results from the collection. */
     href: string;
   }
 
-  /** Information about retrieving last toolchain results from the collection. */
+  /**
+   * Information about retrieving last toolchain results from the collection.
+   */
   export interface ToolchainCollectionLast {
     /** Cursor that can be set as the 'start' query parameter to get the last set of toolchain collections. */
     start?: string;
@@ -1016,7 +1029,9 @@ namespace CdToolchainV2 {
     href: string;
   }
 
-  /** Information about retrieving next toolchain results from the collection. */
+  /**
+   * Information about retrieving next toolchain results from the collection.
+   */
   export interface ToolchainCollectionNext {
     /** Cursor that can be set as the 'start' query parameter to get the next set of toolchain collections. */
     start?: string;
@@ -1024,7 +1039,9 @@ namespace CdToolchainV2 {
     href: string;
   }
 
-  /** Information about retrieving previous toolchain results from the collection. */
+  /**
+   * Information about retrieving previous toolchain results from the collection.
+   */
   export interface ToolchainCollectionPrevious {
     /** Cursor that can be set as the 'start' query parameter to get the previous set of toolchain collections. */
     start?: string;
@@ -1032,27 +1049,45 @@ namespace CdToolchainV2 {
     href: string;
   }
 
-  /** Response structure for POST toolchain event. */
+  /**
+   * Response structure for POST toolchain event.
+   */
   export interface ToolchainEventPost {
     /** Event ID. */
     id: string;
   }
 
-  /** Additional data to be added with the event. The format must correspond to the value of `content_type`. */
+  /**
+   * Additional data to be added with the event. The format must correspond to the value of `content_type`.
+   */
   export interface ToolchainEventPrototypeData {
     /** Contains JSON data to be added with the event. `content_type` must be set to `application/json`. */
     application_json?: ToolchainEventPrototypeDataApplicationJson;
     /** Contains text data to be added with the event. `content_type` must be set to `text/plain`. */
-    text_plain?: string;
+    text_plain?: ToolchainEventPrototypeDataTextPlain;
   }
 
-  /** Contains JSON data to be added with the event. `content_type` must be set to `application/json`. */
+  /**
+   * Contains JSON data to be added with the event. `content_type` must be set to `application/json`.
+   */
   export interface ToolchainEventPrototypeDataApplicationJson {
-    /** JSON-formatted key-value pairs representing any additional information to be included with the event. */
+    /** JSON-formatted key-value pairs representing any additional information to be included with the event. The
+     *  payload is constrained to a maximum depth of 5, and keys that must satisfy the pattern ^[a-zA-Z0-9-_]+$.
+     */
     content: JsonObject;
   }
 
-  /** Model describing toolchain resource. */
+  /**
+   * Contains text data to be added with the event. `content_type` must be set to `text/plain`.
+   */
+  export interface ToolchainEventPrototypeDataTextPlain {
+    /** The text data to send in the event. */
+    content: string;
+  }
+
+  /**
+   * Model describing toolchain resource.
+   */
   export interface ToolchainModel {
     /** Toolchain ID. */
     id: string;
@@ -1080,7 +1115,9 @@ namespace CdToolchainV2 {
     created_by: string;
   }
 
-  /** Response structure for PATCH toolchain. */
+  /**
+   * Response structure for PATCH toolchain.
+   */
   export interface ToolchainPatch {
     /** Toolchain ID. */
     id: string;
@@ -1108,7 +1145,9 @@ namespace CdToolchainV2 {
     created_by: string;
   }
 
-  /** Response structure for POST toolchain. */
+  /**
+   * Response structure for POST toolchain.
+   */
   export interface ToolchainPost {
     /** Toolchain ID. */
     id: string;
@@ -1136,7 +1175,9 @@ namespace CdToolchainV2 {
     created_by: string;
   }
 
-  /** Response structure for GET tool. */
+  /**
+   * Response structure for GET tool.
+   */
   export interface ToolchainTool {
     /** Tool ID. */
     id: string;
@@ -1169,10 +1210,23 @@ namespace CdToolchainV2 {
      */
     parameters: JsonObject;
     /** Current configuration state of the tool. */
-    state: string;
+    state: ToolchainTool.Constants.State | string;
+  }
+  export namespace ToolchainTool {
+    export namespace Constants {
+      /** Current configuration state of the tool. */
+      export enum State {
+        CONFIGURED = 'configured',
+        CONFIGURING = 'configuring',
+        MISCONFIGURED = 'misconfigured',
+        UNCONFIGURED = 'unconfigured',
+      }
+    }
   }
 
-  /** Response structure for GET tools. */
+  /**
+   * Response structure for GET tools.
+   */
   export interface ToolchainToolCollection {
     /** Maximum number of tools returned from collection. */
     limit: number;
@@ -1190,13 +1244,17 @@ namespace CdToolchainV2 {
     tools: ToolModel[];
   }
 
-  /** Information about retrieving first tool results from the collection. */
+  /**
+   * Information about retrieving first tool results from the collection.
+   */
   export interface ToolchainToolCollectionFirst {
     /** URI that can be used to get first results from the collection. */
     href: string;
   }
 
-  /** Information about retrieving last tool results from the collection. */
+  /**
+   * Information about retrieving last tool results from the collection.
+   */
   export interface ToolchainToolCollectionLast {
     /** Cursor that can be used to get the last set of tool collections. */
     start?: string;
@@ -1204,7 +1262,9 @@ namespace CdToolchainV2 {
     href: string;
   }
 
-  /** Information about retrieving next tool results from the collection. */
+  /**
+   * Information about retrieving next tool results from the collection.
+   */
   export interface ToolchainToolCollectionNext {
     /** Cursor that can be used to get the next set of tool collections. */
     start?: string;
@@ -1212,7 +1272,9 @@ namespace CdToolchainV2 {
     href: string;
   }
 
-  /** Information about retrieving previous tool results from the collection. */
+  /**
+   * Information about retrieving previous tool results from the collection.
+   */
   export interface ToolchainToolCollectionPrevious {
     /** Cursor that can be used to get the previous set of tool collections. */
     start?: string;
@@ -1220,7 +1282,9 @@ namespace CdToolchainV2 {
     href: string;
   }
 
-  /** Response structure for PATCH tool. */
+  /**
+   * Response structure for PATCH tool.
+   */
   export interface ToolchainToolPatch {
     /** Tool ID. */
     id: string;
@@ -1253,10 +1317,23 @@ namespace CdToolchainV2 {
      */
     parameters: JsonObject;
     /** Current configuration state of the tool. */
-    state: string;
+    state: ToolchainToolPatch.Constants.State | string;
+  }
+  export namespace ToolchainToolPatch {
+    export namespace Constants {
+      /** Current configuration state of the tool. */
+      export enum State {
+        CONFIGURED = 'configured',
+        CONFIGURING = 'configuring',
+        MISCONFIGURED = 'misconfigured',
+        UNCONFIGURED = 'unconfigured',
+      }
+    }
   }
 
-  /** POST tool response body. */
+  /**
+   * POST tool response body.
+   */
   export interface ToolchainToolPost {
     /** Tool ID. */
     id: string;
@@ -1289,7 +1366,18 @@ namespace CdToolchainV2 {
      */
     parameters: JsonObject;
     /** Current configuration state of the tool. */
-    state: string;
+    state: ToolchainToolPost.Constants.State | string;
+  }
+  export namespace ToolchainToolPost {
+    export namespace Constants {
+      /** Current configuration state of the tool. */
+      export enum State {
+        CONFIGURED = 'configured',
+        CONFIGURING = 'configuring',
+        MISCONFIGURED = 'misconfigured',
+        UNCONFIGURED = 'unconfigured',
+      }
+    }
   }
 
   /*************************

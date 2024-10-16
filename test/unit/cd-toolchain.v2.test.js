@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -657,13 +657,16 @@ describe('CdToolchainV2', () => {
 
       // ToolchainEventPrototypeDataApplicationJson
       const toolchainEventPrototypeDataApplicationJsonModel = {
-        content: { anyKey: 'anyValue' },
+        content: {
+          customKey1: 'myCustomData',
+          customKey2: 123,
+          customKey3: { nestedKey: 'moreData' },
+        },
       };
 
       // ToolchainEventPrototypeData
       const toolchainEventPrototypeDataModel = {
         application_json: toolchainEventPrototypeDataApplicationJsonModel,
-        text_plain: 'This event is dispatched because the pipeline failed',
       };
 
       function __createToolchainEventTest() {

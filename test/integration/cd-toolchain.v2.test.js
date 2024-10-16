@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -175,7 +175,7 @@ describe('CdToolchainV2_integration', () => {
     expect(res.result).toBeDefined();
   });
 
-  test('createToolchainEvent()', async () => {
+  test('createToolchainEvent() - application JSON event', async () => {
     // Request models needed by this operation.
 
     // ToolchainEventPrototypeDataApplicationJson
@@ -197,6 +197,33 @@ describe('CdToolchainV2_integration', () => {
       title: 'My-custom-event',
       description: 'This is my custom event',
       contentType: 'application/json',
+      data: toolchainEventPrototypeDataModel,
+    };
+
+    const res = await cdToolchainService.createToolchainEvent(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
+  test('createToolchainEvent() - text plain event', async () => {
+    // Request models needed by this operation.
+
+    // ToolchainEventPrototypeDataTextPlain
+    const toolchainEventPrototypeDataTextPlainModel = {
+      content: 'This event is dispatched because the pipeline failed',
+    };
+
+    // ToolchainEventPrototypeData
+    const toolchainEventPrototypeDataModel = {
+      text_plain: toolchainEventPrototypeDataTextPlainModel,
+    };
+
+    const params = {
+      toolchainId: toolchainIdLink,
+      title: 'My-custom-event',
+      description: 'This is my custom event',
+      contentType: 'text/plain',
       data: toolchainEventPrototypeDataModel,
     };
 
