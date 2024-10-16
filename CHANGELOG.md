@@ -1,3 +1,18 @@
+# [2.0.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.11.0...v2.0.0) (2024-10-16)
+
+
+### Features
+
+* **toolchain:** add text plain object property for createToolchainEvent function ([#57](https://github.com/IBM/continuous-delivery-node-sdk/issues/57)) ([fc1cbc5](https://github.com/IBM/continuous-delivery-node-sdk/commit/fc1cbc5486c70b1332402511eb1adb6d7e15b617))
+
+
+### BREAKING CHANGES
+
+* **toolchain:** the textPlain string property is being replaced by a ToolchainEventPrototypeDataTextPlain object. String values must be provided using the ToolchainEventPrototypeDataTextPlain.content property
+
+Signed-off-by: Omar Al Bastami <omar.albastami@ibm.com>
+Co-authored-by: Omar Al Bastami <omar.albastami@ibm.com>
+
 # [1.11.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.10.0...v1.11.0) (2024-10-03)
 
 
