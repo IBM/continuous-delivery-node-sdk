@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -228,6 +228,7 @@ describe('CdTektonPipelineV2', () => {
 
     const params = {
       pipelineId: '94619026-912b-4d92-8f51-6c74f0692d90',
+      description: 'My custom manual PipelineRun',
       trigger: pipelineRunTriggerModel,
     };
 
@@ -716,6 +717,7 @@ describe('CdTektonPipelineV2', () => {
       eventListener: 'pr-listener',
       worker: workerIdentityModel,
       maxConcurrentRuns: 3,
+      limitWaitingRuns: false,
       enabled: true,
     };
 

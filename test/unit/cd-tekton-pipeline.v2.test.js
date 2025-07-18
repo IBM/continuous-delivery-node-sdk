@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,8 @@
 
 /* eslint-disable no-await-in-loop */
 
+const nock = require('nock');
+
 // need to import the whole package to mock getAuthenticatorFromEnvironment
 const sdkCorePackage = require('ibm-cloud-sdk-core');
 
@@ -26,8 +28,6 @@ const {
   checkMediaHeaders,
   expectToBePromise,
 } = require('@ibm-cloud/sdk-test-utilities');
-
-const nock = require('nock');
 const CdTektonPipelineV2 = require('../../dist/cd-tekton-pipeline/v2');
 
 const cdTektonPipelineServiceOptions = {
@@ -642,9 +642,9 @@ describe('CdTektonPipelineV2', () => {
       const serviceUrl = cdTektonPipelineServiceOptions.url;
       const path = '/tekton_pipelines/94619026-912b-4d92-8f51-6c74f0692d90/pipeline_runs';
       const mockPagerResponse1 =
-        '{"next":{"href":"https://myhost.com/somePath?start=1"},"total_count":2,"limit":1,"pipeline_runs":[{"id":"id","href":"href","user_info":{"iam_id":"iam_id","sub":"sub"},"status":"pending","definition_id":"definition_id","definition":{"id":"id"},"description":"anyValue","worker":{"name":"name","agent_id":"agent_id","service_id":"service_id","id":"id"},"pipeline_id":"pipeline_id","pipeline":{"id":"id"},"listener_name":"listener_name","trigger":{"type":"type","name":"start-deploy","href":"href","event_listener":"event_listener","id":"id","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","path":"path","locked":true}],"tags":["tags"],"worker":{"name":"name","type":"type","id":"id"},"max_concurrent_runs":4,"enabled":true,"favorite":false},"event_params_blob":"event_params_blob","trigger_headers":"trigger_headers","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","locked":true,"path":"path"}],"created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","run_url":"run_url","error_message":"error_message"}]}';
+        '{"next":{"href":"https://myhost.com/somePath?start=1"},"total_count":2,"limit":1,"pipeline_runs":[{"id":"id","href":"href","user_info":{"iam_id":"iam_id","sub":"sub"},"status":"pending","definition_id":"definition_id","definition":{"id":"id"},"description":"description","worker":{"name":"name","agent_id":"agent_id","service_id":"service_id","id":"id"},"pipeline_id":"pipeline_id","pipeline":{"id":"id"},"listener_name":"listener_name","trigger":{"type":"type","name":"start-deploy","href":"href","event_listener":"event_listener","id":"id","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","path":"path","locked":true}],"tags":["tags"],"worker":{"name":"name","type":"type","id":"id"},"max_concurrent_runs":4,"enabled":true,"favorite":false,"limit_waiting_runs":false},"event_params_blob":"event_params_blob","trigger_headers":"trigger_headers","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","locked":true,"path":"path"}],"created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","run_url":"run_url","error_message":"error_message"}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"pipeline_runs":[{"id":"id","href":"href","user_info":{"iam_id":"iam_id","sub":"sub"},"status":"pending","definition_id":"definition_id","definition":{"id":"id"},"description":"anyValue","worker":{"name":"name","agent_id":"agent_id","service_id":"service_id","id":"id"},"pipeline_id":"pipeline_id","pipeline":{"id":"id"},"listener_name":"listener_name","trigger":{"type":"type","name":"start-deploy","href":"href","event_listener":"event_listener","id":"id","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","path":"path","locked":true}],"tags":["tags"],"worker":{"name":"name","type":"type","id":"id"},"max_concurrent_runs":4,"enabled":true,"favorite":false},"event_params_blob":"event_params_blob","trigger_headers":"trigger_headers","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","locked":true,"path":"path"}],"created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","run_url":"run_url","error_message":"error_message"}]}';
+        '{"total_count":2,"limit":1,"pipeline_runs":[{"id":"id","href":"href","user_info":{"iam_id":"iam_id","sub":"sub"},"status":"pending","definition_id":"definition_id","definition":{"id":"id"},"description":"description","worker":{"name":"name","agent_id":"agent_id","service_id":"service_id","id":"id"},"pipeline_id":"pipeline_id","pipeline":{"id":"id"},"listener_name":"listener_name","trigger":{"type":"type","name":"start-deploy","href":"href","event_listener":"event_listener","id":"id","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","path":"path","locked":true}],"tags":["tags"],"worker":{"name":"name","type":"type","id":"id"},"max_concurrent_runs":4,"enabled":true,"favorite":false,"limit_waiting_runs":false},"event_params_blob":"event_params_blob","trigger_headers":"trigger_headers","properties":[{"name":"name","value":"value","href":"href","enum":["enum"],"type":"secure","locked":true,"path":"path"}],"created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","run_url":"run_url","error_message":"error_message"}]}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -706,21 +706,21 @@ describe('CdTektonPipelineV2', () => {
       // PipelineRunTrigger
       const pipelineRunTriggerModel = {
         name: 'Manual Trigger 1',
-        properties: { foo: 'bar' },
-        secure_properties: { foo: 'bar' },
-        headers: { foo: 'bar' },
-        body: { foo: 'bar' },
+        properties: { 'pipeline-debug': 'false' },
+        secure_properties: { 'secure-property-key': 'secure value' },
+        headers: { source: 'api' },
+        body: { message: 'hello world', enable: 'true', detail: { name: 'example' } },
       };
 
       function __createTektonPipelineRunTest() {
         // Construct the params object for operation createTektonPipelineRun
         const pipelineId = '94619026-912b-4d92-8f51-6c74f0692d90';
-        const description = 'testString';
+        const description = 'My custom manual PipelineRun';
         const triggerName = 'testString';
-        const triggerProperties = { foo: 'bar' };
-        const secureTriggerProperties = { foo: 'bar' };
-        const triggerHeaders = { foo: 'bar' };
-        const triggerBody = { foo: 'bar' };
+        const triggerProperties = { anyKey: 'anyValue' };
+        const secureTriggerProperties = { anyKey: 'anyValue' };
+        const triggerHeaders = { anyKey: 'anyValue' };
+        const triggerBody = { anyKey: 'anyValue' };
         const trigger = pipelineRunTriggerModel;
         const createTektonPipelineRunParams = {
           pipelineId,
@@ -2588,6 +2588,7 @@ describe('CdTektonPipelineV2', () => {
         const tags = ['testString'];
         const worker = workerIdentityModel;
         const maxConcurrentRuns = 3;
+        const limitWaitingRuns = false;
         const enabled = true;
         const secret = genericSecretModel;
         const cron = 'testString';
@@ -2605,6 +2606,7 @@ describe('CdTektonPipelineV2', () => {
           tags,
           worker,
           maxConcurrentRuns,
+          limitWaitingRuns,
           enabled,
           secret,
           cron,
@@ -2637,6 +2639,7 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.tags).toEqual(tags);
         expect(mockRequestOptions.body.worker).toEqual(worker);
         expect(mockRequestOptions.body.max_concurrent_runs).toEqual(maxConcurrentRuns);
+        expect(mockRequestOptions.body.limit_waiting_runs).toEqual(limitWaitingRuns);
         expect(mockRequestOptions.body.enabled).toEqual(enabled);
         expect(mockRequestOptions.body.secret).toEqual(secret);
         expect(mockRequestOptions.body.cron).toEqual(cron);
@@ -2849,6 +2852,7 @@ describe('CdTektonPipelineV2', () => {
         const tags = ['testString'];
         const worker = workerIdentityModel;
         const maxConcurrentRuns = 38;
+        const limitWaitingRuns = false;
         const enabled = true;
         const secret = genericSecretModel;
         const cron = 'testString';
@@ -2867,6 +2871,7 @@ describe('CdTektonPipelineV2', () => {
           tags,
           worker,
           maxConcurrentRuns,
+          limitWaitingRuns,
           enabled,
           secret,
           cron,
@@ -2903,6 +2908,7 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.tags).toEqual(tags);
         expect(mockRequestOptions.body.worker).toEqual(worker);
         expect(mockRequestOptions.body.max_concurrent_runs).toEqual(maxConcurrentRuns);
+        expect(mockRequestOptions.body.limit_waiting_runs).toEqual(limitWaitingRuns);
         expect(mockRequestOptions.body.enabled).toEqual(enabled);
         expect(mockRequestOptions.body.secret).toEqual(secret);
         expect(mockRequestOptions.body.cron).toEqual(cron);
