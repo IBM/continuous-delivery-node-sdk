@@ -1699,8 +1699,8 @@ class CdTektonPipelineV2 extends BaseService {
    * also be explicitly set using `worker: { id: 'inherit' }`.
    * @param {number} [params.maxConcurrentRuns] - Defines the maximum number of concurrent runs for this trigger. If
    * omitted then the concurrency limit is disabled for this trigger.
-   * @param {boolean} [params.limitWaitingRuns] - Only used for SCM triggers. Flag that will limit the trigger to a
-   * maximum of one waiting run. A newly triggered run will cause waiting run(s) to be automatically cancelled.
+   * @param {boolean} [params.limitWaitingRuns] - Flag that will limit the trigger to a maximum of one waiting run. A
+   * newly triggered run will cause any other waiting run(s) to be automatically cancelled.
    * @param {boolean} [params.enabled] - Flag to check if the trigger is enabled. If omitted the trigger is enabled by
    * default.
    * @param {GenericSecret} [params.secret] - Only needed for Generic Webhook trigger type. The secret is used to start
@@ -1891,8 +1891,8 @@ class CdTektonPipelineV2 extends BaseService {
    * }` to use the IBM Managed workers. Use `worker: { id: 'inherit' }` to inherit the worker used by the pipeline.
    * @param {number} [params.maxConcurrentRuns] - Defines the maximum number of concurrent runs for this trigger. If set
    * to 0 then the custom concurrency limit is disabled for this trigger.
-   * @param {boolean} [params.limitWaitingRuns] - Only used for SCM triggers. Flag that will limit the trigger to a
-   * maximum of one waiting run. A newly triggered run will cause waiting run(s) to be automatically cancelled.
+   * @param {boolean} [params.limitWaitingRuns] - Flag that will limit the trigger to a maximum of one waiting run. A
+   * newly triggered run will cause any other waiting run(s) to be automatically cancelled.
    * @param {boolean} [params.enabled] - Defines if this trigger is enabled.
    * @param {GenericSecret} [params.secret] - Only needed for Generic Webhook trigger type. The secret is used to start
    * the Generic Webhook trigger.
@@ -2903,8 +2903,8 @@ namespace CdTektonPipelineV2 {
      *  disabled for this trigger.
      */
     maxConcurrentRuns?: number;
-    /** Only used for SCM triggers. Flag that will limit the trigger to a maximum of one waiting run. A newly
-     *  triggered run will cause waiting run(s) to be automatically cancelled.
+    /** Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run will cause any other
+     *  waiting run(s) to be automatically cancelled.
      */
     limitWaitingRuns?: boolean;
     /** Flag to check if the trigger is enabled. If omitted the trigger is enabled by default. */
@@ -2992,8 +2992,8 @@ namespace CdTektonPipelineV2 {
      *  limit is disabled for this trigger.
      */
     maxConcurrentRuns?: number;
-    /** Only used for SCM triggers. Flag that will limit the trigger to a maximum of one waiting run. A newly
-     *  triggered run will cause waiting run(s) to be automatically cancelled.
+    /** Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run will cause any other
+     *  waiting run(s) to be automatically cancelled.
      */
     limitWaitingRuns?: boolean;
     /** Defines if this trigger is enabled. */
@@ -3788,6 +3788,10 @@ namespace CdTektonPipelineV2 {
     enabled: boolean;
     /** Mark the trigger as a favorite. */
     favorite?: boolean;
+    /** Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run will cause any other
+     *  waiting run(s) to be automatically cancelled.
+     */
+    limit_waiting_runs?: boolean;
     /** Only needed for Generic Webhook trigger type. The secret is used to start the Generic Webhook trigger. */
     secret?: GenericSecret;
     /** Webhook URL that can be used to trigger pipeline runs. */
@@ -3830,6 +3834,10 @@ namespace CdTektonPipelineV2 {
     enabled: boolean;
     /** Mark the trigger as a favorite. */
     favorite?: boolean;
+    /** Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run will cause any other
+     *  waiting run(s) to be automatically cancelled.
+     */
+    limit_waiting_runs?: boolean;
   }
 
   /**
@@ -3865,6 +3873,10 @@ namespace CdTektonPipelineV2 {
     enabled: boolean;
     /** Mark the trigger as a favorite. */
     favorite?: boolean;
+    /** Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run will cause any other
+     *  waiting run(s) to be automatically cancelled.
+     */
+    limit_waiting_runs?: boolean;
     /** When enabled, pull request events from forks of the selected repository will trigger a pipeline run. */
     enable_events_from_forks?: boolean;
     /** Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must
@@ -3881,10 +3893,6 @@ namespace CdTektonPipelineV2 {
      *  is used for event filtering against the Git webhook payloads.
      */
     filter?: string;
-    /** Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run will cause waiting
-     *  run(s) to be automatically cancelled.
-     */
-    limit_waiting_runs?: boolean;
   }
   export namespace TriggerScmTrigger {
     export namespace Constants {
@@ -3929,6 +3937,10 @@ namespace CdTektonPipelineV2 {
     enabled: boolean;
     /** Mark the trigger as a favorite. */
     favorite?: boolean;
+    /** Flag that will limit the trigger to a maximum of one waiting run. A newly triggered run will cause any other
+     *  waiting run(s) to be automatically cancelled.
+     */
+    limit_waiting_runs?: boolean;
     /** Only needed for timer triggers. CRON expression that indicates when this trigger will activate. Maximum
      *  frequency is every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day
      *  of week. Example: The CRON expression 0 *_/2 * * * - translates to - every 2 hours.
