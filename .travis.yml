@@ -3,8 +3,8 @@ dist: focal
 language: node_js
 
 node_js:
-- 18
 - 20
+- 22
 
 before_install:
 - node --version
@@ -12,7 +12,7 @@ before_install:
 
 script:
 - npm run build
-- npm run test-travis || travis_terminate 1
+- npm run test-unit-travis || travis_terminate 1
 - npm run lint
 - npm run check-packages
 
@@ -21,5 +21,5 @@ deploy:
   skip_cleanup: true
   script: npx semantic-release
   on:
-    node: 20
+    node: 22
     branch: main

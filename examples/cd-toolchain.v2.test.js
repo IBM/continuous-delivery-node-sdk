@@ -20,7 +20,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-await-in-loop */
 
-const CdToolchainV2 = require('../dist/cd-toolchain/v2');
+const CdToolchainV2 = require('../dist/cd-toolchain/v2.js');
 // eslint-disable-next-line node/no-unpublished-require
 const authHelper = require('../test/resources/auth-helper.js');
 // You can use the readExternalSources method to access additional configuration values

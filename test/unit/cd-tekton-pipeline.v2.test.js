@@ -28,7 +28,7 @@ const {
   checkMediaHeaders,
   expectToBePromise,
 } = require('@ibm-cloud/sdk-test-utilities');
-const CdTektonPipelineV2 = require('../../dist/cd-tekton-pipeline/v2');
+const CdTektonPipelineV2 = require('../../dist/cd-tekton-pipeline/v2.js');
 
 const cdTektonPipelineServiceOptions = {
   authenticator: new NoAuthAuthenticator(),

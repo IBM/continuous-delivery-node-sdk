@@ -28,7 +28,7 @@ const {
   checkMediaHeaders,
   expectToBePromise,
 } = require('@ibm-cloud/sdk-test-utilities');
-const CdToolchainV2 = require('../../dist/cd-toolchain/v2');
+const CdToolchainV2 = require('../../dist/cd-toolchain/v2.js');
 
 const cdToolchainServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
