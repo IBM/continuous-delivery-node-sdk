@@ -20,7 +20,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-await-in-loop */
 
-const CdTektonPipelineV2 = require('../dist/cd-tekton-pipeline/v2');
+const CdTektonPipelineV2 = require('../dist/cd-tekton-pipeline/v2.js');
 // eslint-disable-next-line node/no-unpublished-require
 const authHelper = require('../test/resources/auth-helper.js');
 // You can use the readExternalSources method to access additional configuration values
