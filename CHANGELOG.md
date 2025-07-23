@@ -1,3 +1,15 @@
+# [2.1.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v2.0.0...v2.1.0) (2025-07-23)
+
+
+### Bug Fixes
+
+* **tekton:** further limit_waiting_run updates ([648edb0](https://github.com/IBM/continuous-delivery-node-sdk/commit/648edb085b957c8141039169caaf57fdbc226c48))
+
+
+### Features
+
+* **tekton:** add support for waiting runs limit ([e888b02](https://github.com/IBM/continuous-delivery-node-sdk/commit/e888b02ac371600e0e5296e697b176e352a3df49))
+
 # [2.0.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v1.11.0...v2.0.0) (2024-10-16)
 
 
