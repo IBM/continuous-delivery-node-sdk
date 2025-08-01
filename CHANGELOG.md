@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/IBM/continuous-delivery-node-sdk/compare/v2.1.1...v2.1.2) (2025-08-01)
+
+
+### Bug Fixes
+
+* add ca-mon support ([964aa15](https://github.com/IBM/continuous-delivery-node-sdk/commit/964aa15f119968b750a3d5a5dae27a5f56e85244))
+
 ## [2.1.1](https://github.com/IBM/continuous-delivery-node-sdk/compare/v2.1.0...v2.1.1) (2025-07-23)
 
 
