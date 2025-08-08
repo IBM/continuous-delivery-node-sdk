@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -146,6 +146,9 @@ describe('CdToolchainV2', () => {
       );
       expect(CdToolchainV2.getServiceUrlForRegion('ca-tor')).toBe(
         'https://api.ca-tor.devops.cloud.ibm.com/toolchain/v2'
+      );
+      expect(CdToolchainV2.getServiceUrlForRegion('ca-mon')).toBe(
+        'https://api.ca-mon.devops.cloud.ibm.com/toolchain/v2'
       );
       expect(CdToolchainV2.getServiceUrlForRegion('br-sao')).toBe(
         'https://api.br-sao.devops.cloud.ibm.com/toolchain/v2'
