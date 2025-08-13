@@ -58,7 +58,7 @@ class CdTektonPipelineV2 extends BaseService {
     ['jp-tok', 'https://api.jp-tok.devops.cloud.ibm.com/pipeline/v2'], // The host URL for Tekton Pipeline Service in the jp-tok region.
     ['au-syd', 'https://api.au-syd.devops.cloud.ibm.com/pipeline/v2'], // The host URL for Tekton Pipeline Service in the au-syd region.
     ['ca-tor', 'https://api.ca-tor.devops.cloud.ibm.com/pipeline/v2'], // The host URL for Tekton Pipeline Service in the ca-tor region.
-    ['ca-mon', 'https://api.ca-mon.devops.cloud.ibm.com/pipeline/v2'], // Montreal (ca-mon) is a limited-availability region and not generally available. The host URL for Tekton Pipeline Service in the ca-mon region.
+    ['ca-mon', 'https://api.ca-mon.devops.cloud.ibm.com/pipeline/v2'], // Montreal (ca-mon) is a limited availability region and not generally available. The host URL for Tekton Pipeline Service in the ca-mon region.
     ['br-sao', 'https://api.br-sao.devops.cloud.ibm.com/pipeline/v2'], // The host URL for Tekton Pipeline Service in the br-sao region.
   ]);
 
@@ -1726,6 +1726,8 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {boolean} [params.favorite] - Mark the trigger as a favorite.
    * @param {boolean} [params.enableEventsFromForks] - Only used for SCM triggers. When enabled, pull request events
    * from forks of the selected repository will trigger a pipeline run.
+   * @param {boolean} [params.disableDraftEvents] - Prevent new pipeline runs from being triggered by events from draft
+   * pull requests.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Trigger>>}
    */
@@ -1752,6 +1754,7 @@ class CdTektonPipelineV2 extends BaseService {
       'filter',
       'favorite',
       'enableEventsFromForks',
+      'disableDraftEvents',
       'signal',
       'headers',
     ];
@@ -1777,6 +1780,7 @@ class CdTektonPipelineV2 extends BaseService {
       'filter': _params.filter,
       'favorite': _params.favorite,
       'enable_events_from_forks': _params.enableEventsFromForks,
+      'disable_draft_events': _params.disableDraftEvents,
     };
 
     const path = {
@@ -1917,6 +1921,8 @@ class CdTektonPipelineV2 extends BaseService {
    * @param {boolean} [params.favorite] - Mark the trigger as a favorite.
    * @param {boolean} [params.enableEventsFromForks] - Only used for SCM triggers. When enabled, pull request events
    * from forks of the selected repository will trigger a pipeline run.
+   * @param {boolean} [params.disableDraftEvents] - Prevent new pipeline runs from being triggered by events from draft
+   * pull requests.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Trigger>>}
    */
@@ -1944,6 +1950,7 @@ class CdTektonPipelineV2 extends BaseService {
       'filter',
       'favorite',
       'enableEventsFromForks',
+      'disableDraftEvents',
       'signal',
       'headers',
     ];
@@ -1969,6 +1976,7 @@ class CdTektonPipelineV2 extends BaseService {
       'filter': _params.filter,
       'favorite': _params.favorite,
       'enable_events_from_forks': _params.enableEventsFromForks,
+      'disable_draft_events': _params.disableDraftEvents,
     };
 
     const path = {
@@ -2942,6 +2950,8 @@ namespace CdTektonPipelineV2 {
      *  trigger a pipeline run.
      */
     enableEventsFromForks?: boolean;
+    /** Prevent new pipeline runs from being triggered by events from draft pull requests. */
+    disableDraftEvents?: boolean;
   }
 
   /** Constants for the `createTektonPipelineTrigger` operation. */
@@ -3031,6 +3041,8 @@ namespace CdTektonPipelineV2 {
      *  trigger a pipeline run.
      */
     enableEventsFromForks?: boolean;
+    /** Prevent new pipeline runs from being triggered by events from draft pull requests. */
+    disableDraftEvents?: boolean;
   }
 
   /** Constants for the `updateTektonPipelineTrigger` operation. */
@@ -3880,6 +3892,8 @@ namespace CdTektonPipelineV2 {
     limit_waiting_runs?: boolean;
     /** When enabled, pull request events from forks of the selected repository will trigger a pipeline run. */
     enable_events_from_forks?: boolean;
+    /** Prevent new pipeline runs from being triggered by events from draft pull requests. */
+    disable_draft_events?: boolean;
     /** Source repository for a Git trigger. Only required for Git triggers. The referenced repository URL must
      *  match the URL of a repository tool integration in the parent toolchain. Obtain the list of integrations from the
      *  toolchain API https://cloud.ibm.com/apidocs/toolchain#list-tools.
