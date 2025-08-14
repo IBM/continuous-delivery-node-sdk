@@ -150,6 +150,9 @@ describe('CdTektonPipelineV2', () => {
       expect(CdTektonPipelineV2.getServiceUrlForRegion('ca-tor')).toBe(
         'https://api.ca-tor.devops.cloud.ibm.com/pipeline/v2'
       );
+      expect(CdTektonPipelineV2.getServiceUrlForRegion('ca-mon')).toBe(
+        'https://api.ca-mon.devops.cloud.ibm.com/pipeline/v2'
+      );
       expect(CdTektonPipelineV2.getServiceUrlForRegion('br-sao')).toBe(
         'https://api.br-sao.devops.cloud.ibm.com/pipeline/v2'
       );
@@ -2598,6 +2601,7 @@ describe('CdTektonPipelineV2', () => {
         const filter = 'testString';
         const favorite = false;
         const enableEventsFromForks = false;
+        const disableDraftEvents = false;
         const createTektonPipelineTriggerParams = {
           pipelineId,
           type,
@@ -2616,6 +2620,7 @@ describe('CdTektonPipelineV2', () => {
           filter,
           favorite,
           enableEventsFromForks,
+          disableDraftEvents,
         };
 
         const createTektonPipelineTriggerResult =
@@ -2649,6 +2654,7 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.filter).toEqual(filter);
         expect(mockRequestOptions.body.favorite).toEqual(favorite);
         expect(mockRequestOptions.body.enable_events_from_forks).toEqual(enableEventsFromForks);
+        expect(mockRequestOptions.body.disable_draft_events).toEqual(disableDraftEvents);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
       }
 
@@ -2862,6 +2868,7 @@ describe('CdTektonPipelineV2', () => {
         const filter = 'testString';
         const favorite = false;
         const enableEventsFromForks = false;
+        const disableDraftEvents = false;
         const updateTektonPipelineTriggerParams = {
           pipelineId,
           triggerId,
@@ -2881,6 +2888,7 @@ describe('CdTektonPipelineV2', () => {
           filter,
           favorite,
           enableEventsFromForks,
+          disableDraftEvents,
         };
 
         const updateTektonPipelineTriggerResult =
@@ -2918,6 +2926,7 @@ describe('CdTektonPipelineV2', () => {
         expect(mockRequestOptions.body.filter).toEqual(filter);
         expect(mockRequestOptions.body.favorite).toEqual(favorite);
         expect(mockRequestOptions.body.enable_events_from_forks).toEqual(enableEventsFromForks);
+        expect(mockRequestOptions.body.disable_draft_events).toEqual(disableDraftEvents);
         expect(mockRequestOptions.path.pipeline_id).toEqual(pipelineId);
         expect(mockRequestOptions.path.trigger_id).toEqual(triggerId);
       }
