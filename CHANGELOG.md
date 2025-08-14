@@ -1,3 +1,10 @@
+## [2.1.4](https://github.com/IBM/continuous-delivery-node-sdk/compare/v2.1.3...v2.1.4) (2025-08-14)
+
+
+### Bug Fixes
+
+* add draft PR events support ([98ad40a](https://github.com/IBM/continuous-delivery-node-sdk/commit/98ad40ac2c7e6319b4d2c486b6315f1b8b32518b))
+
 ## [2.1.3](https://github.com/IBM/continuous-delivery-node-sdk/compare/v2.1.2...v2.1.3) (2025-08-11)
 
 
