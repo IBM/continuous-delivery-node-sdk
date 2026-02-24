@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,4 +23,4 @@ export {
   IamTokenManager,
   Cp4dTokenManager,
   getAuthenticatorFromEnvironment,
-} from 'ibm-cloud-sdk-core';
+} from "ibm-cloud-sdk-core";

@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2025, 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,8 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.103.0-e8b84313-20250402-201816
+ * IBM OpenAPI SDK Code Generator Version: 3.112.0-f88e9264-20260220-115155
  */
-
-/* eslint-disable max-classes-per-file */
-/* eslint-disable no-await-in-loop */
 
 import * as extend from 'extend';
 import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
@@ -32,6 +29,7 @@ import {
   getQueryParam,
   validateParams,
 } from 'ibm-cloud-sdk-core';
+// eslint-disable-next-line import/no-unresolved
 import { getSdkHeaders } from '../lib/common';
 
 /**

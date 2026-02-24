@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2025, 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-/* eslint-disable no-await-in-loop */
-
 const nock = require('nock');
 
 // need to import the whole package to mock getAuthenticatorFromEnvironment
@@ -28,7 +26,7 @@ const {
   checkMediaHeaders,
   expectToBePromise,
 } = require('@ibm-cloud/sdk-test-utilities');
-const CdTektonPipelineV2 = require('../../dist/cd-tekton-pipeline/v2.js');
+const CdTektonPipelineV2 = require('../../dist/cd-tekton-pipeline/v2');
 
 const cdTektonPipelineServiceOptions = {
   authenticator: new NoAuthAuthenticator(),

@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2025, 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,6 @@
  * IBM OpenAPI SDK Code Generator Version: 3.96.0-d6dec9d7-20241008-212902
  */
 
-/* eslint-disable max-classes-per-file */
-/* eslint-disable no-await-in-loop */
-
 import * as extend from 'extend';
 import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import {
@@ -30,6 +27,7 @@ import {
   getAuthenticatorFromEnvironment,
   validateParams,
 } from 'ibm-cloud-sdk-core';
+// eslint-disable-next-line import/no-unresolved
 import { getSdkHeaders } from '../lib/common';
 
 class CdToolchainV2 extends BaseService {

@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2025, 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,7 @@
  * limitations under the License.
  */
 
-/* eslint-disable no-console */
-/* eslint-disable no-await-in-loop */
-
-const CdTektonPipelineV2 = require('../dist/cd-tekton-pipeline/v2.js');
-// eslint-disable-next-line node/no-unpublished-require
+const CdTektonPipelineV2 = require('../dist/cd-tekton-pipeline/v2');
 const authHelper = require('../test/resources/auth-helper.js');
 // You can use the readExternalSources method to access additional configuration values
 // const { readExternalSources } = require('ibm-cloud-sdk-core');
