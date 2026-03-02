@@ -25,6 +25,7 @@ module.exports = defineConfig([
       sourceType: "commonjs"
     },
     rules: {
+      "linebreak-style": ["error", "unix"], // Enforce LF line endings only. This is usually covered by prettier, but prettier is currently disabled here
       "no-unused-vars": "off",
       "prettier/prettier": "off", // Too many problems to resolve
       // "prettier/prettier": [
