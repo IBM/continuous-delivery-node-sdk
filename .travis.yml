@@ -1,25 +1,2 @@
-dist: focal
-
-language: node_js
-
-node_js:
-- 20
-- 22
-
-before_install:
-- node --version
-- npm --version
-
-script:
-- npm run build
-- npm run test-unit-travis || travis_terminate 1
-- npm run lint
-- npm run check-packages
-
-deploy:
-- provider: script
-  skip_cleanup: true
-  script: npx semantic-release
-  on:
-    node: 22
-    branch: main
+# CI/CD has been migrated to GitHub Actions.
+# See .github/workflows/ci.yml and .github/workflows/release.yml

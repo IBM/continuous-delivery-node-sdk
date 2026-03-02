@@ -25,11 +25,10 @@
     "postversion": "publisher --no-checks --dry-run",
     "semVerDryRun": "npx semantic-release -d",
     "test": "npm run build && npm run lint && jest test/",
-    "test-unit": "npm run build && jest test/unit/",
+    "test-unit": "npm run build && jest --runInBand test/unit/",
     "test-integration": "npm run build && jest test/integration",
     "test-examples": "npm run build && jest examples/",
     "test-travis": "jest --runInBand --testNamePattern='^((?!@slow).)*$' test/",
-    "test-unit-travis": "jest --runInBand test/unit/",
     "test-integration-travis": "jest --runInBand --no-colors --testNamePattern='^((?!@slow).)*$' --json test/integration > test-output.log"
   },
   "license": "Apache-2.0",
