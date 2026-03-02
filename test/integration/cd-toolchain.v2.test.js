@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2024, 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,6 @@
  * CD_TOOLCHAIN_RESOURCE_GROUP_ID=<resource group where resources will be created>
  * CD_TOOLCHAIN_URL=<service base url>
  */
-
-/* eslint-disable no-console */
-/* eslint-disable no-await-in-loop */
 
 const { readExternalSources } = require('ibm-cloud-sdk-core');
 const CdToolchainV2 = require('../../dist/cd-toolchain/v2');

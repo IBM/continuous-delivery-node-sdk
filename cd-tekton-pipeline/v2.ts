@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2025.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,8 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.103.0-e8b84313-20250402-201816
+ * IBM OpenAPI SDK Code Generator Version: 3.112.0-f88e9264-20260220-115155
  */
-
-/* eslint-disable max-classes-per-file */
-/* eslint-disable no-await-in-loop */
 
 import * as extend from 'extend';
 import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
@@ -32,6 +29,7 @@ import {
   getQueryParam,
   validateParams,
 } from 'ibm-cloud-sdk-core';
+// eslint-disable-next-line import/no-unresolved
 import { getSdkHeaders } from '../lib/common';
 
 /**
@@ -69,7 +67,7 @@ class CdTektonPipelineV2 extends BaseService {
    * if no mapping for the region exists
    */
   public static getServiceUrlForRegion(region: string): string {
-    return this._regionalEndpoints.get(region);
+    return this._regionalEndpoints.get(region)
   }
 
   /*************************
@@ -158,15 +156,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TektonPipeline>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = [
-      'id',
-      'nextBuildNumber',
-      'enableNotifications',
-      'enablePartialCloning',
-      'worker',
-      'signal',
-      'headers',
-    ];
+    const _validParams = ['id', 'nextBuildNumber', 'enableNotifications', 'enablePartialCloning', 'worker', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -180,11 +170,7 @@ class CdTektonPipelineV2 extends BaseService {
       'worker': _params.worker,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createTektonPipeline'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'createTektonPipeline');
 
     const parameters = {
       options: {
@@ -237,11 +223,7 @@ class CdTektonPipelineV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'getTektonPipeline'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'getTektonPipeline');
 
     const parameters = {
       options: {
@@ -295,15 +277,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TektonPipeline>> {
     const _params = { ...params };
     const _requiredParams = ['id'];
-    const _validParams = [
-      'id',
-      'nextBuildNumber',
-      'enableNotifications',
-      'enablePartialCloning',
-      'worker',
-      'signal',
-      'headers',
-    ];
+    const _validParams = ['id', 'nextBuildNumber', 'enableNotifications', 'enablePartialCloning', 'worker', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -320,11 +294,7 @@ class CdTektonPipelineV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'updateTektonPipeline'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'updateTektonPipeline');
 
     const parameters = {
       options: {
@@ -378,11 +348,7 @@ class CdTektonPipelineV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'deleteTektonPipeline'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteTektonPipeline');
 
     const parameters = {
       options: {
@@ -391,7 +357,14 @@ class CdTektonPipelineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          this.baseOptions.headers,
+          {
+          },
+          _params.headers
+        ),
         axiosOptions: {
           signal: _params.signal,
         },
@@ -425,15 +398,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.PipelineRunsCollection>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId'];
-    const _validParams = [
-      'pipelineId',
-      'start',
-      'limit',
-      'status',
-      'triggerName',
-      'signal',
-      'headers',
-    ];
+    const _validParams = ['pipelineId', 'start', 'limit', 'status', 'triggerName', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -450,11 +415,7 @@ class CdTektonPipelineV2 extends BaseService {
       'pipeline_id': _params.pipelineId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'listTektonPipelineRuns'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'listTektonPipelineRuns');
 
     const parameters = {
       options: {
@@ -512,18 +473,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.PipelineRun>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId'];
-    const _validParams = [
-      'pipelineId',
-      'description',
-      'triggerName',
-      'triggerProperties',
-      'secureTriggerProperties',
-      'triggerHeaders',
-      'triggerBody',
-      'trigger',
-      'signal',
-      'headers',
-    ];
+    const _validParams = ['pipelineId', 'description', 'triggerName', 'triggerProperties', 'secureTriggerProperties', 'triggerHeaders', 'triggerBody', 'trigger', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -543,11 +493,7 @@ class CdTektonPipelineV2 extends BaseService {
       'pipeline_id': _params.pipelineId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createTektonPipelineRun'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'createTektonPipelineRun');
 
     const parameters = {
       options: {
@@ -608,11 +554,7 @@ class CdTektonPipelineV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'getTektonPipelineRun'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'getTektonPipelineRun');
 
     const parameters = {
       options: {
@@ -667,11 +609,7 @@ class CdTektonPipelineV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'deleteTektonPipelineRun'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteTektonPipelineRun');
 
     const parameters = {
       options: {
@@ -680,7 +618,14 @@ class CdTektonPipelineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          this.baseOptions.headers,
+          {
+          },
+          _params.headers
+        ),
         axiosOptions: {
           signal: _params.signal,
         },
@@ -723,11 +668,7 @@ class CdTektonPipelineV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'cancelTektonPipelineRun'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'cancelTektonPipelineRun');
 
     const parameters = {
       options: {
@@ -784,11 +725,7 @@ class CdTektonPipelineV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'rerunTektonPipelineRun'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'rerunTektonPipelineRun');
 
     const parameters = {
       options: {
@@ -843,11 +780,7 @@ class CdTektonPipelineV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'getTektonPipelineRunLogs'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'getTektonPipelineRunLogs');
 
     const parameters = {
       options: {
@@ -904,11 +837,7 @@ class CdTektonPipelineV2 extends BaseService {
       'id': _params.id,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'getTektonPipelineRunLogContent'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'getTektonPipelineRunLogContent');
 
     const parameters = {
       options: {
@@ -967,11 +896,7 @@ class CdTektonPipelineV2 extends BaseService {
       'pipeline_id': _params.pipelineId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'listTektonPipelineDefinitions'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'listTektonPipelineDefinitions');
 
     const parameters = {
       options: {
@@ -1032,11 +957,7 @@ class CdTektonPipelineV2 extends BaseService {
       'pipeline_id': _params.pipelineId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createTektonPipelineDefinition'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'createTektonPipelineDefinition');
 
     const parameters = {
       options: {
@@ -1093,11 +1014,7 @@ class CdTektonPipelineV2 extends BaseService {
       'definition_id': _params.definitionId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'getTektonPipelineDefinition'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'getTektonPipelineDefinition');
 
     const parameters = {
       options: {
@@ -1156,11 +1073,7 @@ class CdTektonPipelineV2 extends BaseService {
       'definition_id': _params.definitionId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'replaceTektonPipelineDefinition'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'replaceTektonPipelineDefinition');
 
     const parameters = {
       options: {
@@ -1216,11 +1129,7 @@ class CdTektonPipelineV2 extends BaseService {
       'definition_id': _params.definitionId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'deleteTektonPipelineDefinition'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteTektonPipelineDefinition');
 
     const parameters = {
       options: {
@@ -1229,7 +1138,14 @@ class CdTektonPipelineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          this.baseOptions.headers,
+          {
+          },
+          _params.headers
+        ),
         axiosOptions: {
           signal: _params.signal,
         },
@@ -1277,11 +1193,7 @@ class CdTektonPipelineV2 extends BaseService {
       'pipeline_id': _params.pipelineId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'listTektonPipelineProperties'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'listTektonPipelineProperties');
 
     const parameters = {
       options: {
@@ -1333,17 +1245,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Property>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'name', 'type'];
-    const _validParams = [
-      'pipelineId',
-      'name',
-      'type',
-      'value',
-      '_enum',
-      'locked',
-      'path',
-      'signal',
-      'headers',
-    ];
+    const _validParams = ['pipelineId', 'name', 'type', 'value', '_enum', 'locked', 'path', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1362,11 +1264,7 @@ class CdTektonPipelineV2 extends BaseService {
       'pipeline_id': _params.pipelineId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createTektonPipelineProperties'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'createTektonPipelineProperties');
 
     const parameters = {
       options: {
@@ -1422,11 +1320,7 @@ class CdTektonPipelineV2 extends BaseService {
       'property_name': _params.propertyName,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'getTektonPipelineProperty'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'getTektonPipelineProperty');
 
     const parameters = {
       options: {
@@ -1479,18 +1373,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Property>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'propertyName', 'name', 'type'];
-    const _validParams = [
-      'pipelineId',
-      'propertyName',
-      'name',
-      'type',
-      'value',
-      '_enum',
-      'locked',
-      'path',
-      'signal',
-      'headers',
-    ];
+    const _validParams = ['pipelineId', 'propertyName', 'name', 'type', 'value', '_enum', 'locked', 'path', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1510,11 +1393,7 @@ class CdTektonPipelineV2 extends BaseService {
       'property_name': _params.propertyName,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'replaceTektonPipelineProperty'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'replaceTektonPipelineProperty');
 
     const parameters = {
       options: {
@@ -1570,11 +1449,7 @@ class CdTektonPipelineV2 extends BaseService {
       'property_name': _params.propertyName,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'deleteTektonPipelineProperty'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteTektonPipelineProperty');
 
     const parameters = {
       options: {
@@ -1583,7 +1458,14 @@ class CdTektonPipelineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          this.baseOptions.headers,
+          {
+          },
+          _params.headers
+        ),
         axiosOptions: {
           signal: _params.signal,
         },
@@ -1620,18 +1502,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TriggersCollection>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId'];
-    const _validParams = [
-      'pipelineId',
-      'type',
-      'name',
-      'eventListener',
-      'workerId',
-      'workerName',
-      'disabled',
-      'tags',
-      'signal',
-      'headers',
-    ];
+    const _validParams = ['pipelineId', 'type', 'name', 'eventListener', 'workerId', 'workerName', 'disabled', 'tags', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1651,11 +1522,7 @@ class CdTektonPipelineV2 extends BaseService {
       'pipeline_id': _params.pipelineId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'listTektonPipelineTriggers'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'listTektonPipelineTriggers');
 
     const parameters = {
       options: {
@@ -1736,28 +1603,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Trigger>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'type', 'name', 'eventListener'];
-    const _validParams = [
-      'pipelineId',
-      'type',
-      'name',
-      'eventListener',
-      'tags',
-      'worker',
-      'maxConcurrentRuns',
-      'limitWaitingRuns',
-      'enabled',
-      'secret',
-      'cron',
-      'timezone',
-      'source',
-      'events',
-      'filter',
-      'favorite',
-      'enableEventsFromForks',
-      'disableDraftEvents',
-      'signal',
-      'headers',
-    ];
+    const _validParams = ['pipelineId', 'type', 'name', 'eventListener', 'tags', 'worker', 'maxConcurrentRuns', 'limitWaitingRuns', 'enabled', 'secret', 'cron', 'timezone', 'source', 'events', 'filter', 'favorite', 'enableEventsFromForks', 'disableDraftEvents', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1787,11 +1633,7 @@ class CdTektonPipelineV2 extends BaseService {
       'pipeline_id': _params.pipelineId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createTektonPipelineTrigger'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'createTektonPipelineTrigger');
 
     const parameters = {
       options: {
@@ -1847,11 +1689,7 @@ class CdTektonPipelineV2 extends BaseService {
       'trigger_id': _params.triggerId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'getTektonPipelineTrigger'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'getTektonPipelineTrigger');
 
     const parameters = {
       options: {
@@ -1931,29 +1769,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.Trigger>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'triggerId'];
-    const _validParams = [
-      'pipelineId',
-      'triggerId',
-      'type',
-      'name',
-      'eventListener',
-      'tags',
-      'worker',
-      'maxConcurrentRuns',
-      'limitWaitingRuns',
-      'enabled',
-      'secret',
-      'cron',
-      'timezone',
-      'source',
-      'events',
-      'filter',
-      'favorite',
-      'enableEventsFromForks',
-      'disableDraftEvents',
-      'signal',
-      'headers',
-    ];
+    const _validParams = ['pipelineId', 'triggerId', 'type', 'name', 'eventListener', 'tags', 'worker', 'maxConcurrentRuns', 'limitWaitingRuns', 'enabled', 'secret', 'cron', 'timezone', 'source', 'events', 'filter', 'favorite', 'enableEventsFromForks', 'disableDraftEvents', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -1984,11 +1800,7 @@ class CdTektonPipelineV2 extends BaseService {
       'trigger_id': _params.triggerId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'updateTektonPipelineTrigger'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'updateTektonPipelineTrigger');
 
     const parameters = {
       options: {
@@ -2044,11 +1856,7 @@ class CdTektonPipelineV2 extends BaseService {
       'trigger_id': _params.triggerId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'deleteTektonPipelineTrigger'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteTektonPipelineTrigger');
 
     const parameters = {
       options: {
@@ -2057,7 +1865,14 @@ class CdTektonPipelineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          this.baseOptions.headers,
+          {
+          },
+          _params.headers
+        ),
         axiosOptions: {
           signal: _params.signal,
         },
@@ -2099,11 +1914,7 @@ class CdTektonPipelineV2 extends BaseService {
       'source_trigger_id': _params.sourceTriggerId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'duplicateTektonPipelineTrigger'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'duplicateTektonPipelineTrigger');
 
     const parameters = {
       options: {
@@ -2173,11 +1984,7 @@ class CdTektonPipelineV2 extends BaseService {
       'trigger_id': _params.triggerId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'listTektonPipelineTriggerProperties'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'listTektonPipelineTriggerProperties');
 
     const parameters = {
       options: {
@@ -2230,18 +2037,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TriggerProperty>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'triggerId', 'name', 'type'];
-    const _validParams = [
-      'pipelineId',
-      'triggerId',
-      'name',
-      'type',
-      'value',
-      '_enum',
-      'path',
-      'locked',
-      'signal',
-      'headers',
-    ];
+    const _validParams = ['pipelineId', 'triggerId', 'name', 'type', 'value', '_enum', 'path', 'locked', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2261,11 +2057,7 @@ class CdTektonPipelineV2 extends BaseService {
       'trigger_id': _params.triggerId,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'createTektonPipelineTriggerProperties'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'createTektonPipelineTriggerProperties');
 
     const parameters = {
       options: {
@@ -2323,11 +2115,7 @@ class CdTektonPipelineV2 extends BaseService {
       'property_name': _params.propertyName,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'getTektonPipelineTriggerProperty'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'getTektonPipelineTriggerProperty');
 
     const parameters = {
       options: {
@@ -2380,19 +2168,7 @@ class CdTektonPipelineV2 extends BaseService {
   ): Promise<CdTektonPipelineV2.Response<CdTektonPipelineV2.TriggerProperty>> {
     const _params = { ...params };
     const _requiredParams = ['pipelineId', 'triggerId', 'propertyName', 'name', 'type'];
-    const _validParams = [
-      'pipelineId',
-      'triggerId',
-      'propertyName',
-      'name',
-      'type',
-      'value',
-      '_enum',
-      'path',
-      'locked',
-      'signal',
-      'headers',
-    ];
+    const _validParams = ['pipelineId', 'triggerId', 'propertyName', 'name', 'type', 'value', '_enum', 'path', 'locked', 'signal', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -2413,11 +2189,7 @@ class CdTektonPipelineV2 extends BaseService {
       'property_name': _params.propertyName,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'replaceTektonPipelineTriggerProperty'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'replaceTektonPipelineTriggerProperty');
 
     const parameters = {
       options: {
@@ -2475,11 +2247,7 @@ class CdTektonPipelineV2 extends BaseService {
       'property_name': _params.propertyName,
     };
 
-    const sdkHeaders = getSdkHeaders(
-      CdTektonPipelineV2.DEFAULT_SERVICE_NAME,
-      'v2',
-      'deleteTektonPipelineTriggerProperty'
-    );
+    const sdkHeaders = getSdkHeaders(CdTektonPipelineV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteTektonPipelineTriggerProperty');
 
     const parameters = {
       options: {
@@ -2488,7 +2256,14 @@ class CdTektonPipelineV2 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, this.baseOptions.headers, {}, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          this.baseOptions.headers,
+          {
+          },
+          _params.headers
+        ),
         axiosOptions: {
           signal: _params.signal,
         },
@@ -2527,10 +2302,10 @@ namespace CdTektonPipelineV2 {
    * request interfaces
    ************************/
 
-  interface DefaultParams {
-    headers?: OutgoingHttpHeaders;
-    signal?: AbortSignal;
-  }
+   interface DefaultParams {
+     headers?: OutgoingHttpHeaders;
+     signal?: AbortSignal;
+   }
 
   /** Parameters for the `createTektonPipeline` operation. */
   export interface CreateTektonPipelineParams extends DefaultParams {
@@ -3616,7 +3391,8 @@ namespace CdTektonPipelineV2 {
   /**
    * Tekton pipeline trigger.
    */
-  export interface Trigger {}
+  export interface Trigger {
+  }
 
   /**
    * Trigger properties object.
@@ -3992,10 +3768,7 @@ namespace CdTektonPipelineV2 {
      * @constructor
      * @returns {TektonPipelineRunsPager}
      */
-    constructor(
-      client: CdTektonPipelineV2,
-      params: CdTektonPipelineV2.ListTektonPipelineRunsParams
-    ) {
+    constructor(client: CdTektonPipelineV2, params: CdTektonPipelineV2.ListTektonPipelineRunsParams) {
       if (params && params.start) {
         throw new Error(`the params.start field should not be set`);
       }
