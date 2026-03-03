@@ -4,7 +4,7 @@
   "description": "IBM Cloud Continuous Delivery Node.js SDK",
   "repository": {
     "type": "git",
-    "url": "https://github.com/IBM/continuous-delivery-node-sdk"
+    "url": "git+https://github.com/IBM/continuous-delivery-node-sdk.git"
   },
   "keywords": [
     "ibm"
@@ -27,9 +27,7 @@
     "test": "npm run build && npm run lint && jest test/",
     "test-unit": "npm run build && jest --runInBand test/unit/",
     "test-integration": "npm run build && jest test/integration",
-    "test-examples": "npm run build && jest examples/",
-    "test-travis": "jest --runInBand --testNamePattern='^((?!@slow).)*$' test/",
-    "test-integration-travis": "jest --runInBand --no-colors --testNamePattern='^((?!@slow).)*$' --json test/integration > test-output.log"
+    "test-examples": "npm run build && jest examples/"
   },
   "license": "Apache-2.0",
   "engines": {

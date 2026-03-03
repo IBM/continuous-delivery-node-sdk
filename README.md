@@ -1,7 +1,7 @@
 
-# IBM Cloud Continuous Delivery Node.js SDK 
+# IBM Cloud Continuous Delivery Node.js SDK
 
-[![Build Status](https://app.travis-ci.com/IBM/continuous-delivery-node-sdk.svg?branch=main)](https://app.travis-ci.com/github/IBM/continuous-delivery-node-sdk)
+[![Build](https://github.com/IBM/continuous-delivery-node-sdk/actions/workflows/release.yml/badge.svg)](https://github.com/IBM/continuous-delivery-node-sdk/actions/workflows/release.yml)
 [![npm](https://img.shields.io/npm/v/@ibm-cloud/continuous-delivery)](https://npmjs.com/package/@ibm-cloud/continuous-delivery)
 [![Release](https://img.shields.io/github/v/release/IBM/continuous-delivery-node-sdk)](https://github.com/IBM/continuous-delivery-node-sdk/releases/latest)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -54,12 +54,12 @@ Table 1. IBM Cloud services
 <!-- --------------------------------------------------------------- -->
 ## Migration
 
-`ibm-continuous-delivery` package has been deprecated! 
+`ibm-continuous-delivery` package has been deprecated!
 The IBM Continuous Delivery Node SDK is now available as `@ibm-cloud/continuous-delivery`.
 
 To migrate to the new package, you can use the commands listed below:
 
-```
+```sh
 npm uninstall ibm-continuous-delivery
 npm install @ibm-cloud/continuous-delivery
 ```
@@ -67,7 +67,6 @@ npm install @ibm-cloud/continuous-delivery
 You will also need to modify any references to the old package `ibm-continuous-delivery` within import/require statements so they reflect the new package `@ibm-cloud/continuous-delivery`.  Here is an example:
 
 ```javascript
-
 // 'require' statements that reflect the old package name:
 const CdToolchainV2 = require("ibm-continuous-delivery/cd-toolchain/v2");
 const CdTektonPipelineV2 = require("ibm-continuous-delivery/cd-tekton-pipeline/v2");
@@ -75,7 +74,6 @@ const CdTektonPipelineV2 = require("ibm-continuous-delivery/cd-tekton-pipeline/v
 // Modify this to reflect the new package name:
 const CdToolchainV2 = require("@ibm-cloud/continuous-delivery/cd-toolchain/v2");
 const CdTektonPipelineV2 = require("@ibm-cloud/continuous-delivery/cd-tekton-pipeline/v2");
-
 ```
 
 ## Prerequisites
@@ -94,13 +92,6 @@ npm install @ibm-cloud/continuous-delivery
 ## Using the SDK
 
 For general SDK usage information, see [IBM Cloud SDK Common README](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/README.md).
-
-## Questions
-
-If you are having difficulties using this SDK or have a question about the IBM Cloud services,
-please ask a question at
-[Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-cloud).
-Alternatively, you can reach out to the IBM Cloud Continuous Delivery development team by joining us on [Slack](https://ic-devops-slack-invite.us-south.devops.cloud.ibm.com/).
 
 ## Issues
 
