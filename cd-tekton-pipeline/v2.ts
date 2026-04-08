@@ -253,7 +253,7 @@ class CdTektonPipelineV2 extends BaseService {
   /**
    * Update Tekton pipeline data.
    *
-   * This request updates Tekton pipeline data, but you can only change worker ID in this endpoint. Use other endpoints
+   * This request updates Tekton pipeline data, such as the worker ID or build number, for example. Use other endpoints
    * such as /definitions, /triggers, and /properties for other configuration updates.
    *
    * @param {Object} params - The parameters to send to the service.
