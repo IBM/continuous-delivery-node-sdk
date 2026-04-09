@@ -1,3 +1,10 @@
+## [2.1.7](https://github.com/IBM/continuous-delivery-node-sdk/compare/v2.1.6...v2.1.7) (2026-04-09)
+
+
+### Bug Fixes
+
+* fix release ([#75](https://github.com/IBM/continuous-delivery-node-sdk/issues/75)) ([a4c2b66](https://github.com/IBM/continuous-delivery-node-sdk/commit/a4c2b665297a3410186da254ad0bfe1e5ff2aee7))
+
 ## [2.1.6](https://github.com/IBM/continuous-delivery-node-sdk/compare/v2.1.5...v2.1.6) (2026-04-09)
 
 
