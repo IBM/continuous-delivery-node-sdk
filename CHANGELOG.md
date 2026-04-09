@@ -1,3 +1,10 @@
+## [2.1.6](https://github.com/IBM/continuous-delivery-node-sdk/compare/v2.1.5...v2.1.6) (2026-04-09)
+
+
+### Bug Fixes
+
+* upgrade to ibm-cloud-sdk-core@^5.4.10 ([#74](https://github.com/IBM/continuous-delivery-node-sdk/issues/74)) ([9c042cc](https://github.com/IBM/continuous-delivery-node-sdk/commit/9c042ccde9cd2c558034643fa97b42f19d86692e))
+
 ## [2.1.5](https://github.com/IBM/continuous-delivery-node-sdk/compare/v2.1.4...v2.1.5) (2026-03-02)
 
 
