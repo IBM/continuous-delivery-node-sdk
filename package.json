@@ -52,7 +52,7 @@
     "eslint-plugin-jsdoc": "^62.7.1",
     "eslint-plugin-prettier": "^5.5.5",
     "globals": "^17.3.0",
-    "installed-check": "^2.2.0",
+    "installed-check": "^10.0.0",
     "jest": "^30.0.0",
     "nock": "^14.0.1",
     "semantic-release": "^25.0.3",
