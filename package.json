@@ -23,7 +23,7 @@
     "lint-fix": "eslint --fix",
     "prepublishOnly": "npm run build",
     "postversion": "publisher --no-checks --dry-run",
-    "semVerDryRun": "npx semantic-release -d",
+    "semVerDryRun": "npx --package semantic-release --package @semantic-release/changelog --package @semantic-release/git semantic-release -d",
     "test": "npm run build && npm run lint && jest test/",
     "test-unit": "npm run build && jest --runInBand test/unit/",
     "test-integration": "npm run build && jest test/integration",
