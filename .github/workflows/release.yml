@@ -52,11 +52,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release --dry-run
+        run: npx --package semantic-release --package @semantic-release/changelog --package @semantic-release/git semantic-release --dry-run
 
       - name: Semantic Release
         if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && !inputs.dry_run)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
+        run: npx --package semantic-release --package @semantic-release/changelog --package @semantic-release/git semantic-release
