@@ -1,3 +1,10 @@
+## [2.1.7](https://github.com/IBM/continuous-delivery-node-sdk/compare/v2.1.6...v2.1.7) (2026-04-16)
+
+
+### Bug Fixes
+
+* resolve brace-expansion, follow-redirects, picomatch vulnerabilities ([#89](https://github.com/IBM/continuous-delivery-node-sdk/issues/89)) ([6d24056](https://github.com/IBM/continuous-delivery-node-sdk/commit/6d24056ad076420338606ea113756872fc4e447e))
+
 ## [2.1.6](https://github.com/IBM/continuous-delivery-node-sdk/compare/v2.1.5...v2.1.6) (2026-04-09)
 
 
