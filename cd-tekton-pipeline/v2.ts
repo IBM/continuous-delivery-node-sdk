@@ -324,9 +324,9 @@ class CdTektonPipelineV2 extends BaseService {
   }
 
   /**
-   * Delete Tekton pipeline instance.
+   * Delete a Tekton pipeline instance.
    *
-   * This request deletes Tekton pipeline instance that is associated with the pipeline toolchain integration.
+   * This request deletes the Tekton pipeline instance that is associated with the pipeline toolchain integration.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.id - ID of current instance.
@@ -380,7 +380,7 @@ class CdTektonPipelineV2 extends BaseService {
   /**
    * List pipeline run records.
    *
-   * This request lists pipeline run records, which has data about the runs, such as status, user_info, trigger and
+   * This request lists pipeline run records, which have data about the runs, such as status, user_info, trigger and
    * other information. Default limit is 50.
    *
    * @param {Object} params - The parameters to send to the service.
@@ -3459,7 +3459,7 @@ namespace CdTektonPipelineV2 {
     /** Name of a branch from the repo. Only one of branch, pattern, or filter should be specified. */
     branch?: string;
     /** The pattern of Git branch or tag. You can specify a glob pattern such as '!test' or '*master' to match
-     *  against multiple tags or branches in the repository.The glob pattern used must conform to Bash 4.3
+     *  against multiple tags or branches in the repository. The glob pattern used must conform to Bash 4.3
      *  specifications, see bash documentation for more info:
      *  https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching. Only one of branch, pattern, or filter
      *  should be specified.
@@ -3484,7 +3484,7 @@ namespace CdTektonPipelineV2 {
     /** Name of a branch from the repo. Only one of branch, pattern, or filter should be specified. */
     branch?: string;
     /** The pattern of Git branch or tag. You can specify a glob pattern such as '!test' or '*master' to match
-     *  against multiple tags or branches in the repository.The glob pattern used must conform to Bash 4.3
+     *  against multiple tags or branches in the repository. The glob pattern used must conform to Bash 4.3
      *  specifications, see bash documentation for more info:
      *  https://www.gnu.org/software/bash/manual/bash.html#Pattern-Matching. Only one of branch, pattern, or filter
      *  should be specified.
