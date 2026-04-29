@@ -38,7 +38,7 @@
     "ibm-cloud-sdk-core": "^5.4.11"
   },
   "devDependencies": {
-    "@eslint/compat": "^1.4.1",
+    "@eslint/compat": "^2.0.0",
     "@eslint/js": "^9.39.3",
     "@ibm-cloud/sdk-test-utilities": "^1.0.0",
     "@masterodin/publisher": "^0.10.0",
