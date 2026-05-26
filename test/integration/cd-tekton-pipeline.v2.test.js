@@ -392,6 +392,30 @@ describe('CdTektonPipelineV2_integration', () => {
       id: runLogsIdLink,
     };
 
+    const params = {
+      pipelineId: pipelineIdLink,
+      limit: 10,
+      triggerName: 'trigger1',
+    };
+
+    // Helper function: waits for "ms" milliseconds
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    // Polling loop: check every 3 seconds for 40 times or until status is 'succeeded' or 'failed'
+    let status;
+    for (let status, i = 0; i < 40 && (status !== 'succeeded' && status !== 'failed'); i++) {
+      const resRuns = await cdTektonPipelineService.listTektonPipelineRuns(params);
+      expect(resRuns).toBeDefined();
+      expect(resRuns.status).toBe(200);
+      expect(resRuns.result).toBeDefined();
+      expect(resRuns.result.pipeline_runs).toBeDefined();
+      expect(resRuns.result.pipeline_runs).toHaveLength(2);
+
+      console.log('status: ' + resRuns.result.pipeline_runs[0].status);
+
+      status = resRuns.result.pipeline_runs[0].status;
+      await sleep(3000);
+    }
     const res2 = await cdTektonPipelineService.getTektonPipelineRunLogContent(params2);
     expect(res2).toBeDefined();
     expect(res2.status).toBe(200);
