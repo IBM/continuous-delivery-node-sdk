@@ -1,3 +1,10 @@
+## [2.1.8](https://github.com/IBM/continuous-delivery-node-sdk/compare/v2.1.7...v2.1.8) (2026-05-26)
+
+
+### Bug Fixes
+
+* **pipeline:** fix integration test to wait for execution ([#97](https://github.com/IBM/continuous-delivery-node-sdk/issues/97)) ([f18cc02](https://github.com/IBM/continuous-delivery-node-sdk/commit/f18cc02d76208fad23e7a875b6858f8bf4e30f23))
+
 ## [2.1.7](https://github.com/IBM/continuous-delivery-node-sdk/compare/v2.1.6...v2.1.7) (2026-04-16)
 
 
