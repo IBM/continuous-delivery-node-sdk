@@ -411,8 +411,6 @@ describe('CdTektonPipelineV2_integration', () => {
       expect(resRuns.result.pipeline_runs).toBeDefined();
       expect(resRuns.result.pipeline_runs).toHaveLength(2);
 
-      console.log('status: ' + resRuns.result.pipeline_runs[0].status);
-
       status = resRuns.result.pipeline_runs[0].status;
       await sleep(3000);
     }
