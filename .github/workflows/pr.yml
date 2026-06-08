@@ -79,7 +79,24 @@ jobs:
         if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && !inputs.skip_integration_tests)
         run: |
           set -e
+          # Verify all required variables are set
+          required_vars=(
+            "CD_TOOLCHAIN_URL"
+            "CD_TOOLCHAIN_AUTH_TYPE"
+            "CLOUD_API_KEY"
+            "CD_TOOLCHAIN_EVENT_NOTIFICATIONS_SERVICE_CRN"
+            "CD_TOOLCHAIN_RESOURCE_GROUP_ID"
+            "CD_TEKTON_PIPELINE_URL"
+            "CD_TEKTON_PIPELINE_AUTH_TYPE"
+            "CD_TEKTON_PIPELINE_RESOURCE_GROUP_ID"
+          )
           
+          for var in "${required_vars[@]}"; do
+            if [ -z "${!var}" ]; then
+              echo "Error: Required variable $var is not set"
+              exit 1
+            fi
+          done
           # cd_toolchain_v2.env
           echo "CD_TOOLCHAIN_URL=${{ vars.CD_TOOLCHAIN_URL }}" >> cd_toolchain_v2.env
           echo "CD_TOOLCHAIN_AUTH_TYPE=${{ vars.CD_TOOLCHAIN_AUTH_TYPE }}" >> cd_toolchain_v2.env
