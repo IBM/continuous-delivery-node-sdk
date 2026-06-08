@@ -378,7 +378,11 @@ describe('CdTektonPipelineV2_integration', () => {
       pipelineId: pipelineIdLink,
       id: pipelineRunIdLink,
     };
+    
+    // Helper function: waits for "ms" milliseconds
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+    await sleep(3000); // allow pipeline to trigger.
     const res1 = await cdTektonPipelineService.getTektonPipelineRunLogs(params1);
     expect(res1).toBeDefined();
     expect(res1.status).toBe(200);
@@ -398,8 +402,7 @@ describe('CdTektonPipelineV2_integration', () => {
       triggerName: 'trigger1',
     };
 
-    // Helper function: waits for "ms" milliseconds
-    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    
 
     // Polling loop: check every 3 seconds for 40 times or until status is 'succeeded' or 'failed'
     let status;
