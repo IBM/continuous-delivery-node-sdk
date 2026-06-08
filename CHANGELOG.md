@@ -1,3 +1,10 @@
+## [2.1.9](https://github.com/IBM/continuous-delivery-node-sdk/compare/v2.1.8...v2.1.9) (2026-06-08)
+
+
+### Bug Fixes
+
+* adjust timing of tests ([#102](https://github.com/IBM/continuous-delivery-node-sdk/issues/102)) ([2a5ad09](https://github.com/IBM/continuous-delivery-node-sdk/commit/2a5ad097d556bc24741350984b8258663f25fba9))
+
 ## [2.1.8](https://github.com/IBM/continuous-delivery-node-sdk/compare/v2.1.7...v2.1.8) (2026-05-26)
 
 
