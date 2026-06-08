@@ -1,3 +1,19 @@
+# [3.0.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v2.1.9...v3.0.0) (2026-06-08)
+
+
+* BREAKING CHANGE: Drop Node 20 support ([#103](https://github.com/IBM/continuous-delivery-node-sdk/issues/103)) ([7236090](https://github.com/IBM/continuous-delivery-node-sdk/commit/72360905eb15edcc4d3be021d9c8ea02dd2a6bcb))
+
+
+### BREAKING CHANGES
+
+* Drop Node 20 support
+
+Signed-off-by: Herman Singh <hermanba@ca.ibm.com>
+
+* fix: downgrade to Jest 29 to match sdk-test-utilities
+
+Signed-off-by: Herman Singh <hermanba@ca.ibm.com>
+
 ## [2.1.9](https://github.com/IBM/continuous-delivery-node-sdk/compare/v2.1.8...v2.1.9) (2026-06-08)
 
 
