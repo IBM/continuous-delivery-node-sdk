@@ -79,7 +79,7 @@ const CdTektonPipelineV2 = require("@ibm-cloud/continuous-delivery/cd-tekton-pip
 ## Prerequisites
 
 - You need an [IBM Cloud][ibm-cloud-onboarding] account.
-- **Node.js >=18**: This SDK is tested with Node.js versions 18 and up. It may work on previous versions but this is not officially supported.
+- **Node.js >=22**: This SDK is tested with Node.js versions 22 and up. It may work on previous versions but this is not officially supported.
 
 [ibm-cloud-onboarding]: http://cloud.ibm.com/registration
 
