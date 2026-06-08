@@ -404,7 +404,7 @@ describe('CdTektonPipelineV2_integration', () => {
 
     
 
-    // Polling loop: check every 3 seconds for 40 times or until status is 'succeeded' or 'failed'
+    // Polling loop: check every 5 seconds for 40 times or until status is 'succeeded' or 'failed'
     let status;
     for (let i = 0; i < 40 && (status !== 'succeeded' && status !== 'failed'); i++) {
       const resRuns = await cdTektonPipelineService.listTektonPipelineRuns(params);
@@ -415,7 +415,7 @@ describe('CdTektonPipelineV2_integration', () => {
       expect(resRuns.result.pipeline_runs).toHaveLength(2);
 
       status = resRuns.result.pipeline_runs[0].status;
-      await sleep(3000);
+      await sleep(5000); // increase timeout to 5 seconds to allow compilation of logs
     }
     const res2 = await cdTektonPipelineService.getTektonPipelineRunLogContent(params2);
     expect(res2).toBeDefined();
