@@ -403,7 +403,7 @@ describe('CdTektonPipelineV2_integration', () => {
 
     // Polling loop: check every 3 seconds for 40 times or until status is 'succeeded' or 'failed'
     let status;
-    for (let status, i = 0; i < 40 && (status !== 'succeeded' && status !== 'failed'); i++) {
+    for (let i = 0; i < 40 && (status !== 'succeeded' && status !== 'failed'); i++) {
       const resRuns = await cdTektonPipelineService.listTektonPipelineRuns(params);
       expect(resRuns).toBeDefined();
       expect(resRuns.status).toBe(200);
