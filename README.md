@@ -93,6 +93,82 @@ npm install @ibm-cloud/continuous-delivery
 
 For general SDK usage information, see [IBM Cloud SDK Common README](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/README.md).
 
+## Development
+
+### Running Integration Tests
+
+Integration tests run against live IBM Cloud services and require proper configuration. To run integration tests locally or in CI/CD:
+
+#### Required GitHub Secrets
+
+Configure the following secrets in your GitHub repository (Settings → Secrets and variables → Actions):
+
+- `CLOUD_API_KEY`: IBM Cloud API key with permissions to create and manage Continuous Delivery resources
+
+#### Required GitHub Variables
+
+Configure the following variables in your GitHub repository (Settings → Secrets and variables → Actions):
+
+**For CD Toolchain Service:**
+- `CD_TOOLCHAIN_URL`: Service endpoint URL (e.g., `https://api.us-south.devops.cloud.ibm.com/toolchain/v2`)
+- `CD_TOOLCHAIN_AUTH_TYPE`: Authentication type (typically `iam`)
+- `CD_TOOLCHAIN_EVENT_NOTIFICATIONS_SERVICE_CRN`: Event Notifications service CRN for toolchain events
+- `CD_TOOLCHAIN_RESOURCE_GROUP_ID`: IBM Cloud resource group ID where resources will be created
+
+**For CD Tekton Pipeline Service:**
+- `CD_TEKTON_PIPELINE_URL`: Service endpoint URL (e.g., `https://api.us-south.devops.cloud.ibm.com/pipeline/v2`)
+- `CD_TEKTON_PIPELINE_AUTH_TYPE`: Authentication type (typically `iam`)
+- `CD_TEKTON_PIPELINE_RESOURCE_GROUP_ID`: IBM Cloud resource group ID where resources will be created
+
+#### Local Development
+
+For local integration testing, create the following environment files in the project root:
+
+**cd_toolchain_v2.env:**
+```bash
+CD_TOOLCHAIN_APIKEY=<your-ibm-cloud-api-key>
+CD_TOOLCHAIN_URL=https://api.us-south.devops.cloud.ibm.com/toolchain/v2
+CD_TOOLCHAIN_AUTH_TYPE=iam
+CD_TOOLCHAIN_EVENT_NOTIFICATIONS_SERVICE_CRN=<your-event-notifications-crn>
+CD_TOOLCHAIN_RESOURCE_GROUP_ID=<your-resource-group-id>
+```
+
+**cd_tekton_pipeline_v2.env:**
+```bash
+CD_TEKTON_PIPELINE_URL=https://api.us-south.devops.cloud.ibm.com/pipeline/v2
+CD_TEKTON_PIPELINE_AUTH_TYPE=iam
+CD_TEKTON_PIPELINE_APIKEY=<your-ibm-cloud-api-key>
+CD_TEKTON_PIPELINE_RESOURCE_GROUP_ID=<your-resource-group-id>
+CD_TOOLCHAIN_URL=https://api.us-south.devops.cloud.ibm.com/toolchain/v2
+CD_TOOLCHAIN_AUTH_TYPE=iam
+CD_TOOLCHAIN_APIKEY=<your-ibm-cloud-api-key>
+CD_TOOLCHAIN_RESOURCE_GROUP_ID=<your-resource-group-id>
+```
+
+**Note:** These `.env` files are gitignored and should never be committed to version control.
+
+#### Running Tests
+
+```bash
+# Run unit tests only
+npm run test-unit
+
+# Run integration tests (requires .env files)
+npm run test-integration
+
+# Run all tests
+npm test
+```
+
+#### CI/CD Integration Tests
+
+Integration tests run automatically on pull requests. To skip integration tests in a manual workflow run:
+
+1. Go to Actions → pull-request workflow
+2. Click "Run workflow"
+3. Check "Skip integration tests"
+4. Click "Run workflow"
+
 ## Issues
 
 If you encounter an issue with the SDK, you are welcome to submit

@@ -6,6 +6,12 @@ on:
       - main
   workflow_dispatch:
     # Allow workflow to be triggered manually.
+    inputs:
+      skip_integration_tests:
+        description: 'Skip integration tests'
+        required: false
+        type: boolean
+        default: false
 
 # Cancel in-progress runs when a new commit is pushed
 concurrency:
@@ -69,6 +75,47 @@ jobs:
       - name: Run unit tests
         run: npm run test-unit
 
+      - name: Create .env files
+        if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && !inputs.skip_integration_tests)
+        run: |
+          set -e
+          
+          # cd_toolchain_v2.env
+          echo "CD_TOOLCHAIN_URL=${{ vars.CD_TOOLCHAIN_URL }}" >> cd_toolchain_v2.env
+          echo "CD_TOOLCHAIN_AUTH_TYPE=${{ vars.CD_TOOLCHAIN_AUTH_TYPE }}" >> cd_toolchain_v2.env
+          echo "CD_TOOLCHAIN_APIKEY=${{ secrets.CLOUD_API_KEY }}" >> cd_toolchain_v2.env
+          echo "CD_TOOLCHAIN_EVENT_NOTIFICATIONS_SERVICE_CRN=${{ vars.CD_TOOLCHAIN_EVENT_NOTIFICATIONS_SERVICE_CRN }}" >> cd_toolchain_v2.env
+          echo "CD_TOOLCHAIN_RESOURCE_GROUP_ID=${{ vars.CD_TOOLCHAIN_RESOURCE_GROUP_ID }}" >> cd_toolchain_v2.env
+
+          # cd_tekton_pipeline_v2.env - pipeline env vars
+          echo "CD_TEKTON_PIPELINE_URL=${{ vars.CD_TEKTON_PIPELINE_URL }}" >> cd_tekton_pipeline_v2.env
+          echo "CD_TEKTON_PIPELINE_AUTH_TYPE=${{ vars.CD_TEKTON_PIPELINE_AUTH_TYPE }}" >> cd_tekton_pipeline_v2.env
+          echo "CD_TEKTON_PIPELINE_APIKEY=${{ secrets.CLOUD_API_KEY }}" >> cd_tekton_pipeline_v2.env
+          echo "CD_TEKTON_PIPELINE_RESOURCE_GROUP_ID=${{ vars.CD_TEKTON_PIPELINE_RESOURCE_GROUP_ID }}" >> cd_tekton_pipeline_v2.env
+
+          # cd_tekton_pipeline_v2.env - toolchain env vars
+          echo "CD_TOOLCHAIN_URL=${{ vars.CD_TOOLCHAIN_URL }}" >> cd_tekton_pipeline_v2.env
+          echo "CD_TOOLCHAIN_AUTH_TYPE=${{ vars.CD_TOOLCHAIN_AUTH_TYPE }}" >> cd_tekton_pipeline_v2.env
+          echo "CD_TOOLCHAIN_APIKEY=${{ secrets.CLOUD_API_KEY }}" >> cd_tekton_pipeline_v2.env
+          echo "CD_TOOLCHAIN_RESOURCE_GROUP_ID=${{ vars.CD_TOOLCHAIN_RESOURCE_GROUP_ID }}" >> cd_tekton_pipeline_v2.env
+          
+          # Verify files were created successfully
+          if [ ! -f cd_toolchain_v2.env ] || [ ! -f cd_tekton_pipeline_v2.env ]; then
+            echo "Error: Failed to create .env files"
+            exit 1
+          fi
+          
+          echo "✓ Environment files created successfully"
+
+      - name: Run integration tests
+        if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && !inputs.skip_integration_tests)
+        run: npm run test-integration
+
+      - name: Cleanup .env files
+        if: always() && (github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && !inputs.skip_integration_tests))
+        run: |
+          rm -f cd_tekton_pipeline_v2.env cd_toolchain_v2.env
+          echo "✓ Environment files cleaned up"
       - name: Run linter
         run: npm run lint
 
