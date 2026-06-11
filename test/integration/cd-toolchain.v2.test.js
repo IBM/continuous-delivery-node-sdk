@@ -197,7 +197,26 @@ describe('CdToolchainV2_integration', () => {
       data: toolchainEventPrototypeDataModel,
     };
 
-    const res = await cdToolchainService.createToolchainEvent(params);
+    // Retry logic with exponential backoff to wait for event creation to succeed
+    let res;
+    const maxRetries = 10;
+    const baseDelay = 1000;
+    const maxDelay = 30000;
+
+    for (let i = 0; i < maxRetries; i++) {
+      try {
+        res = await cdToolchainService.createToolchainEvent(params);
+        console.log(`Event was created successfully on attempt ${i + 1}.`);
+        break;
+      } catch (err) {
+        if (i === maxRetries - 1) {
+          throw err;
+        }
+        const retryDelay = Math.min(baseDelay * Math.pow(2, i), maxDelay);
+        console.log(`Attempt ${i + 1} creating event failed, retrying in ${retryDelay}ms... Error: ${err}`);
+        await new Promise((resolve) => setTimeout(resolve, retryDelay));
+      }
+    }
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
@@ -224,7 +243,26 @@ describe('CdToolchainV2_integration', () => {
       data: toolchainEventPrototypeDataModel,
     };
 
-    const res = await cdToolchainService.createToolchainEvent(params);
+    // Retry logic with exponential backoff to wait for event creation to succeed
+    let res;
+    const maxRetries = 10;
+    const baseDelay = 1000;
+    const maxDelay = 30000;
+
+    for (let i = 0; i < maxRetries; i++) {
+      try {
+        res = await cdToolchainService.createToolchainEvent(params);
+        console.log(`Event was created successfully on attempt ${i + 1}.`);
+        break;
+      } catch (err) {
+        if (i === maxRetries - 1) {
+          throw err;
+        }
+        const retryDelay = Math.min(baseDelay * Math.pow(2, i), maxDelay);
+        console.log(`Attempt ${i + 1} creating event failed, retrying in ${retryDelay}ms... Error: ${err}`);
+        await new Promise((resolve) => setTimeout(resolve, retryDelay));
+      }
+    }
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
