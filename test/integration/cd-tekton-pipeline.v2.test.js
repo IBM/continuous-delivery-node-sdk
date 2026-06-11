@@ -415,7 +415,26 @@ describe('CdTektonPipelineV2_integration', () => {
       status = resRuns.result.pipeline_runs[0].status;
       await sleep(10000); // increase timeout to 10 seconds to allow compilation of logs
     }
-    const res2 = await cdTektonPipelineService.getTektonPipelineRunLogContent(params2);
+    // Retry logic with exponential backoff to wait for log content to be available
+    let res2;
+    const maxRetries = 10;
+    const baseDelay = 1000;
+    const maxDelay = 30000;
+
+    for (let i = 0; i < maxRetries; i++) {
+      try {
+        res2 = await cdTektonPipelineService.getTektonPipelineRunLogContent(params2);
+        console.log(`Log content was retrieved successfully on attempt ${i + 1}.`);
+        break;
+      } catch (err) {
+        if (i === maxRetries - 1) {
+          throw err;
+        }
+        const retryDelay = Math.min(baseDelay * Math.pow(2, i), maxDelay);
+        console.log(`Attempt ${i + 1} getting log content failed, retrying in ${retryDelay}ms... Error: ${err}`);
+        await new Promise((resolve) => setTimeout(resolve, retryDelay));
+      }
+    }
     expect(res2).toBeDefined();
     expect(res2.status).toBe(200);
     expect(res2.result).toBeDefined();
