@@ -77,9 +77,9 @@ describe('CdToolchainV2_integration', () => {
   test('createTool()', async () => {
     const params = {
       toolchainId: toolchainIdLink,
-      toolTypeId: 'draservicebroker',
+      toolTypeId: 'pipeline',
       name: 'testString',
-      parameters: { anyKey: 'anyValue' },
+      parameters: { type: 'tekton' },
     };
 
     const res = await cdToolchainService.createTool(params);
@@ -321,8 +321,8 @@ describe('CdToolchainV2_integration', () => {
       toolchainId: toolchainIdLink,
       toolId: toolIdLink,
       name: 'MyTool',
-      toolTypeId: 'draservicebroker',
-      parameters: { anyKey: 'anyValue' },
+      toolTypeId: 'pipeline',
+      parameters: { type: 'tekton' }
     };
 
     const res = await cdToolchainService.updateTool(params);

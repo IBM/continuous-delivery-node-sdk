@@ -111,7 +111,8 @@ describe('CdToolchainV2', () => {
 
     const params = {
       toolchainId: toolchainIdLink,
-      toolTypeId: 'draservicebroker',
+      toolTypeId: 'pipeline',
+      parameters: { type: 'tekton' },
     };
 
     let res;
