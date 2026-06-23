@@ -917,9 +917,9 @@ describe('CdToolchainV2', () => {
       function __createToolTest() {
         // Construct the params object for operation createTool
         const toolchainId = 'testString';
-        const toolTypeId = 'draservicebroker';
+        const toolTypeId = 'pipeline';
         const name = 'testString';
-        const parameters = { anyKey: 'anyValue' };
+        const parameters = { type: 'tekton' };
         const createToolParams = {
           toolchainId,
           toolTypeId,
@@ -965,12 +965,13 @@ describe('CdToolchainV2', () => {
       test('should prioritize user-given headers', () => {
         // parameters
         const toolchainId = 'testString';
-        const toolTypeId = 'draservicebroker';
+        const toolTypeId = 'pipeline';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const createToolParams = {
           toolchainId,
           toolTypeId,
+          parameters: { type: 'tekton' },
           headers: {
             Accept: userAccept,
             'Content-Type': userContentType,
@@ -1196,8 +1197,8 @@ describe('CdToolchainV2', () => {
         const toolchainId = 'testString';
         const toolId = 'testString';
         const name = 'MyTool';
-        const toolTypeId = 'draservicebroker';
-        const parameters = { anyKey: 'anyValue' };
+        const toolTypeId = 'pipeline';
+        const parameters = { type: 'tekton' };
         const updateToolParams = {
           toolchainId,
           toolId,
