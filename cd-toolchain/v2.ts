@@ -18,7 +18,7 @@
  * IBM OpenAPI SDK Code Generator Version: 3.96.0-d6dec9d7-20241008-212902
  */
 
-import * as extend from 'extend';
+import extend = require('extend');
 import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import {
   Authenticator,
@@ -56,7 +56,7 @@ class CdToolchainV2 extends BaseService {
    * if no mapping for the region exists
    */
   public static getServiceUrlForRegion(region: string): string {
-    return this._regionalEndpoints.get(region);
+    return this._regionalEndpoints.get(region) ?? '';
   }
 
   /*************************
@@ -1445,7 +1445,7 @@ namespace CdToolchainV2 {
       if (!this.pageContext.next) {
         this._hasNext = false;
       }
-      return result.toolchains;
+      return result.toolchains ?? [];
     }
 
     /**

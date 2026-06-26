@@ -18,7 +18,7 @@
  * IBM OpenAPI SDK Code Generator Version: 3.112.0-f88e9264-20260220-115155
  */
 
-import * as extend from 'extend';
+import extend = require('extend');
 import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import {
   AbortSignal,
@@ -67,7 +67,7 @@ class CdTektonPipelineV2 extends BaseService {
    * if no mapping for the region exists
    */
   public static getServiceUrlForRegion(region: string): string {
-    return this._regionalEndpoints.get(region)
+    return this._regionalEndpoints.get(region) ?? '';
   }
 
   /*************************
