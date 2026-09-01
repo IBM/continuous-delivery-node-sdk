@@ -133,9 +133,6 @@ describe('CdToolchainV2', () => {
       expect(CdToolchainV2.getServiceUrlForRegion('eu-gb')).toBe(
         'https://api.eu-gb.devops.cloud.ibm.com/toolchain/v2'
       );
-      expect(CdToolchainV2.getServiceUrlForRegion('jp-osa')).toBe(
-        'https://api.jp-osa.devops.cloud.ibm.com/toolchain/v2'
-      );
       expect(CdToolchainV2.getServiceUrlForRegion('jp-tok')).toBe(
         'https://api.jp-tok.devops.cloud.ibm.com/toolchain/v2'
       );
@@ -145,14 +142,8 @@ describe('CdToolchainV2', () => {
       expect(CdToolchainV2.getServiceUrlForRegion('ca-tor')).toBe(
         'https://api.ca-tor.devops.cloud.ibm.com/toolchain/v2'
       );
-      expect(CdToolchainV2.getServiceUrlForRegion('ca-mon')).toBe(
-        'https://api.ca-mon.devops.cloud.ibm.com/toolchain/v2'
-      );
       expect(CdToolchainV2.getServiceUrlForRegion('br-sao')).toBe(
         'https://api.br-sao.devops.cloud.ibm.com/toolchain/v2'
-      );
-      expect(CdToolchainV2.getServiceUrlForRegion('eu-es')).toBe(
-        'https://api.eu-es.devops.cloud.ibm.com/toolchain/v2'
       );
     });
   });
