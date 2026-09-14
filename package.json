@@ -1,6 +1,6 @@
 {
   "name": "@ibm-cloud/continuous-delivery",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "IBM Cloud Continuous Delivery Node.js SDK",
   "repository": {
     "type": "git",

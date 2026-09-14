@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/IBM/continuous-delivery-node-sdk/compare/v3.0.0...v3.0.1) (2026-09-14)
+
+
+### Bug Fixes
+
+* **deps:** upgrade brace-expansion, js-yaml, browserslist, @humanfs/node, baseline-browser-mapping ([#123](https://github.com/IBM/continuous-delivery-node-sdk/issues/123)) ([edf53d7](https://github.com/IBM/continuous-delivery-node-sdk/commit/edf53d7f74e8c8371e0b2ac4ef44aeccb30c05be))
+
 # [3.0.0](https://github.com/IBM/continuous-delivery-node-sdk/compare/v2.1.9...v3.0.0) (2026-06-08)
 
 
