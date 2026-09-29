@@ -12,6 +12,9 @@ on:
         type: boolean
         default: true
 
+permissions:
+  contents: read
+
 # Prevent multiple releases from running simultaneously
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
