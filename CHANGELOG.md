@@ -1,3 +1,10 @@
+## [3.0.2](https://github.com/IBM/continuous-delivery-node-sdk/compare/v3.0.1...v3.0.2) (2026-09-29)
+
+
+### Bug Fixes
+
+* **ci:** add explicit permissions blocks to GitHub Actions workflows ([#129](https://github.com/IBM/continuous-delivery-node-sdk/issues/129)) ([c734384](https://github.com/IBM/continuous-delivery-node-sdk/commit/c73438461e611b5c7e12b4219652fad83f32bd99))
+
 ## [3.0.1](https://github.com/IBM/continuous-delivery-node-sdk/compare/v3.0.0...v3.0.1) (2026-09-14)
 
 
