@@ -1,3 +1,10 @@
+## [3.0.3](https://github.com/IBM/continuous-delivery-node-sdk/compare/v3.0.2...v3.0.3) (2026-10-23)
+
+
+### Bug Fixes
+
+* **deps:** upgrade follow-redirects ([#135](https://github.com/IBM/continuous-delivery-node-sdk/issues/135)) ([c209923](https://github.com/IBM/continuous-delivery-node-sdk/commit/c2099235d3a99a070311777b7b78a018d6b9d71f))
+
 ## [3.0.2](https://github.com/IBM/continuous-delivery-node-sdk/compare/v3.0.1...v3.0.2) (2026-09-29)
 
 
