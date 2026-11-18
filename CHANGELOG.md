@@ -1,3 +1,10 @@
+## [3.0.4](https://github.com/IBM/continuous-delivery-node-sdk/compare/v3.0.3...v3.0.4) (2026-11-18)
+
+
+### Bug Fixes
+
+* **deps:** resolve npm audit vulnerabilities ([#138](https://github.com/IBM/continuous-delivery-node-sdk/issues/138)) ([2668928](https://github.com/IBM/continuous-delivery-node-sdk/commit/2668928ced9a975ec67445f88e95df3be13a9df0))
+
 ## [3.0.3](https://github.com/IBM/continuous-delivery-node-sdk/compare/v3.0.2...v3.0.3) (2026-10-23)
 
 
